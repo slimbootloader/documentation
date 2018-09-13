@@ -1,0 +1,19 @@
+digraph ias_layout {
+  bgcolor="transparent";
+  node [fontsize=10 shape=record]
+  node [fontsize=10]
+  rankdir=LR
+
+  bin_complete [label="<hdr>Header|<payload>\n\n\n\n\n\nPayload Data\n\n\n\n\n\n|<rsa_sig>RSA Signature|RSA Public Key"]
+
+  hdr [label="<sig>Magic '.kpi' (4B)
+              |<img_type>Image Type (4B)
+              |Version (4B)
+              |Data Length (4B)
+              |Data Offset (4B)
+              |Uncompressed Data Length (4B)
+              |Header CRC (4B)
+              "]
+
+  bin_complete:hdr -> hdr:sig
+}

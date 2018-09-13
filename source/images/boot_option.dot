@@ -1,0 +1,17 @@
+digraph bootoption {
+   bgcolor="transparent";
+     compound=true;
+     node [fontsize=10, shape=rectangle];
+     edge [fontsize=10];
+
+     subgraph cluster_stages {
+       label="Boot Option Processing Flow"; fontsize=11;
+       style="filled,rounded"; color="#F0F0F0";
+
+       "PayloadMain()" -> "Enter Shell if Requested"
+       "Enter Shell if Requested" -> "Boot OS Image From \nCurrent Option Entry"
+       "Boot OS Image From \nCurrent Option Entry" -> "Start Booting" [ label = "Okay" ]
+       "Boot OS Image From \nCurrent Option Entry" -> "PayloadMain()" [ label = "Failed" ]
+
+     }
+}

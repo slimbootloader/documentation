@@ -1,0 +1,14 @@
+digraph buildsteps {
+   bgcolor="transparent";
+     compound=true;
+     node [fontsize=10, shape=rectangle];
+     edge [fontsize=10];
+
+     subgraph cluster_steps {
+       label="Build Process"; fontsize=11;
+       style="filled,rounded"; color="#F0F0F0";
+
+       "Generate Build Configuration" -> "Generate Configuration Data" -> "Invoke EDK II Build Tools \nto Generate Executables" -> "Assemble Generated Files Into \nOne or More Output Images";
+
+     }
+}

@@ -1,0 +1,15 @@
+digraph bootflow {
+   bgcolor="transparent";
+   rankdir=LR;
+     compound=true;
+     node [fontsize=10, shape=record, style=rounded];
+     edge [fontsize=10];
+
+     subgraph cluster_stages {
+       label="Boot Stages"; fontsize=11;
+       style="filled,rounded"; color="#F0F0F0";
+
+       "Stage 1A" -> "Stage 1B" -> "Stage 2" -> "Payload";
+
+     }
+}
