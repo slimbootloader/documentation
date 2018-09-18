@@ -1,0 +1,21 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t sbl_docs .
+  - mkdir -p build publish
+  - chmod 777 build publish
+
+script:
+  - docker run --rm -v ${PWD}:/docs -w /docs sbl_docs make publish BUILDDIR=/docs/build PUBLISHDIR=/docs/publish
+
+deploy:
+  provider: pages
+  local-dir: publish
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  repo: slimbootloader/slimbootloader.github.io
+  target-branch: master
+
