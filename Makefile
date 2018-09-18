@@ -78,9 +78,7 @@ internalhtml:
 # along with a README
 
 publish: html
-	git checkout gh-pages
 	cp -r $(BUILDDIR)/html/* $(PUBLISHDIR)
-	git add -A; git commit -s -m "Publish revision $(RELEASE)"; git push origin gh-pages;
 
 .PHONY: dirhtml
 dirhtml:
