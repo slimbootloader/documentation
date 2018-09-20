@@ -16,14 +16,27 @@ You can integrate more than one payload files using |SPN| build tool::
     <COMPRESSION_ALGORITHM>  : compression algorithm for this payload ('Lz4' or 'Lzma')
 
 
-For example, to add ``OSLoader.efi`` and ``UefiPld.fd`` into |SPN| image, run::
+The following procedure shows you how to integrate ``UefiPld.fd`` into |SPN| image. Adding other custom payloads is similiar.
 
-    python BuildLoader.py build apl -p OsLoader.efi:LLDR:Lz4;UefiPld.fd:UEFI:Lzma
 
-Then specify ``PayloadId`` in |SPN| configuration data::
+1. Copy ``UefiPld.fd`` into ``PayloadPkg/PayloadBins`` directory (create the directory if it is missing)
 
-  # !BSF HELP:{Specify payload ID string. Empty will boot default payload. Otherwise, boot specified payload ID in multi-payload binary.}
-  gCfgData.PayloadId             |      * | 0x04 | 'UEFI'
+2. Specify ``PayloadId`` in |SPN| configuration file (``*.dlt``)
+
+  ``PayloadId`` tells |SPN| which payload to load instead of default ``OsLoader``. For QEMU, open ``Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt`` and append the following configuration::
+
+     GEN_CFG_DATA.PayloadId                     | 'UEFI'
+
+  You may also use |CFGTOOL| to make file changes. See :ref:`configuration-tool` for more details.
+
+
+3. Build ``UefiPld.fd`` into |SPN| image::
+
+    python BuildLoader.py build qemu -p "OsLoader.efi:LLDR:Lz4;UefiPld.fd:UEFI:Lzma"
+
+  ``UefiPld.fd`` image is located in the ``EPLD`` region according to |SPN| flash map.
+
+  ``PayloadId`` is 4 bytes and should match the value used in the configuration. In this example, ``PayloadId`` is ``UEFI`` on the command line.
 
 
 .. note:: ``PayloadId`` 0 is reserved for OsLoader payload.
