@@ -27,9 +27,7 @@ Building on Windows
 
 Supported environment: **Microsoft Visual Studio 2015**
 
-.. note:: Different from Linux, you use ``BuildLoader.cmd`` instead of ``BuildLoader.py`` to compile, configure, stitch |SPN| image.
-
-Additionally, install the following software of **exact** versions (if specified) to the designated directories:
+Install the **exact** versions (if specified) of the following tools to the designated directories:
 
 * cxFreeze 4.3.3 (https://sourceforge.net/projects/cx-freeze/files/4.3.3/) - default installation path
 * Python 2.7 - **C:\\Python27**

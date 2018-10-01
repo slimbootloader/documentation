@@ -19,14 +19,9 @@ You can build |SPN| with the following options:
 * Change your payload files
 * Attach a version data structure of your own
 
+Command Syntax::
 
-For Linux::
-
-    $ python BuildLoader.py <subcommand> <target> <options>
-
-For Windows::
-
-    C:\SBL> BuildLoader.cmd <subcommand> <target> <options>
+    python BuildLoader.py <subcommand> <target> <options>
 
     <subcommand>  : build or clean
     <target>      : board name (e.g. apl or qemu)
