@@ -43,6 +43,7 @@ End-to-End Call Graph
 The function call graph in |SPN| code from reset vector to OS launch.
 
 .. image:: /images/call_graph.png
+   :width: 600
    :alt: |SPN| Calling Graph
    :align: center
 
