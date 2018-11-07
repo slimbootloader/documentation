@@ -21,6 +21,7 @@ Board Setup
 ^^^^^^^^^^^^^^^^^
 
 .. image:: /images/up2_setup.jpg
+   :width: 600
    :alt: |UP2| Board Setup
    :align: center
 
