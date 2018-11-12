@@ -1,25 +1,25 @@
 .. _debug:
 
 Source Level Debugging
---------------
+----------------------
 
-This explains how to perform basic debugging operation with Intel UDK Debugger on SBL over serial port. (used Apollo Lake (ABL) as example)
+This explains how to perform basic debugging operation with Intel UDK Debugger on |SPN| over serial port. 
 
 
 Prerequisite
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 
 * Install |Intel UDK Debugger|, using the Intel |copy| UDK Debugger Tool on a Windows platform requires a host machine configured with: 
 
 
-    * Microsoft Win7 x64 or Win8 x64  or Win10 x64
+    * Microsoft Win7 x64 or Win8 x64 or Win10 x64
     
-    * Microsoft Windows Debug Tool(WinDbg) for proper Windows version.     
+    * Microsoft Windows Debug Tool(WinDbg) 6.11.0001.404 X86.     
   
 
 .. |Intel UDK Debugger| raw:: html
 
-   <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">Intel UDK Debugger on HOST</a>
+   <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">Intel UDK Debugger</a>
 
   
 * The Intel |copy| UDK Debugger can be downloaded |here| for Windows and Linux, install Intel UDK Debugger with default configuration values.  
@@ -32,31 +32,31 @@ Prerequisite
 
 .. |Windows Debug Tool(WinDbg)| raw:: html
 
-   <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools" target="_blank">Windows Debug Tool(WinDbg)</a>  
+   <a href="https://github.com/pyrasis/windowsprojectbook/blob/master/Applications/Debugging%20Tools%20for%20Windows/dbg_x86_6.11.1.404.msi" target="_blank">Windows Debug Tool(WinDbg)</a>  
 
 General Steps
 ^^^^^^^^^^^^^^
 
 **Step 1 - Enable Debug Agent**
 
-Enable DebugAgent on SBL and flash the SBL image(or IFWI) on TARGET. By default, DebugAgent is not enabled. It can be simply enabled with a single line change.
+Enable DebugAgent on |SPN| and flash the |SPN| image(or IFWI) on TARGET. By default, DebugAgent is not enabled. It can be simply enabled with a single line change.
 
 1. Open ``BoardConfig.py`` of specific platform, set **ENABLE_SOURCE_DEBUG** to **1**::
 
     self.ENABLE_SOURCE_DEBUG = 1
   
-2. APL platform requires to set **SKIP_STAGE1A_SOURCE_DEBUG** to **1**:: 
+2. |APL| requires to set **SKIP_STAGE1A_SOURCE_DEBUG** to **1**:: 
 
     self.SKIP_STAGE1A_SOURCE_DEBUG = 1
     
     
 .. note::
-    On ABL platform, the Stage1A has size limitation for debugging which require set SKIP_STAGE1A_SOURCE_DEBUG to 1
+    On |APL| , the Stage1A has size limitation for debugging which require set SKIP_STAGE1A_SOURCE_DEBUG to 1
     
   
-3. Build SBL source code
+3. Build |SPN| source code
 
-4. Stitch IFWI and flash SBL Image on system board
+4. Stitch IFWI and flash |SPN| Image on system board
 
 |
 
@@ -92,7 +92,6 @@ Enable DebugAgent on SBL and flash the SBL image(or IFWI) on TARGET. By default,
     Server = 127.0.0.1
     Port = 1234
 
-|
 
   For PIPE port configuration::
   
@@ -113,7 +112,7 @@ Enable DebugAgent on SBL and flash the SBL image(or IFWI) on TARGET. By default,
 3. [Target System] option::
 
     [Target System]
-    FlashRange        = 0xFEF00000:0x1100000     <== This must be added for APL platform for code execution debugging in CAR
+    FlashRange        = 0xFEF00000:0x1100000     <== This must be added for Apollo Lake platform for code execution debugging in CAR
  
 |    
     
@@ -134,7 +133,7 @@ Enable DebugAgent on SBL and flash the SBL image(or IFWI) on TARGET. By default,
 **Step 3 - Launch Intel UDK Debugger on Host**
 
 * Windows
- - Launch "**Start WinDbg with Intel UDK Debugger Tool**"
+ - Launch "**Start WinDbg with Intel UDK Debugger Tool**" from Windows Start Menu
 
 
 .. image:: /images/start_windbg.jpg
@@ -168,9 +167,11 @@ Enable DebugAgent on SBL and flash the SBL image(or IFWI) on TARGET. By default,
  - Launch GDB in a separate terminal
  - Make a connection with GDB target command::
     
-    target remote :1234 
-    
-   (or target remote FULL_SERVER_URL:1234 from Intel UDK Debugger console)
+    target remote :1234     
+   
+   or from Intel UDK Debugger console::
+   
+    target remote FULL_SERVER_URL:1234
   
   
  - Run Intel UDK Debugger scripts for GDB::

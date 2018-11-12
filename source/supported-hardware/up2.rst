@@ -10,12 +10,25 @@ Prequisites
 
 |SPN| supports |UP2| maker board. To start developing |SPN|, the following equipment, software and environments are required:
 
-* |UP2| kit (`Model N3350 <https://up-shop.org/up-boards/94-up-squared-celeron-duo-core-4gb-memory32gb-emmc.html?search_query=n3350&results=5>`_)
-* Custom SPI flashing cable (`instructions <https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared>`_).
-* `USB 2.0 pin header cable <https://up-shop.org/up-peripherals/110-usb-20-pin-header-cable.html>`_ for debug uart output. OR `Make your own <up2-debug-uart-pinout_>`_.
+* |UP2| kit (|Model N3350|)
+* Custom SPI flashing cable (|instructions|).
+* |USB 2.0 pin header cable| for debug uart output. OR `Make your own <up2-debug-uart-pinout_>`_.
 * DediProg SF100 or SF600 programmer
 * Linux host (see :ref:`running-on-linux` for details)
 * Internet access
+
+.. |Model N3350| raw:: html
+
+   <a href="https://up-shop.org/up-boards/94-up-squared-celeron-duo-core-4gb-memory32gb-emmc.html?search_query=n3350&results=5" target="_blank">Model N3350</a>
+
+.. |instructions| raw:: html
+
+   <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a>
+
+.. |USB 2.0 pin header cable| raw:: html
+
+   <a href="https://up-shop.org/up-peripherals/110-usb-20-pin-header-cable.html" target="_blank">USB 2.0 pin header cable</a>
+
 
 Board Setup
 ^^^^^^^^^^^^^^^^^
@@ -90,8 +103,12 @@ See :ref:`stitch-tool` on how to stitching the flashing IFWI image with |SPN|.
 Flashing
 ^^^^^^^^^
 
-Flash the IFWI image to |UP2| board. See `instructions <https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared>`_.
+Flash the IFWI image to |UP2| board. See |instructions|.
 
+
+.. |instructions| raw:: html
+
+   <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a>
 
 .. _boot-yocto-usb:
 

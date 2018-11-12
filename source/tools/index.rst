@@ -52,7 +52,11 @@ IAS Tool
 
 ``iasimage`` is a utility for creating Intel Automotive Service (IAS) images in a binary file format understood by |SPN| to load and initialize Operating Systems or Hypervisors.
 
-This tool is available on GitHub: https://github.com/intel/iasimage
+This tool is available on GitHub: |https://github.com/intel/iasimage|
+
+.. |https://github.com/intel/iasimage| raw:: html
+
+   <a href="https://github.com/intel/iasimage" target="_blank">https://github.com/intel/iasimage</a>
 
 
 .. _stitch-tool:

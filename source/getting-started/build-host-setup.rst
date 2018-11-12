@@ -29,12 +29,16 @@ Supported environment: **Microsoft Visual Studio 2015**
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
-* cxFreeze 4.3.3 (https://sourceforge.net/projects/cx-freeze/files/4.3.3/) - default installation path
+* |cxFreeze 4.3.3| - default installation path
 * Python 2.7 - **C:\\Python27**
 * IASL 20160422 - **C:\\ASL**
 * NASM - **C:\\Nasm**
 * OpenSSL - **C:\\openssl**
 
+.. |cxFreeze 4.3.3| raw:: html
+
+   <a href="https://sourceforge.net/projects/cx-freeze/files/4.3.3/" target="_blank">cxFreeze 4.3.3</a>
+      
 
 .. _proxy-settings:
 
@@ -76,7 +80,11 @@ Add yourself to the docker group::
 Log out then relogin to Ubuntu
 
 
-.. note:: If you are behind firewall, see `Docker Proxy Settings <https://docs.docker.com/config/daemon/systemd/#httphttps-proxy>`_.
+.. note:: If you are behind firewall, see |Docker Proxy Settings|.
+
+.. |Docker Proxy Settings| raw:: html
+
+   <a href="https://docs.docker.com/config/daemon/systemd/#httphttps-proxy" target="_blank">Docker Proxy Settings</a>
 
 
 **Step 2: Build Docker Image**
