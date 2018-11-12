@@ -1,7 +1,7 @@
 .. _Exercise 3:
 
 Exercise 3 \\- \ SBL Shell/CLI
----------------
+------------------------------
 
 .. note::
   **In this exercise, we'll learn how to execute SBL Shell Commands.**
@@ -11,9 +11,9 @@ Exercise 3 \\- \ SBL Shell/CLI
 
 You can execute |SPN| with the following steps:
 
-* Working on Command Prompt
+1. Working on Command Prompt
 
-* Execute cmd on Shell by type-in:
+2. Execute cmd on Shell by type-in:
 
   +------------+------------------------------------------------+
   |  **exit**  | \\- \ Exit the shell                           |

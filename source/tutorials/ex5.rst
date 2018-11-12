@@ -1,7 +1,7 @@
 .. _Exercise 5:
 
 Exercise 5 \\- \ Feature Customization - Splash
----------------
+-----------------------------------------------
 
 .. note::
   **In this exercise, we'll learn how to enable display splash screen.**
@@ -9,28 +9,28 @@ Exercise 5 \\- \ Feature Customization - Splash
 
 You can execute |SPN| with the following steps:
 
-* Modify board configuration file
+1. Modify board configuration file
 
-  - In file ``..\SlimBoot\Platform\QemuBoardPkg\BoardConfig.py``
+  - In file ``..\slimbootloader\Platform\QemuBoardPkg\BoardConfig.py``
   
   - Change self.ENABLE_SPLASH to 0 and save the file::
       
       self.ENABLE_SPLASH = 0
 
 
-* Rebuild SlimBoot by using the following command::
+2. Rebuild SlimBoot by using the following command::
 
     python BuildLoader.py build qemu
 
-* Completion: you will see ``Done [qemu]`` on the screen after compile completed
+3. Completion: you will see ``Done [qemu]`` on the screen after compile completed
 
-* Execute bootloader on QEMU by using the following command:
+4. Execute |SPN| on QEMU by using the following command:
 
  - Windows::
  
     "C:\Program Files\qemu\qemu-system-x86_64.exe" -m 256M -machine q35 -serial stdio  -pflash Outputs\qemu\SlimBootloader.bin
 
-* Check the graphics console Window to see the difference 
+5. Check the graphics console Window to see the difference 
 
 
 

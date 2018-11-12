@@ -1,7 +1,7 @@
 .. _Exercise 4:
 
 Exercise 4 \\- \ Boot to Linux
----------------
+------------------------------
 
 .. note::
   **In this exercise, we'll learn how to boot to Linux.**
@@ -9,16 +9,16 @@ Exercise 4 \\- \ Boot to Linux
 
 You can execute |SPN| with the following steps:
 
-* Working on Command Prompt Shell window
+1. Working on Command Prompt Shell window
 
 
-* Rebuild SlimBoot by using the following command::
+2. Rebuild SlimBoot by using the following command::
 
     python BuildLoader.py build qemu
 
-* Completion: you will see ``Done [qemu]`` on the screen after compile completed
+3. Completion: you will see ``Done [qemu]`` on the screen after compile completed
 
-* Execute bootloader on QEMU by using the following command:
+4. Execute |SPN| on QEMU by using the following command:
 
  - Windows::
  

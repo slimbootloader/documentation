@@ -1,7 +1,7 @@
 .. _Exercise 2:
 
-Exercise 2 \\- \ Run Bootloader on QEMU
----------------
+Exercise 2 \\- \ Run |SPN| on QEMU
+---------------------------------------
 
 .. note::
   **In this exercise, we'll learn how to boot to SBL Shell in QEMU emulator.**
@@ -9,9 +9,9 @@ Exercise 2 \\- \ Run Bootloader on QEMU
 
 You can execute |SPN| with the following steps:
 
-* Working on Command Prompt
+1. Working on Command Prompt
 
-* Execute bootloader on QEMU by using the following command:
+2. Execute |SPN| on QEMU by using the following command:
 
  - Windows::
 

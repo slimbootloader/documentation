@@ -1,7 +1,7 @@
 .. _Exercise 1:
 
-Exercise 1 \\- \ Build Bootloader for QEMU
----------------
+Exercise 1 \\- \ Build |SPN| for QEMU
+------------------------------------------
 
 .. note::
   **In this exercise, we'll learn how to build SlimBootloader for QEMU emulator.**
@@ -9,20 +9,20 @@ Exercise 1 \\- \ Build Bootloader for QEMU
 
 You can build |SPN| with the following steps:
 
-* Launch Command Prompt
-* Go to SlimBootloader source code folder by using the following command::
+1. Launch Command Prompt
+2. Go to SlimBootloader source code folder by using the following command::
 
-    cd C:\SlimBoot 
+    cd C:\slimbootloader 
 
-* Clean source code folder before we build code by using the following command::
+3. Clean source code folder before we build code by using the following command::
 
     python BuildLoader.py clean
 
-* Build source code by using the following command::
+4. Build source code by using the following command::
 
     python BuildLoader.py build qemu 
 
-* Completion: you will see ``Done [qemu]`` on the screen after compile completed
+5. Completion: you will see ``Done [qemu]`` on the screen after compile completed
 
 .. image:: /images/ex1.jpg
    :alt: Compile completed

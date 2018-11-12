@@ -1,7 +1,7 @@
 .. _Exercise 6:
 
-Exercise 6 \\- \ Feature Customization - VerifiedBoot
----------------
+Exercise 6 \\- \ Feature Customization - Verified Boot
+------------------------------------------------------
 
 .. note::
   **In this exercise, we'll learn how to enable and verify VerifiedBoot, it will demonstrate that boot stage signature verification will fail if a user modifies a byte in one of the stages**
@@ -9,33 +9,36 @@ Exercise 6 \\- \ Feature Customization - VerifiedBoot
 
 You can execute |SPN| with the following steps:
 
-* Use HEX editor to modify one byte in the SlimBoot image:
+1. Use HEX editor to modify one byte in the SlimBoot image:
 
-  - Rebuild SlimBoot by using the following command::
+  1.) Rebuild SlimBoot by using the following command::
   
         python BuildLoader.py build qemu
 
 
-  * Completion: you will see ``Done [qemu]`` on the screen after compile completed
+  2.) Completion: you will see ``Done [qemu]`` on the screen after compile completed
   
-  * Check Flash Map on stage2 offset located at where (example here stage2 is located at 0x18000000)
-  
-  
+  3.) Check Flash Map on stage2 offset located at where (example here stage2 is located at 0x18000000)
+    
   .. image:: /images/ex6-1.jpg
     :alt: Compile completed
     :align: center
+
+|   
+
+  4.) Open ``SlimBootloader.bin`` on ``..\slimbootloader\Outputs\qemu\``
   
+  5.) Goto offset ``0x18000000`` and select one byte to modify it to ``0x00``, and save the image
   
+   .. image:: /images/ex6-2.jpg
+     :alt: Compile completed
+     :align: center
 
-  * Open ``SlimBootloader.bin`` on ``..\SlimBoot\Outputs\qemu\``
-  
-  * Goto offset ``0x18000000`` and select one byte to modify it to ``0x00``, and save the image
+  6.) Example here updated offset ``0x18000025`` (Make sure to **SAVE** the changes!)
 
-  * Example here updated offset ``0x18000025`` (Make sure to **SAVE** the changes!)
+|
 
------------
-
-* Execute bootloader on QEMU by using the following command::
+2. Execute |SPN| on QEMU by using the following command::
 
  - Windows::
  
@@ -46,39 +49,37 @@ You can execute |SPN| with the following steps:
     qemu-system-x86_64 -m 256M -machine q35 -serial mon:stdio -nographic -pflash Outputs/qemu/SlimBootloader.bin
 
 
-   .. image:: /images/ex6-2.jpg
-     :alt: Compile completed
-     :align: center
 
 
-  * Boot up failed on stage 1B 
+
+3. Boot up failed on stage 1B 
   
-  * Modify board configuration file, **CHANGE** the line in file ``..\SlimBoot\Platform\QemuBoardPkg\BoardConfig.py`` ::
+4. Modify board configuration file, **CHANGE** the line in file ``..\slimbootloader\Platform\QemuBoardPkg\BoardConfig.py`` ::
   
         self.HAVE_VERIFIED_BOOT = 0 
         
         
-    .. image:: /images/ex6-4.jpg
+   .. image:: /images/ex6-4.jpg
       :alt: Compile completed
       :align: center
 
 -------------  
 
-  * Rebuild SlimBoot by using the following command::
+5. Rebuild SlimBoot by using the following command::
 
         python BuildLoader.py build qemu
 
-  * Completion: you will see ``Done [qemu]`` on the screen after compile completed
+6. Completion: you will see ``Done [qemu]`` on the screen after compile completed
 
 
 
-  * Use HEX editor to modify one byte in the SlimBootloader image:
+7.  Use HEX editor to modify one byte in the SlimBootloader image:
   
-    - Open ``SlimBootloader.bin`` on ``..\SlimBoot\Outputs\qemu\``
+    1.) Open ``SlimBootloader.bin`` on ``..\slimbootloader\Outputs\qemu\``
     
-    - Goto offset ``0x18000025`` and modify it to ``0x00``, and *SAVE* the image
+    2.) Goto offset ``0x18000025`` and modify it to ``0x00``, and *SAVE* the image
     
-    - Execute bootloader on QEMU by using the following command:
+    3.) Execute |SPN| on QEMU by using the following command:
  
         - Windows::
  

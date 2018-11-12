@@ -1,15 +1,15 @@
 .. _Exercise 7:
 
 Exercise 7 \\- \ Feature Customization - Boot Order
-----------------
+---------------------------------------------------
 
 .. note::
-  **In this exercise, we'll learn how to change boot order.**
+  **In this exercise, we'll learn how to change boot order from source level.**
 
 
 You can execute |SPN| with the following steps:
 
-* Check current boot order in QEMU:
+1. Check current boot order in QEMU:
 
   - Look through the boot log on Command Prompt and locate string ``Getting boot image from...`` to determine  the 1st boot device::
   
@@ -20,10 +20,11 @@ You can execute |SPN| with the following steps:
     :alt: Compile completed
     :align: center
   
----------
-* Modify board specific library, 
+|
 
-  * in file ``..\SlimBoot\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
+2. Modify board specific library, 
+
+  * in file ``..\slimbootloader\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
   * In function ``UpdateOsBootMediumInfo ()``  
   * Add following at the end of functiona to override the boot order::
       
@@ -33,14 +34,15 @@ You can execute |SPN| with the following steps:
     :alt: Compile completed
     :align: center
 
-------------  
-* Rebuild SlimBoot by using the following command::
+|
+ 
+3. Rebuild SlimBoot by using the following command::
 
     python BuildLoader.py build qemu
     
-* Completion: you will see ``Done [qemu]`` on the screen after compile completed    
+4. Completion: you will see ``Done [qemu]`` on the screen after compile completed    
 
-* Execute bootloader on QEMU by using the following command:
+5. Execute |SPN| on QEMU by using the following command:
 
  - Windows::
  
@@ -50,7 +52,7 @@ You can execute |SPN| with the following steps:
  
     qemu-system-x86_64 -m 256M -machine q35 -serial mon:stdio -nographic -pflash Outputs/qemu/SlimBootloader.bin -drive id=mydisk,if=none,file=../Misc/QemuImg/QemuSata.img,format=raw -device ide-hd,drive=mydisk -boot order=d
  
-* Check the console Window to see the difference
+6. Check the console Window to see the difference
  
   .. image:: /images/ex7-3.jpg
     :alt: Compile completed
