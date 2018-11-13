@@ -6,10 +6,14 @@ Versioning
 |SPN| implements a simple versioning structure with many features:
 
 * Image identification (e.g. supported platforms)
-* Core major and minor revision (See `Semantic Versioning <https://semver.org/>`_)
+* Core major and minor revision (See |Semantic Versioning|)
 * Project major and minor revision
 * Tracability to release process and build environment (e.g. git SHA1, dirty bit, build number)
 * Security version (SVN) to provide Anti-Rollback protection during firmware update
+
+.. |Semantic Versioning| raw:: html
+
+   <a href="https://semver.org/" target="_blank">Semantic Versioning</a>
 
 Version Information data structure (``BootlLoaderVersionGuid.h``)::
 
@@ -35,7 +39,6 @@ Version Information data structure (``BootlLoaderVersionGuid.h``)::
       IMAGE_BUILD_INFO   ImageVersion;
       UINT64             SourceVersion;      /* First 8 bytes of git SHA1        */
     } BOOT_LOADER_VERSION;
-
 
 Image build data ``IMAGE_BUILD_INFO`` can be configured in board configuration file ``BoardConfig.py``. One can specify ``BUILD_NUMBER`` in environment variables to provide references in an automated build and release setup (e.g. Jenkins)
 
