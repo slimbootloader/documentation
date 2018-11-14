@@ -4,7 +4,7 @@ Exercise 1 \\- \ Build |SPN| for QEMU
 ------------------------------------------
 
 .. note::
-  **In this exercise, we'll learn how to build |SPN| for QEMU emulator.**
+  **In this exercise, we'll learn how to build SBL for QEMU emulator.**
 
 
 You can build |SPN| with the following steps:

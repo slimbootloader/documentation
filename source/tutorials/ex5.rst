@@ -11,7 +11,7 @@ You can execute |SPN| with the following steps:
 
 1. Modify board configuration file
 
-  - In file ``..\Platform\QemuBoardPkg\BoardConfig.py``
+  - In file ``<sbl_tree>\Platform\QemuBoardPkg\BoardConfig.py``
   
   - Change self.ENABLE_SPLASH to 0 and save the file::
       

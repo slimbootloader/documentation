@@ -26,7 +26,7 @@ You can execute |SPN| with the following steps:
 
 |   
 
-  4.) Open ``SlimBootloader.bin`` on ``..\Outputs\qemu\``
+  4.) Open ``SlimBootloader.bin`` on ``<sbl_tree>\Outputs\qemu\``
   
   5.) Goto offset ``0x18000000`` and select one byte to modify it to ``0x00``, and save the image
   
@@ -54,7 +54,7 @@ You can execute |SPN| with the following steps:
 
 3. Boot up failed on stage 1B 
   
-4. Modify board configuration file, **CHANGE** the line in file ``..\Platform\QemuBoardPkg\BoardConfig.py`` ::
+4. Modify board configuration file, **CHANGE** the line in file ``<sbl_tree>\Platform\QemuBoardPkg\BoardConfig.py`` ::
   
         self.HAVE_VERIFIED_BOOT = 0 
         
@@ -75,7 +75,7 @@ You can execute |SPN| with the following steps:
 
 7.  Use HEX editor to modify one byte in the SlimBootloader image:
   
-    1.) Open ``SlimBootloader.bin`` on ``..\Outputs\qemu\``
+    1.) Open ``SlimBootloader.bin`` on ``<sbl_tree>\Outputs\qemu\``
     
     2.) Goto offset ``0x18000025`` and modify it to ``0x00``, and *SAVE* the image
     

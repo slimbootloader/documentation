@@ -23,7 +23,7 @@ You can execute |SPN| with the following steps:
 
 2. Modify board specific library, 
 
-  * in file ``..\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
+  * in file ``<sbl_tree>\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
   * In function ``UpdateOsBootMediumInfo ()``  
   * Add following at the end of functiona to override the boot order::
       
@@ -60,4 +60,4 @@ You can execute |SPN| with the following steps:
 
 .. tip::
 
-    Board customization can be done through board specific libraries, such as ``..\Stage1ABoardInit/Stage1BBoardInit/Stage2BoardInit``
+    Board customization can be done through board specific libraries, such as ``<sbl_tree>\Stage1ABoardInit/Stage1BBoardInit/Stage2BoardInit``

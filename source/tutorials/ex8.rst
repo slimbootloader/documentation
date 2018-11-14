@@ -9,7 +9,7 @@ Exercise 8 \\- \ UEFI Payload
 
 You can execute |SPN| with the following steps:
 
-1. Rebuild |SPN| with specific payload, append the following line into file ``Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt`` ::
+1. Rebuild |SPN| with specific payload, append the following line into file ``<sbl_tree>\Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt`` ::
 
     GEN_CFG_DATA.PayloadId                     | 'UEFI'
     
