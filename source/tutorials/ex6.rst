@@ -53,6 +53,12 @@ You can execute |SPN| with the following steps:
 
 
 3. Boot up failed on stage 1B 
+
+
+   .. image:: /images/ex6-3.jpg
+     :alt: Compile completed
+     :align: center
+
   
 4. Modify board configuration file, **CHANGE** the line in file ``<sbl_tree>\Platform\QemuBoardPkg\BoardConfig.py`` ::
   
@@ -88,13 +94,6 @@ You can execute |SPN| with the following steps:
         - Linux::
  
             qemu-system-x86_64 -m 256M -machine q35 -serial mon:stdio -nographic -pflash Outputs/qemu/SlimBootloader.bin
-
-
-
-   .. image:: /images/ex6-3.jpg
-     :alt: Compile completed
-     :align: center
-
 
 
    .. image:: /images/ex6-5.jpg
