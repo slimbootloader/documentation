@@ -11,14 +11,14 @@ You can execute |SPN| with the following steps:
 
 1. Modify board configuration file
 
-  - In file ``..\slimbootloader\Platform\QemuBoardPkg\BoardConfig.py``
+  - In file ``..\Platform\QemuBoardPkg\BoardConfig.py``
   
   - Change self.ENABLE_SPLASH to 0 and save the file::
       
       self.ENABLE_SPLASH = 0
 
 
-2. Rebuild SlimBoot by using the following command::
+2. Rebuild |SPN| by using the following command::
 
     python BuildLoader.py build qemu
 
@@ -41,7 +41,7 @@ You can execute |SPN| with the following steps:
 
 .. tip::
     
-    ``BoardConfig.py`` contains lots of options for customization.  Most of the SlimBoot static features and Flash image layout can be customized here.
+    ``BoardConfig.py`` contains lots of options for customization.  Most of the |SPN| static features and Flash image layout can be customized here.
     
     * Release QEMU control by::
     

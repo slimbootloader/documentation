@@ -4,13 +4,13 @@ Exercise 1 \\- \ Build |SPN| for QEMU
 ------------------------------------------
 
 .. note::
-  **In this exercise, we'll learn how to build SlimBootloader for QEMU emulator.**
+  **In this exercise, we'll learn how to build |SPN| for QEMU emulator.**
 
 
 You can build |SPN| with the following steps:
 
 1. Launch Command Prompt
-2. Go to SlimBootloader source code folder by using the following command::
+2. Go to |SPN| source code folder by using the following command::
 
     cd C:\slimbootloader 
 

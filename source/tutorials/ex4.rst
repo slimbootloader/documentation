@@ -12,7 +12,7 @@ You can execute |SPN| with the following steps:
 1. Working on Command Prompt Shell window
 
 
-2. Rebuild SlimBoot by using the following command::
+2. Rebuild |SPN| by using the following command::
 
     python BuildLoader.py build qemu
 

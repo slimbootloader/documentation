@@ -9,14 +9,14 @@ Exercise 8 \\- \ UEFI Payload
 
 You can execute |SPN| with the following steps:
 
-1. Rebuild SlimBoot with specific payload, append the following line into file ``Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt`` ::
+1. Rebuild |SPN| with specific payload, append the following line into file ``Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt`` ::
 
     GEN_CFG_DATA.PayloadId                     | 'UEFI'
     
 
-2. Rebuild SlimBoot by using the following command::
+2. Rebuild |SPN| by using the following command::
 
-    python BuildLoader.py build qemu
+    python BuildLoader.py build qemu -p "OsLoader.efi:LLDR:Lz4;UefiPld.fd:UEFI:Lzma"
     
 3. Completion: you will see ``Done [qemu]`` on the screen after compile completed    
 

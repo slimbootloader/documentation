@@ -4,7 +4,7 @@ Exercise 7 \\- \ Feature Customization - Boot Order
 ---------------------------------------------------
 
 .. note::
-  **In this exercise, we'll learn how to change boot order from source level.**
+  **In this exercise, we'll learn how to change boot order from source code.**
 
 
 You can execute |SPN| with the following steps:
@@ -19,12 +19,11 @@ You can execute |SPN| with the following steps:
   .. image:: /images/ex7-1.jpg
     :alt: Compile completed
     :align: center
-  
-|
+ 
 
 2. Modify board specific library, 
 
-  * in file ``..\slimbootloader\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
+  * in file ``..\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
   * In function ``UpdateOsBootMediumInfo ()``  
   * Add following at the end of functiona to override the boot order::
       
@@ -36,7 +35,7 @@ You can execute |SPN| with the following steps:
 
 |
  
-3. Rebuild SlimBoot by using the following command::
+3. Rebuild |SPN| by using the following command::
 
     python BuildLoader.py build qemu
     

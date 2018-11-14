@@ -4,14 +4,14 @@ Exercise 6 \\- \ Feature Customization - Verified Boot
 ------------------------------------------------------
 
 .. note::
-  **In this exercise, we'll learn how to enable and verify VerifiedBoot, it will demonstrate that boot stage signature verification will fail if a user modifies a byte in one of the stages**
+  **In this exercise, we'll learn how to enable and verify Verified Boot, it will demonstrate that boot stage signature verification will fail if a user modifies a byte in one of the stages**
 
 
 You can execute |SPN| with the following steps:
 
-1. Use HEX editor to modify one byte in the SlimBoot image:
+1. Use HEX editor to modify one byte in the |SPN| image:
 
-  1.) Rebuild SlimBoot by using the following command::
+  1.) Rebuild |SPN| by using the following command::
   
         python BuildLoader.py build qemu
 
@@ -26,7 +26,7 @@ You can execute |SPN| with the following steps:
 
 |   
 
-  4.) Open ``SlimBootloader.bin`` on ``..\slimbootloader\Outputs\qemu\``
+  4.) Open ``SlimBootloader.bin`` on ``..\Outputs\qemu\``
   
   5.) Goto offset ``0x18000000`` and select one byte to modify it to ``0x00``, and save the image
   
@@ -54,7 +54,7 @@ You can execute |SPN| with the following steps:
 
 3. Boot up failed on stage 1B 
   
-4. Modify board configuration file, **CHANGE** the line in file ``..\slimbootloader\Platform\QemuBoardPkg\BoardConfig.py`` ::
+4. Modify board configuration file, **CHANGE** the line in file ``..\Platform\QemuBoardPkg\BoardConfig.py`` ::
   
         self.HAVE_VERIFIED_BOOT = 0 
         
@@ -65,7 +65,7 @@ You can execute |SPN| with the following steps:
 
 -------------  
 
-5. Rebuild SlimBoot by using the following command::
+5. Rebuild |SPN| by using the following command::
 
         python BuildLoader.py build qemu
 
@@ -75,7 +75,7 @@ You can execute |SPN| with the following steps:
 
 7.  Use HEX editor to modify one byte in the SlimBootloader image:
   
-    1.) Open ``SlimBootloader.bin`` on ``..\slimbootloader\Outputs\qemu\``
+    1.) Open ``SlimBootloader.bin`` on ``..\Outputs\qemu\``
     
     2.) Goto offset ``0x18000025`` and modify it to ``0x00``, and *SAVE* the image
     
@@ -106,5 +106,5 @@ You can execute |SPN| with the following steps:
 
 .. tip::
 
-    ``BoardConfig.py`` contains lots of options for customization.  Most of the SlimBoot static features and Flash image layout can be customized here.
+    ``BoardConfig.py`` contains lots of options for customization.  Most of the |SPN| static features and Flash image layout can be customized here.
 
