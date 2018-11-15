@@ -23,6 +23,6 @@ Developer's Guide
    versioning
    boot-performance
    shell
-   debug
+   debugging-with-udk
    logging
 

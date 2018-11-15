@@ -19,14 +19,9 @@ You can build |SPN| with the following options:
 * Change your payload files
 * Attach a version data structure of your own
 
+Command Syntax::
 
-For Linux::
-
-    $ python BuildLoader.py <subcommand> <target> <options>
-
-For Windows::
-
-    C:\SBL> BuildLoader.cmd <subcommand> <target> <options>
+    python BuildLoader.py <subcommand> <target> <options>
 
     <subcommand>  : build or clean
     <target>      : board name (e.g. apl or qemu)
@@ -57,7 +52,11 @@ IAS Tool
 
 ``iasimage`` is a utility for creating Intel Automotive Service (IAS) images in a binary file format understood by |SPN| to load and initialize Operating Systems or Hypervisors.
 
-This tool is available on GitHub: https://github.com/intel/iasimage
+This tool is available on GitHub: |https://github.com/intel/iasimage|
+
+.. |https://github.com/intel/iasimage| raw:: html
+
+   <a href="https://github.com/intel/iasimage" target="_blank">https://github.com/intel/iasimage</a>
 
 
 .. _stitch-tool:
