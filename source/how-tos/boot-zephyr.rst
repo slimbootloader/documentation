@@ -1,11 +1,11 @@
-.. _zephyr-with-sbl:
+.. _boot-zephyr:
 
-Zephyr with |SPN| 
+Booting Zephyr
 -----------------
 
 We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QEMU.
 
-|UP2| maker board
+|UP2| Board
 ^^^^^^^^^^^^^^^^^
 
 1. Follow the '|Getting Started Guide|' to setup **Zephyr** build/dev environment
@@ -16,7 +16,7 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
 
 2. Apply a patch for testing |SPN| with |UP2| maker board:
 
-  1.) Apply a simple patch to fix-up peripheral mmio with |PN|::
+  #. Apply a simple patch to fix-up peripheral mmio with |PN|::
   
         git apply xxxx.patch
         
@@ -24,25 +24,25 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
         
         or patch -p1 < xxxx.patch
 
-  2.) There are known warnings coming from the simple patch::
+  #. There are known warnings coming from the simple patch::
   
         simple-bus unit address format error
 
 3. Build an application uses synchronization sample application:
 
-  1.) setup zephyr environment::
+  #. setup zephyr environment::
   
         source zephyr-env.sh
         or source zephyr-env.cmd
 
-  2.) Build synchronization for |UP2| board::
+  #. Build synchronization for |UP2| board::
   
         cd samples/synchronization
         mkdir build_up2 && cd build_up2
         cmake -GNinja -DBOARD=up_squared ..
         ninja
 
-  3.) Output file::
+  #. Output file::
         
         samples/synchronization/build_up2/zephyr/zephyr.elf
 
@@ -72,39 +72,39 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
 
 
 QEMU
-^^^^
+^^^^^^^^^
 
 1. Build an application uses synchronization sample application:
   
-  1.) setup zephyr environment::
+  #. setup zephyr environment::
   
         source zephyr-env.sh
         or source zephyr-env.cmd
 
-  2.) Build synchronization for QEMU::
+  #. Build synchronization for QEMU::
 
         cd samples/synchronization
         mkdir build_qemu && cd build_qemu
         cmake -GNinja -DBOARD=qemu_x86 ..
         ninja
 
-  3.) Output file::
+  #. Output file::
 
         samples/synchronization/build_qemu/zephyr/zephyr.elf
 
 2. Build |SPN| image with zephyr.elf as a direct payload for simple test. 
 
-  - build slim bootloader for QEMU with the built zephyr.elf::
+  Build |SPN| to include zephyr.elf::
 
         python BuildLoader.py build qemu -p <zephyr_root>/samples/synchronization/build_qemu/zephyr/zephyr.elf
 
 3. Run QEMU and check the zephyr up & running thru serial console : 
 
-  1.) Execute QEMU::
+  #. Execute QEMU::
     
         qemu-system-x86_64 -m 256M -machine q35 -nographic -pflash Outputs/qemu/SlimBootloader.bin
 
-  2.) Check result thru serial console::
+  #. Check result thru serial console::
 
         ......
         Payload entry: 0x00001000

@@ -14,6 +14,7 @@ A collection of recipes to make |SPN| to work for you.
    add-new-library
    add-new-payload
    boot-windows
+   boot-zephyr
    collect-time-logs
 
 
