@@ -24,5 +24,6 @@ Developer's Guide
    boot-performance
    shell
    debugging-with-udk
+   zephyr-with-sbl
    logging
 
