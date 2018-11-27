@@ -19,7 +19,10 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
   #. setup zephyr environment::
   
         source zephyr-env.sh
-        or source zephyr-env.cmd
+        
+        or 
+        
+        zephyr-env.cmd
 
   #. Build synchronization for |UP2| board::
   
@@ -65,7 +68,10 @@ QEMU
   #. setup zephyr environment::
   
         source zephyr-env.sh
-        or source zephyr-env.cmd
+        
+        or 
+        
+        zephyr-env.cmd
 
   #. Build synchronization for QEMU::
 
