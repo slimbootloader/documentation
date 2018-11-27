@@ -14,21 +14,7 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
 
    <a href="https://docs.zephyrproject.org/latest/getting_started/getting_started.html" target="_blank">Getting Started Guide</a>
 
-2. Apply a patch for testing |SPN| with |UP2| maker board:
-
-  #. Apply a simple patch to fix-up peripheral mmio with |PN|::
-  
-        git apply xxxx.patch
-        
-        or git am xxxx.patch
-        
-        or patch -p1 < xxxx.patch
-
-  #. There are known warnings coming from the simple patch::
-  
-        simple-bus unit address format error
-
-3. Build an application uses synchronization sample application:
+2. Build an application uses synchronization sample application:
 
   #. setup zephyr environment::
   
@@ -39,27 +25,27 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
   
         cd samples/synchronization
         mkdir build_up2 && cd build_up2
-        cmake -GNinja -DBOARD=up_squared ..
+        cmake -GNinja -DBOARD=up_squared_sbl ..
         ninja
 
   #. Output file::
         
         samples/synchronization/build_up2/zephyr/zephyr.elf
 
-4. Build |SPN| image with zephyr.elf as a direct payload for simple test. 
+3. Build |SPN| image with zephyr.elf as a direct payload for simple test. 
 
   - build |PN| for |UP2| board with the built zephyr.elf::
   
         python BuildLoader.py build apl -p <zephyr_root>/samples/synchronization/build_up2/zephyr/zephyr.elf
 
 
-5. Create a IFWI for |UP2|, follow the steps |here|.
+4. Create a IFWI for |UP2|, follow the steps |here|.
 
 .. |here| raw:: html
 
    <a href="https://slimbootloader.github.io/supported-hardware/up2.html#stitching" target="_blank">here</a>
 
-6. Flash IFWI and check the zephyr up & running thru serial console::
+5. Flash IFWI and check the zephyr up & running thru serial console::
 
     ......
     Stage2 heap: 0xB4C000 (0x10C000 used, 0xA40000 free)
