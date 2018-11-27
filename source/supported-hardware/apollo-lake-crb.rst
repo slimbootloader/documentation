@@ -50,13 +50,17 @@ See :ref:`getting-started` on how to building |SPN|.
 Stitching
 ^^^^^^^^^^
 
-Stitch |SPN| images with factory BIOS image using the stitch tool::
+1. Download |APL| `firmware image <https://firmware.intel.com/sites/default/files/leafhill-0.70-firmwareimages.zip>`_.
+
+  This image contains additional firmware ingredients that are required to boot on |APL|.
+
+.. note:: ``StitchLoader.py`` currenlty only supports stitching with boot guard feature **disabled**.
+
+2. Stitch |SPN| images into downloaded BIOS image::
 
     python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE>
 
-Download |APL| `firmware images <https://firmware.intel.com/sites/default/files/leafhill-0.70-firmwareimages.zip>`_.
-
-For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
+  For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
 
     python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
 
