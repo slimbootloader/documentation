@@ -3,7 +3,7 @@
 |UP2| Board
 ---------------------
 
-The `UP Squared board <http://www.up-board.org/upsquared/>`_ (|UP2|) is an x86 maker board based on Intel platform Apollo Lake. The UP boards are used in IoT, industrial automation, digital signage areas etc.
+The |UP Squared board| (|UP2|) is an x86 maker board based on Intel platform Apollo Lake. The UP boards are used in IoT, industrial automation, digital signage areas etc.
 
 Prequisites
 ^^^^^^^^^^^^^^^^
@@ -16,6 +16,10 @@ Prequisites
 * DediProg SF100 or SF600 programmer
 * Linux host (see :ref:`running-on-linux` for details)
 * Internet access
+
+.. |UP Squared board| raw:: html
+
+   <a href="https://up-board.org/upsquared/specifications/" target="_blank">UP Squared board</a>
 
 .. |Model N3350| raw:: html
 
