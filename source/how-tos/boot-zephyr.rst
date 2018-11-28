@@ -8,7 +8,7 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
 |UP2| Board
 ^^^^^^^^^^^^^^^^^
 
-1. Follow the '|Getting Started Guide|' to setup **Zephyr** build/dev environment
+1. Follow |Getting Started Guide| to setup **Zephyr** build/dev environment
 
 .. |Getting Started Guide| raw:: html
 
@@ -24,16 +24,14 @@ We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QE
         
         zephyr-env.cmd
 
-  #. Build synchronization for |UP2| board::
+  #. Build sample application for |UP2| board::
   
         cd samples/synchronization
         mkdir build_up2 && cd build_up2
         cmake -GNinja -DBOARD=up_squared_sbl ..
         ninja
 
-  #. Output file::
-        
-        samples/synchronization/build_up2/zephyr/zephyr.elf
+     Output file: ``samples/synchronization/build_up2/zephyr/zephyr.elf``
 
 3. Build |SPN| image with zephyr.elf as a direct payload for simple test. 
 
@@ -73,18 +71,16 @@ QEMU
         
         zephyr-env.cmd
 
-  #. Build synchronization for QEMU::
+  #. Build sample application for QEMU::
 
         cd samples/synchronization
         mkdir build_qemu && cd build_qemu
         cmake -GNinja -DBOARD=qemu_x86 ..
         ninja
 
-  #. Output file::
+     Output file: ``samples/synchronization/build_qemu/zephyr/zephyr.elf``
 
-        samples/synchronization/build_qemu/zephyr/zephyr.elf
-
-2. Build |SPN| image with zephyr.elf as a direct payload for simple test. 
+2. Build |SPN| image with zephyr.elf as as payload for simple test. 
 
   Build |SPN| to include zephyr.elf::
 
