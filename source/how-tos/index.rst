@@ -15,6 +15,7 @@ A collection of recipes to make |SPN| to work for you.
    add-new-payload
    boot-windows
    boot-zephyr
+   integrate-fastboot
    collect-time-logs
 
 
