@@ -29,16 +29,10 @@ Supported environment: **Microsoft Visual Studio 2015**
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
-* |cxFreeze 4.3.3| - default installation path
 * Python 2.7 - **C:\\Python27**
 * IASL 20160422 - **C:\\ASL**
 * NASM - **C:\\Nasm**
-* OpenSSL - **C:\\openssl**
-
-.. |cxFreeze 4.3.3| raw:: html
-
-   <a href="https://sourceforge.net/projects/cx-freeze/files/4.3.3/" target="_blank">cxFreeze 4.3.3</a>
-      
+* OpenSSL - **C:\\openssl**     
 
 .. _proxy-settings:
 
