@@ -11,6 +11,9 @@ Fastboot protocol allows communication between host and device bootloader via US
 
    <a href="https://01.org/node/2463" target="_blank">Intel® Platform Flash Tool Lite</a>
 
+Load from USB
+^^^^^^^^^^^^^^^^^
+
 The following steps provide an example to enable fastboot feature from **USB** key for |UP2| board.
 
 **Step 1:** Download fastboot executable from |FB|
@@ -35,7 +38,7 @@ The following steps provide an example to enable fastboot feature from **USB** k
 
 
     <private_key>: BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem
-    cmdline.txt  : create an empty file for it
+    cmdline.txt  : Not required for fastboot to work. Create an empty file for it
 
 
 **Step 4:** Copy IAS image ``iasimage.bin`` into the *first* FAT partition on USB key
@@ -66,6 +69,60 @@ The following steps provide an example to enable fastboot feature from **USB** k
 
 
 **Step 7:** Test fastboot connections between host and |UP2|
+
+  Run::
+
+    fastboot devices
+
+
+Load from SPI
+^^^^^^^^^^^^^^^^^
+
+You can also add fastboot into SBL image and program it into SPI flash.
+
+
+**Step 1:** Once you created ``iasimage.bin``, copy it into |SPN| directory::
+
+    cp iasimage.bin Platform/ApollolakeBoardPkg/SpiIasBin/iasimage1.bin
+
+**Step 2:** Replace the last boot option to load fastboot from SPI
+
+  From::
+
+    # Run fastboot from USB
+    # !BSF SUBT:{OS_TMPL:4 :  0    :  0 :   5   :  0   :   0  :    0 :    0 :'fastboot.bin' :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
+
+  To::
+
+    # Run fastboot from SPI
+    # !BSF SUBT:{OS_TMPL:5 :  4    :  0 :   7   :  0   :   0  :    0 :    3 :      0        :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
+
+
+**Step 3:** Build, stitch and flash |SPN| to |UP2|
+
+
+**Step 4:** Boot and switch |SPN| into fastboot mode from shell interface
+
+   #. Upon reset, press any key to enter |SPN| shell prompt
+
+   #. Type ``boot`` to swap boot option index between last and first
+
+   #. Type ``exit`` to boot into fastboot mode
+
+   Expected serial output::
+
+        Starting MB Kernel ...
+
+        ...
+        Group    =000000FF
+        Command  =0000000C
+        IsRespone=00000001
+        Result   =00000000
+        RequestedActions   =00000000
+        USB for fastboot transport layer selected
+
+
+**Step 5:** Test fastboot connections between host and |UP2|
 
   Run::
 
