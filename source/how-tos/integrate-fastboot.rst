@@ -87,16 +87,19 @@ You can also add fastboot into SBL image and program it into SPI flash.
 
 **Step 2:** Replace the last boot option to load fastboot from SPI
 
-  From::
+  Remove::
 
+    ...
     # Run fastboot from USB
     # !BSF SUBT:{OS_TMPL:4 :  0    :  0 :   5   :  0   :   0  :    0 :    0 :'fastboot.bin' :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
+    ...
 
-  To::
+  Add::
 
+    ...
     # Run fastboot from SPI
-    # !BSF SUBT:{OS_TMPL:5 :  4    :  0 :   7   :  0   :   0  :    0 :    3 :      0        :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
-
+    # !BSF SUBT:{OS_TMPL:4 :  4    :  0 :   7   :  0   :   0  :    0 :    3 :      0        :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
+    ...
 
 **Step 3:** Build, stitch and flash |SPN| to |UP2|
 
@@ -122,8 +125,14 @@ You can also add fastboot into SBL image and program it into SPI flash.
         USB for fastboot transport layer selected
 
 
-**Step 5:** Test fastboot connections between host and |UP2|
+**Step 5:** Install and test fastboot connections between host and |UP2|
+
+  Connect USB cable between host and |UP2| OTG port.
 
   Run::
 
+    sudo apt-get install fastboot
+
     fastboot devices
+
+.. note:: Provisioning complete Linux OS image requires GPT table, kernel image and root file system. The procedure depends Linux distro release package format. This guide only provides the initial mechanism to enable fastboot protocol.
