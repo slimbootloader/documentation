@@ -45,12 +45,4 @@ In addition, it provides built-in features:
 
 * **Firmware Update**
 
-
-
-FAQ
----
-
-.. toctree::
-   :maxdepth: 2
-   
-   faq
+.. include:: faq.rst
