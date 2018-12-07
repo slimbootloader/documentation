@@ -1,3 +1,5 @@
+.. _intro:
+
 Introduction
 =============
 
@@ -42,3 +44,13 @@ In addition, it provides built-in features:
 * **Multiple OS Support**
 
 * **Firmware Update**
+
+
+
+FAQ
+---
+
+.. toctree::
+   :maxdepth: 2
+   
+   faq
