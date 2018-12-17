@@ -7,7 +7,7 @@ A collection of recipes to make |SPN| to work for you.
    :maxdepth: 2
 
    customize-build
-   change-boot-option
+   change-boot-option   
    enable-verified-boot
    create-capsule
    reduce-debug-message
@@ -16,6 +16,7 @@ A collection of recipes to make |SPN| to work for you.
    boot-windows
    boot-zephyr
    integrate-fastboot
+   memory-config
    collect-time-logs
 
 
