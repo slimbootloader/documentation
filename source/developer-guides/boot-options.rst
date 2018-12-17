@@ -17,11 +17,6 @@ Boot option flow is shown in the following flow chart:
 A boot option entry contains the following data structure to boot OS (``OsBootOptionGuid.h``)::
 
     typedef struct {
-      ///
-      /// For PCI device, its value is 0x00BBDDFF
-      /// For other device, its value is MMIO address (The highest bytes is not zero).
-      ///
-      UINT32               DevAddr;
 
       ///
       /// Image type for Image[0]. Refer BOOT_IMAGE_TYPE
@@ -32,13 +27,18 @@ A boot option entry contains the following data structure to boot OS (``OsBootOp
       /// Zero means normal boot.
       ///
       UINT8                BootFlags;
-
-      UINT8                Reserved[2];
+      UINT8                Reserved;
 
       ///
       /// Boot medium type, Refer OS_BOOT_MEDIUM_TYPE
       ///
       UINT8                DevType;
+
+      ///
+      /// If there are multiple controllers, it indicate which 
+      /// controller instance the boot medium belong to.
+      ///
+      UINT8                DevInstance;
 
       ///
       /// Zero-based hardware partition number
