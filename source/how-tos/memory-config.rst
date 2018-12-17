@@ -22,7 +22,7 @@ For |UP2|, open ``CfgData_Ext_Up2.dlt`` and customize values that match the actu
   MEMORY_CFG_DATA.DualRankSupportEnable    | 0x1
   MEMORY_CFG_DATA.RmtMode                  | 0x0
   MEMORY_CFG_DATA.MemorySizeLimit          | 0x0
-  MEMORY_CFG_DATA.Ch0_RankEnable           | 0x3  <-- bit masks for dual Rank. 0x1 for single rank; 0 for no rank (no memory chip)
+  MEMORY_CFG_DATA.Ch0_RankEnable           | 0x3  <-- bit masks for dual Rank. 0x1 for single rank; 0x0 for no rank (no memory chip)
   MEMORY_CFG_DATA.Ch0_DramDensity          | 0x2  <-- 8Gb (check datasheet)
   MEMORY_CFG_DATA.Ch1_RankEnable           | 0x3
   MEMORY_CFG_DATA.Ch1_DramDensity          | 0x2
