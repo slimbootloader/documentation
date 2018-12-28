@@ -1,24 +1,25 @@
 IAS Image
 -----------
 
-Booting quickly and securely is highly desirable, and in many use cases, mandatory. |SPN| is designed to boot OS by directly loading and verifying a kernel image in a raw format known as IAS image.
+Booting quickly and securely is highly desirable, and in many use cases, mandatory. |SPN| is designed to boot an OS by loading and verifying a kernel image contained in IAS image format. |SPN| also supports |Multiboot Protocol| compliant boot images encapsulated in an IAS image.
 
-IAS image is a container that includes kernel, initrd, command line parameters and additional data, and terminated with a RSA signature.
+IAS images contain a collection of OS related binaries or files, including Linux kernels, kernel command line arguments as a text file, initram, ACPI tables, or ELF/Multiboot file formats. The binaries can be extended to other types such as splash screens image (logo) and VBT files etc.
 
-IAS image format can also support |Multiboot Protocol| compliant boot images.
+IAS image structure consists of a header, one or more payload files and terminated with a RSA signature. The high level format of IAS image is shown below:
+
+.. graphviz:: /images/ias_format.dot
+
+|
+|
+
 
 .. |Multiboot Protocol| raw:: html
 
    <a href="https://www.gnu.org/software/grub/manual/multiboot/multiboot.html" target="_blank">Multiboot Protocol</a>
 
 
-The high level format of IAS image is shown below:
-
-
-.. graphviz:: /images/ias_format.dot
-
-|
-|
+IAS image can be optionally stored in raw format on eMMC or USB partition without using EXT2 or FAT file system.
+This may help boot performance. See :ref:`create-ias-boot-image` for more details.
 
 For complete IAS image specification, visit |here|:
 
@@ -29,4 +30,3 @@ For complete IAS image specification, visit |here|:
 
 .. note:: |SPN| debug build is able to boot standard Linux kernel without packing in IAS image format. See :ref:`release-build` for more details.
 
-.. note:: IAS image can be placed into raw partition. This may help boot performance.
