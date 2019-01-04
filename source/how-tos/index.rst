@@ -13,11 +13,12 @@ A collection of recipes to make |SPN| to work for you.
    reduce-debug-message
    add-new-library
    add-new-payload
+   add-fastboot
    integrate-multiple-payloads
    create-ias-boot-image
    boot-windows
    boot-zephyr
-   add-fastboot
+   boot-acrn
    configure-memory-down
    collect-time-logs
 

@@ -41,11 +41,12 @@ The following steps provide an example to enable fastboot feature from **USB** k
     cmdline.txt  : Not required for fastboot to work. Create an empty file for it
 
 
-**Step 4:** Copy IAS image ``iasimage.bin`` into the *first* FAT partition on USB key
+**Step 4:** Copy IAS image ``iasimage.bin`` into the **first** FAT partition on USB flash drive
 
 
 **Step 5:** Build, stitch and flash |SPN| to |UP2|
 
+  Follow :ref:`up2-board` to build a flashable image and prepare |UP2| for booting.
 
 **Step 6:** Boot and switch |SPN| into fastboot mode from shell interface
 
@@ -85,26 +86,11 @@ You can also add fastboot into SBL image and program it into SPI flash.
 
     cp iasimage.bin Platform/ApollolakeBoardPkg/SpiIasBin/iasimage1.bin
 
-**Step 2:** Replace the last boot option to load fastboot from SPI
 
-  Remove::
-
-    ...
-    # Run fastboot from USB
-    # !BSF SUBT:{OS_TMPL:4 :  0    :  0 :   5   :  0   :   0  :    0 :    0 :'fastboot.bin' :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
-    ...
-
-  Add::
-
-    ...
-    # Run fastboot from SPI
-    # !BSF SUBT:{OS_TMPL:4 :  4    :  0 :   7   :  0   :   0  :    0 :    3 :      0        :       0 :      0 :     0         :     0   :  0     :     0         :     0   :   0    }
-    ...
-
-**Step 3:** Build, stitch and flash |SPN| to |UP2|
+**Step 2:** Build, stitch and flash |SPN| to |UP2|
 
 
-**Step 4:** Boot and switch |SPN| into fastboot mode from shell interface
+**Step 3:** Boot and switch |SPN| into fastboot mode from shell interface
 
    #. Upon reset, press any key to enter |SPN| shell prompt
 
@@ -125,7 +111,7 @@ You can also add fastboot into SBL image and program it into SPI flash.
         USB for fastboot transport layer selected
 
 
-**Step 5:** Install and test fastboot connections between host and |UP2|
+**Step 4:** Install and test fastboot connections between host and |UP2|
 
   Connect USB cable between host and |UP2| OTG port.
 
