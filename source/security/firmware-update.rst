@@ -28,7 +28,7 @@ Triggering Firmware Update
 
 Triggering firmware update is a platform specific mechanism. The location of the firmware update capsule image is passed to Firmware update payload through configuration data.
 
-To generate and sign firmware update capsule, see :ref:`create-capsule`.
+To generate and sign firmware update capsule, see :ref:`update-firmware`.
 
 Firmware update can be triggered from OS or from |SPN| shell. See :ref:`trigger-update-from-shell`.
 

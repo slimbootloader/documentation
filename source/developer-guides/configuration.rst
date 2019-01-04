@@ -26,7 +26,7 @@ Platform ID
 ^^^^^^^^^^^^^
 
 .. note:: Platform ID and board ID are used interchangeablely in this section
-h
+
 |SPN| uses platform ID to select the associated configuration data. The platform ID can be specified at build time or dynamically detected from GPIO pins at runtime. At the beginning of Stage 1B (``GetBoardIdFromGpioPins()``), |SPN| attempts to load GPIO platform ID by tag ``CDATA_PID_GPIO_TAG``. If the tag is found, the actual platform ID value is read from the GPIO pins. Otherwise, |SPN| uses static platform ID.
 
 |SPN| supports up to 32 platform IDs with 16 allocated for static IDs and 16 for dynamic IDs.

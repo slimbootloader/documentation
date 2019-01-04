@@ -88,8 +88,10 @@ You may need to change boot options to boot from USB. See :ref:`change-boot-opti
 
    Rename ``initrd.lz`` to ``initrd``; Rename ``vmlinuz.efi`` to ``vmlinuz``
 
-4. Create ``config.cfg`` in root directory with the following content::
+4. Create ``config.cfg`` in root directory
 
-  file=/cdrom/preseed/ubuntu.seed boot=casper quiet splash nomodeset
+  Copy and save the following into ``config.cfg`` on USB key::
+
+    file=/cdrom/preseed/ubuntu.seed boot=casper quiet splash nomodeset
 
 3. Boot from USB key.

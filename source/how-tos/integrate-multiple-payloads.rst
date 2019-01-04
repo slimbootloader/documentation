@@ -1,7 +1,7 @@
 .. _integrate-multiple-payloads:
 
-Integrating Multiple Payloads into |SPN|
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Integrate Multiple Payloads
+------------------------------
 
 You can integrate more than one payload files using |SPN| build tool::
 

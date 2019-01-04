@@ -8,5 +8,4 @@ Supported Hardware
 
    up2
    apollo-lake-crb
-   minnow3
 

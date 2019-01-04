@@ -100,6 +100,7 @@ Enable DebugAgent on |SPN| and flash the |SPN| image(or IFWI) on TARGET. By defa
     Port = /tmp/serial
 
 |
+
 .. tip::
     How to create a pipe in Linux::
     
@@ -133,7 +134,7 @@ Enable DebugAgent on |SPN| and flash the |SPN| image(or IFWI) on TARGET. By defa
 **Step 3 - Launch Intel UDK Debugger on Host**
 
 * Windows
- - Launch "**Start WinDbg with Intel UDK Debugger Tool**" from Windows Start Menu
+  - Launch "**Start WinDbg with Intel UDK Debugger Tool**" from Windows Start Menu
 
 
 .. image:: /images/start_windbg.jpg
@@ -147,7 +148,7 @@ Enable DebugAgent on |SPN| and flash the |SPN| image(or IFWI) on TARGET. By defa
 
 
 * Linux
- - Launch::
+  - Launch::
 
     /opt/intel/udkdebugger/bin/udk-gdb-server
 
@@ -160,25 +161,28 @@ Enable DebugAgent on |SPN| and flash the |SPN| image(or IFWI) on TARGET. By defa
 **Step 4 - Power on TARGET platform**
 
 * Windows
- - Power on TARGET platfrom, the connection of HOST and TARGET will be established immediately.
+  - Power on TARGET platfrom, the connection of HOST and TARGET will be established immediately.
 
 * Linux
- - Power on TARGET platform
- - Launch GDB in a separate terminal
- - Make a connection with GDB target command::
-    
-    target remote :1234     
+
+  1. Power on TARGET platform
+  2. Launch GDB in a separate terminal
+  3. Make a connection with GDB target command
+
+  Run::
+
+    target remote :1234
    
-   or from Intel UDK Debugger console::
-   
+  or from Intel UDK Debugger console::
+
     target remote FULL_SERVER_URL:1234
   
-  
- - Run Intel UDK Debugger scripts for GDB::
+
+  4. Start Intel UDK Debugger scripts for GDB
+
+  Run::
 
     source /opt/intel/udkdebugger/script/udk_gdb_script
-    
-|
 
 * To turn on **QEMU** target with TCP port configuration, follow run qemu-system first then launch Intel UDK Debugger as Step 3
 

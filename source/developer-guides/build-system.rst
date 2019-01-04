@@ -64,8 +64,6 @@ Post Build Customization
 
 |SPN| supports platform customizations by embedding configuration data in a dedicated region in the image. The configuration data region can be *patched* without recompiling the code. This feature is most useful in supporting multiple similar boards in a single |SPN| image.
 
-See :ref:`board-configuration-listing` for more details.
-
 
 .. _release-build:
 

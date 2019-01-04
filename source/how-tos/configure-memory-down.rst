@@ -1,7 +1,7 @@
-.. _mem-config:
+.. _config-memory-down:
 
-Configuring Memory Down Parameters
--------------------------------------
+Configure Memory Down
+----------------------
 
 The term of **Memory Down** is used to describe when memory components such as DRAM devices are physically soldered onto a Printed Circuit Board (PCB). This is an alternative to using mechanical connectors to attach memory modules (DIMM) onto a system. Memory down configuration is often found in the embedded platforms due to the variety of constraints and usage models.
 

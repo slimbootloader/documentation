@@ -1,7 +1,7 @@
-.. _create-capsule:
+.. _update-firmware:
 
-Create Firmware Update Capsule Image
------------------------------------------
+Update Firmware
+----------------
 
 Creating firmware update capsule image requires the following steps:
 

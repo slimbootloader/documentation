@@ -1,6 +1,6 @@
 .. _boot-zephyr:
 
-Booting Zephyr
+Boot Zephyr
 -----------------
 
 We may follow below steps to setup Zephyr with |SPN| on |UP2| maker board and QEMU.

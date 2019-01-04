@@ -1,6 +1,6 @@
-.. _integrate-fastboot:
+.. _add-fastboot:
 
-Integrating Fastboot
+Add Fastboot Support
 ---------------------
 
 This page guides you to integrate an external fastboot executable in |SPN|. The steps described are also applicable to any **MultiBoot** format executables.

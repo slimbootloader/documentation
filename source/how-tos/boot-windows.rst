@@ -1,6 +1,6 @@
 .. _boot-windows:
 
-Booting Windows
+Boot Windows
 -----------------
 
 Booting Windows OS from |SPN| requires UEFI payload. For details on how to build, visit |UEFI Payload Project|. With the UEFI payload image, you can integrate it in |SPN| (see :ref:`integrate-multiple-payloads`).
