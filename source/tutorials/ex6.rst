@@ -38,7 +38,7 @@ You can execute |SPN| with the following steps:
 
 |
 
-2. Execute |SPN| on QEMU by using the following command::
+2. Execute |SPN| on QEMU by using the following command
 
  - Windows::
  

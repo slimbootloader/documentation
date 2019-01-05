@@ -1,5 +1,0 @@
-Work-In-Progress
-=====================
-
-.. todolist::
-

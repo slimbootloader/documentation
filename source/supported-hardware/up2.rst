@@ -107,14 +107,16 @@ See :ref:`stitch-tool` on how to stitching the flashing IFWI image with |SPN|.
 Flashing
 ^^^^^^^^^
 
-Flash the IFWI image to |UP2| board. See |instructions|.
+Flash the IFWI image to |UP2| board using a SPI programmer. See |BIOS_CHIP_FLASHING|.
 
 
-.. |instructions| raw:: html
+.. |BIOS_CHIP_FLASHING| raw:: html
 
    <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a>
 
+
 .. _boot-yocto-usb:
+
 
 Booting Yocto Linux from USB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
