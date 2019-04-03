@@ -58,7 +58,6 @@ This tool is available on GitHub: |https://github.com/intel/iasimage|
 
    <a href="https://github.com/intel/iasimage" target="_blank">https://github.com/intel/iasimage</a>
 
-.. note:: Currently ``iasimage`` is only supported by Python 3 version.
 
 
 .. _stitch-tool:
