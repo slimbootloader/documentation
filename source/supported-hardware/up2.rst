@@ -23,7 +23,7 @@ Prequisites
 
 .. |Model N3350| raw:: html
 
-   <a href="https://up-shop.org/up-boards/94-up-squared-celeron-duo-core-4gb-memory32gb-emmc.html?search_query=n3350&results=5" target="_blank">Model N3350</a>
+   <a href="https://up-shop.org/home/270-up-squared.html" target="_blank">Model N3350</a>
 
 .. |instructions| raw:: html
 
