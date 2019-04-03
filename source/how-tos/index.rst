@@ -17,6 +17,7 @@ A collection of recipes to make |SPN| to work for you.
    integrate-multiple-payloads
    create-ias-boot-image
    boot-windows
+   boot-ubuntu
    boot-zephyr
    boot-acrn
    configure-memory-down
