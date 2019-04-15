@@ -27,4 +27,5 @@ Developer's Guide
    shell
    debugging-with-udk
    logging
+   contributions
 
