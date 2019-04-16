@@ -38,7 +38,7 @@ See :ref:`customize-build` for more details.
 Build |SPN|
 ^^^^^^^^^^^^^
 
-|SPN| master build script ``Buildloader.py`` provides many options to compile images. To get help::
+|SPN| master build script ``BuildLoader.py`` provides many options to compile images. To get help::
 
   python BuildLoader.py build -h
 
@@ -74,7 +74,7 @@ Release vs Debug Build
 
 Build system builds debug |SPN| image by default. To build a release image::
 
-  python BuildLoader build <target> -r
+  python BuildLoader.py build <target> -r
 
 .. note:: When verified boot is enabled, |SPN| release build requires IAS image format to boot OS.
 
