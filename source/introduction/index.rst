@@ -71,7 +71,7 @@ What are options to debug |SPN|?
     |SPN| supports source level debugging using UDK debug tool (via UART). Depending on the board configuration, developers can also debug |SPN| with Intel trace hub, secure debug token (if enabled) or memory buffers.
 
 Is Embedded Controller (EC) supported?
-    No. Different boards may have differenct EC or SuperIO. Developers need implement the code for the target board.
+    No. Different boards may have different EC or SuperIO. Developers need implement the code for the target board.
 
 Does it support RTOS?
     |SPN| features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See :ref:`boot-zephyr`).

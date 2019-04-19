@@ -17,7 +17,7 @@ Source Tree Structure
  |-- Platform/
  `-- Silicon/
 
-Here's a brief descripton of each of these folders:
+Here's a brief description of each of these folders:
 
 BuildLoader.py
   Top-level build script. Performs tool chain setup, pre-build, configuration, compilation and post-build steps.

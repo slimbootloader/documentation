@@ -54,7 +54,7 @@ Stitching
 
   This image contains additional firmware ingredients that are required to boot on |APL|.
 
-.. note:: ``StitchLoader.py`` currenlty only supports stitching with boot guard feature **disabled**.
+.. note:: ``StitchLoader.py`` currently only supports stitching with boot guard feature **disabled**.
 
 2. Stitch |SPN| images into downloaded BIOS image::
 

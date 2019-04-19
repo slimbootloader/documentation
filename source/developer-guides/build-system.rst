@@ -42,7 +42,7 @@ Build |SPN|
 
   python BuildLoader.py build -h
 
-Bhuild |SPN| for a supported platform::
+Build |SPN| for a supported platform::
 
   python BuildLoader.py build <platform_name>
 

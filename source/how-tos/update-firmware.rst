@@ -56,7 +56,7 @@ Creating firmware update capsule image requires the following steps:
 Trigger Update From Shell
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-During development, one can use shell command to manually test firmware update withoug relying on full OTA support in OS.
+During development, one can use shell command to manually test firmware update without relying on full OTA support in OS.
 
 1. Copy ``FwuImage.bin`` into root directory on FAT partition of a USB key
 

@@ -3,7 +3,7 @@
 Create IAS Boot Image
 ----------------------
 
-This page provides intructions to create a bootable Linux kernel image in IAS format and setup boot partition in |SPN| to boot from it.
+This page provides instructions to create a bootable Linux kernel image in IAS format and setup boot partition in |SPN| to boot from it.
 
 
 The following step-by-step instructions is an example to boot Yocto kernel using IAS image format on |UP2|.
@@ -45,7 +45,7 @@ Sample output messages::
     Writing... Ok
 
 
-**Step 4:** Copy ``iasimage.bin`` onto the first boot partion on |UP2|.
+**Step 4:** Copy ``iasimage.bin`` onto the first boot partition on |UP2|.
 
 Depending whether you are booting from eMMC or USB, ``iasimage.bin`` should be copied to the **root** directory on the boot device.
 

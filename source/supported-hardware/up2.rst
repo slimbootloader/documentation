@@ -5,7 +5,7 @@
 
 The |UP Squared board| (|UP2|) is an x86 maker board based on Intel platform Apollo Lake. The UP boards are used in IoT, industrial automation, digital signage areas etc.
 
-Prequisites
+Prerequisites
 ^^^^^^^^^^^^^^^^
 
 |SPN| supports |UP2| maker board. To start developing |SPN|, the following equipment, software and environments are required:
@@ -46,10 +46,10 @@ Board Setup
 Before You Start
 ^^^^^^^^^^^^^^^^^
 
-.. warning:: As you plan to reprogram the SPI flash, it's a good idea to backup the preinstalled BIOS image first.
+.. warning:: As you plan to reprogram the SPI flash, it's a good idea to backup the pre-installed BIOS image first.
 
 
-Boot the board and enter BIOS setup menu to get familar with the board features and settings.
+Boot the board and enter BIOS setup menu to get familiar with the board features and settings.
 
 |UP2| is pre-installed with Ubuntu Linux. Boot to Ubuntu and confirm the display, USB, network and other peripherals are working.
 
@@ -57,7 +57,7 @@ Boot the board and enter BIOS setup menu to get familar with the board features 
 
 Early boot serial debug console can be reached via UART0 located on CN16 header on the |UP2| board. Make sure you can observe serial output message running the factory BIOS first.
 
-.. note:: To make your own UART debug adaptor by wiring, refer to CN16 Header Pinout for UART0:
+.. note:: To make your own UART debug adapter by wiring, refer to CN16 Header Pinout for UART0:
 
   +--------+--------------+
   |  Pin   |    Signal    |

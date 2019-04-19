@@ -52,7 +52,7 @@ The function call graph in |SPN| code from reset vector to OS launch.
 Platform Initialization
 -------------------------
 
-In |SPN|, board intialization code is located in ``Platform/<platform_foo>`` directory. Each stage provides a 'hook point' for board specific code. To port a new board, one should implement changes in ``BoardInit()`` function for each stage under ``Platform/<platform_foo>/Library`` directory::
+In |SPN|, board initialization code is located in ``Platform/<platform_foo>`` directory. Each stage provides a 'hook point' for board specific code. To port a new board, one should implement changes in ``BoardInit()`` function for each stage under ``Platform/<platform_foo>/Library`` directory::
 
     VOID
     BoardInit (

@@ -8,7 +8,7 @@ Versioning
 * Image identification (e.g. supported platforms)
 * Core major and minor revision (See |Semantic Versioning|)
 * Project major and minor revision
-* Tracability to release process and build environment (e.g. git SHA1, dirty bit, build number)
+* Traceability to release process and build environment (e.g. git SHA1, dirty bit, build number)
 * Security version (SVN) to provide Anti-Rollback protection during firmware update
 
 .. |Semantic Versioning| raw:: html

@@ -25,7 +25,7 @@ Memory Map
   |         LDR HOB (Up)         |
   +------------------------------+  MemPoolEnd (Fixed)
   |                              |
-  |   Permanant MEM Pool (Down)  |
+  |   Permanent MEM Pool (Down)  |
   |                              |
   +------------------------------+  MemPoolCurrTop (Moving down)
   |                              |

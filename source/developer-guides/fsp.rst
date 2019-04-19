@@ -1,8 +1,8 @@
 Firmware Support Package
 ---------------------------
 
-Intel® Firmware Support Package (Intel® FSP) provides key programming information for initializing Intel® silicon and can be easily integrated into a boot loader of the developer’s choice. In essense, |SPN| is a minimal boot loader that consumes
-FSP as a binary package. FSP is widely used in many open source or commerial boot solutions on newer Intel silicons.
+Intel® Firmware Support Package (Intel® FSP) provides key programming information for initializing Intel® silicon and can be easily integrated into a boot loader of the developer’s choice. In essence, |SPN| is a minimal boot loader that consumes
+FSP as a binary package. FSP is widely used in many open source or commercial boot solutions on newer Intel silicons.
 
 |SPN| supports |FSP Specification v2.0|
 

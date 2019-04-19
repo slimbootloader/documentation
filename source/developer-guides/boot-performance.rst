@@ -1,7 +1,7 @@
 Boot Performance
 ------------------
 
-|SPN| aims to boot very quickly. This is mandatory, for some use cases, e.g., turning on rearview camera system when a car is started.
+|SPN| aims to boot very quickly. This is mandatory, for some use cases, e.g., turning on rear-view camera system when a car is started.
 
 Boot performance is designed in every stage of |SPN|. There are some trade-offs to be considered when one optimizes the boot time.
 

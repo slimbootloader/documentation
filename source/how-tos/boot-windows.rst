@@ -9,7 +9,7 @@ Boot Windows
 
    <a href="https://github.com/tianocore/edk2-staging/tree/UEFIPayload" target="_blank">UEFI Payload</a>
 
-**Prequisites**
+**Prerequisites**
 
 This guide requires |APL| (e.g. Leaf Hill CRB) to work with. |SPN| image is built with Visual Studio 2015.
 
