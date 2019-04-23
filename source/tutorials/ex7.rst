@@ -25,7 +25,7 @@ You can execute |SPN| with the following steps:
 
   * in file ``<sbl_tree>\Platform\QemuBoardPkg\Library\Stage2BoardInitLib\Stage2BoardInitLib.c``
   * In function ``UpdateOsBootMediumInfo ()``  
-  * Add following at the end of functiona to override the boot order::
+  * Add following at the end of the function to override the boot order::
       
         OsBootOptionList->CurrentBoot = 2;
 

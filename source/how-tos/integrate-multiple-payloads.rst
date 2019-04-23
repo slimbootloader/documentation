@@ -16,7 +16,7 @@ You can integrate more than one payload files using |SPN| build tool::
     <COMPRESSION_ALGORITHM>  : compression algorithm for this payload ('Lz4' or 'Lzma')
 
 
-The following procedure shows you how to integrate ``UefiPld.fd`` into |SPN| image. Adding other custom payloads is similiar.
+The following procedure shows you how to integrate ``UefiPld.fd`` into |SPN| image. Adding other custom payloads is similar.
 
 
 1. Copy ``UefiPld.fd`` into ``PayloadPkg/PayloadBins`` directory (create the directory if it is missing)

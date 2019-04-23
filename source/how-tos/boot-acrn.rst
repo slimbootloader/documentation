@@ -12,7 +12,7 @@ Prerequisites
 
 Before you start, prepare the following items:
 
-* Serial debug adaptor for UART0 on |UP2| - Required to trigger fastboot and perform firmware update
+* Serial debug adapter for UART0 on |UP2| - Required to trigger fastboot and perform firmware update
 
 * Micro USB cable (type A to microB)
 
@@ -136,7 +136,7 @@ Boot Up
 
 .. note:: |SPN| uses UART0 (CN16 connector) for early boot debug messages.
 
-Connect serial adaptor between |UP2| and the host. Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.
+Connect serial adapter between |UP2| and the host. Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.
 
 Power on |UP2| and observe the following debug messages from serial connection::
 
@@ -296,7 +296,7 @@ Upgrade |SPN|
 
 Sometimes, you may need to update |SPN| firmware with newer versions on |UP2|.
 
-.. warning:: It is higly recommended to have an SPI programmer in case |UP2| is bricked after firmware update.
+.. warning:: It is highly recommended to have an SPI programmer in case |UP2| is bricked after firmware update.
 
 **Step 1:** Copy ``FwuImage.bin`` onto USB flash drive formatted in FAT32
 

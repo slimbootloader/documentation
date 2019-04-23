@@ -5,7 +5,7 @@ Configuration
 
 Ease of platform and board customization is one of the most important design goal of creating |SPN|. It has many benefits from both system perspective and business use cases. For example,
 
-* By using a centralized configuration infrasture code, it is easier to manage all configuration related data in all boot stages in the same way
+* By using a centralized configuration infrastructure code, it is easier to manage all configuration related data in all boot stages in the same way
 * Because configuration data is *packed* into a central region in |SPN| image, it is easier to customize these changes, or add security protection, or optimize its footprint.
 * By defining a standardized human readable configuration format, it is easier to create tools to provide user interface to manage many platform configurations.
 
@@ -25,7 +25,7 @@ External configuration data
 Platform ID
 ^^^^^^^^^^^^^
 
-.. note:: Platform ID and board ID are used interchangeablely in this section
+.. note:: Platform ID and board ID are used interchangeably in this section
 
 |SPN| uses platform ID to select the associated configuration data. The platform ID can be specified at build time or dynamically detected from GPIO pins at runtime. At the beginning of Stage 1B (``GetBoardIdFromGpioPins()``), |SPN| attempts to load GPIO platform ID by tag ``CDATA_PID_GPIO_TAG``. If the tag is found, the actual platform ID value is read from the GPIO pins. Otherwise, |SPN| uses static platform ID.
 

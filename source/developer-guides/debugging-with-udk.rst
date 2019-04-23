@@ -161,7 +161,7 @@ Enable DebugAgent on |SPN| and flash the |SPN| image(or IFWI) on TARGET. By defa
 **Step 4 - Power on TARGET platform**
 
 * Windows
-  - Power on TARGET platfrom, the connection of HOST and TARGET will be established immediately.
+  - Power on TARGET platform, the connection of HOST and TARGET will be established immediately.
 
 * Linux
 

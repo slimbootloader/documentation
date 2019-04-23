@@ -71,7 +71,7 @@ Add yourself to the docker group::
 
   sudo usermod -aG docker $USER
 
-Log out then relogin to Ubuntu
+Log out then re-login to Ubuntu
 
 
 .. note:: If you are behind firewall, see |Docker Proxy Settings|.

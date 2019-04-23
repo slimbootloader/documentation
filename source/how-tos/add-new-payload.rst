@@ -3,7 +3,7 @@
 Create New Payload
 ---------------------------
 
-.. note:: Before you decide to suport a new payload in |SPN|, it is recommended to check whether the existng payloads can be updated to support the new requirement.
+.. note:: Before you decide to support a new payload in |SPN|, it is recommended to check whether the existing payloads can be updated to support the new requirement.
 
 
 For **tightly-coupled** payload, two steps are required to integrate a new payload:

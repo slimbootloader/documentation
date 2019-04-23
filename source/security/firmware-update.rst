@@ -7,7 +7,7 @@ If firmware update is interrupted by a power failure and one boot partition is c
 
 Firmware update feature is implemented as a |SPN| payload.
 
-When firmware update is signalled, Stage 2 loads firmware update payload to start update flow. During the update, firmware update playload keeps a state machine to keep track of the update progress as follows:
+When firmware update is signaled, Stage 2 loads firmware update payload to start update flow. During the update, firmware update payload keeps a state machine to keep track of the update progress as follows:
 
 
 #. Boot from partition A

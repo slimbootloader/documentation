@@ -46,4 +46,4 @@ Otherwise, |SPN| may hang after calling FSP-M and never returns. In this case, y
 1. Re-examine the configuration values, make changes and repeat.
 2. Object FSP debug build and get debugging output message during memory training flow.
 
-.. note:: Please contact Intel representives for how to obtain FSP source code.
+.. note:: Please contact Intel representatives for how to obtain FSP source code.

@@ -1,7 +1,7 @@
 IAS Image
 -----------
 
-Booting quickly and securely is highly desirable, and in many use cases, mandatory. |SPN| is designed to boot an OS by loading and verifying a kernel image contained in IAS image format. |SPN| also supports |Multiboot Protocol| compliant boot images encapsulated in an IAS image.
+Booting quickly and securely is highly desirable, and in many use cases, mandatory. |SPN| is designed to boot an OS by loading and verifying a kernel image contained in IAS image format. |SPN| also supports |Multiboot Specification| compliant boot images encapsulated in an IAS image.
 
 IAS images contain a collection of OS related binaries or files, including Linux kernels, kernel command line arguments as a text file, initram, ACPI tables, or ELF/Multiboot file formats. The binaries can be extended to other types such as splash screens image (logo) and VBT files etc.
 
@@ -13,9 +13,9 @@ IAS image structure consists of a header, one or more payload files and terminat
 |
 
 
-.. |Multiboot Protocol| raw:: html
+.. |Multiboot Specification| raw:: html
 
-   <a href="https://www.gnu.org/software/grub/manual/multiboot/multiboot.html" target="_blank">Multiboot Protocol</a>
+   <a href="https://www.gnu.org/software/grub/manual/multiboot/multiboot.html" target="_blank">Multiboot Specification</a>
 
 
 IAS image can be optionally stored in raw format on eMMC or USB partition without using EXT2 or FAT file system.

@@ -71,5 +71,5 @@ For example, to switch boot options of index 0 and 3::
     Shell> exit
 
 
-|SPN| shall boot from USB by attemting loading IAS image ``iasimage.bin`` from partition 0. If IAS image not found, it fallbacks to loading ``vmlinuz``. If nothing is bootable, it returns to shell.
+|SPN| shall boot from USB by attempting loading IAS image ``iasimage.bin`` from partition 0. If IAS image not found, it fallbacks to loading ``vmlinuz``. If nothing is bootable, it returns to shell.
 

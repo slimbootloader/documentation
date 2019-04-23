@@ -108,7 +108,7 @@ The command line options to perform stitching::
 IFWI Image vs. |SPN| BIOS Image  
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-IFWI image is used as intput to program SPI flash on the hardware, while |SPN| BIOS image is used as input file to create firmware update capsule image.
+IFWI image is used as input to program SPI flash on the hardware, while |SPN| BIOS image is used as input file to create firmware update capsule image.
 
 
 .. _configuration-tool:
