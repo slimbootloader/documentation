@@ -9,7 +9,11 @@ Payloads
 ^^^^^^^^^^^^^^^^^^^
 
 Os Loader (Built-in)
-  A versatile linux loader implementation that boots Linux, hypervisor, Android, or ELF executable, PE executables. It supports MultiBoot specification
+  A versatile linux loader implementation that boots Linux, hypervsior, Android, and ELF or PE executables. It also supports launching OSes compliant with the MultiBoot specification.
+
+  When built as an FV formatted payload OS Loader permits the inclusion and launching of a pre-OS payload binary that will hand-off control to an OS after the pre-OS payload finishes execution.
+
+  See :ref:`enable-pre-os-payload` for more details.
 
 Firmware Update Payload (Built-in)
   A special purpose payload to update full boot flash in a secure and fault-tolerant flow.
