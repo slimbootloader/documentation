@@ -1,41 +1,64 @@
 .. _boot-windows:
 
-Boot Windows
------------------
+Boot Windows with UEFI Payload
+------------------------------
 
-|SPN| can boot Windows 10 by using |UEFI Payload|. This page provides a step-by-step guide how to build |SPN| with UEFI Payload.
+|SPN| can boot Windows 10 by using `UEFI Payload <https://github.com/tianocore/edk2>`_. EDK II includes UefiPayloadPkg to build an UEFI payload that |SPN| can launch.
 
-.. |UEFI Payload| raw:: html
+This page provides a step-by-step on guide how to build |SPN| with UEFI Payload.
 
-   <a href="https://github.com/tianocore/edk2-staging/tree/UEFIPayload" target="_blank">UEFI Payload</a>
 
-**Prerequisites**
+**References**
 
-This guide requires |APL| (e.g. Leaf Hill CRB) to work with. |SPN| image is built with Visual Studio 2015.
+`UEFI Payload Build Instructions <https://github.com/tianocore/edk2/blob/master/UefiPayloadPkg/BuildAndIntegrationInstructions.txt>`_
+
+ 
+**Note**
+
+Visual Studio 2015 is used for building both the UEFI payload as well as |SPN|.
+PYTHON_HOME environment variable needs to be set
+
+**Note**
+
+EDK II build relies on a set of tools provided in the BaseTools folder. This is the primary set of tools for processing EDK II content. 
+
+When EDK II is cloned fresh, a one time build of BaseTools is required and its done using the following command::
+
+    edksetup.bat rebuild
+
+**Note**
+
+Please note that the open source UefiPayload source is designed to be a generic payload. In consumes |SPN| produced HOB data structures to get platform specific information like memory map, ACPI tables, etc. This basically allows the UefiPayload to be used with |SPN| without needing any platform porting.
+
+To allow for the UefiPayload to be a generic payload, the payload default build includes an emulated UEFI Variable driver. This emulated variable driver maintains the UEFI variable storage in memory and is **NOT** persistent across any type of reboots. 
+
+**Note**
+
+This guide uses |APL| platform as a reference for build instructions and commands. 
 
 
 **STEP 1:** Build UEFIPayload
 
-We have verified this build with the following commits::
+We have verified this build with the following commit::
 
-  * edk2-staging (UEFIPayload) repo: commit d4e13810ad077134a73727f93a06d2b138d88a25
-  * edk2 repo: commit a653a525515698d80cbecc1ca3d0e8f48e7390a2
+  * edk2 repo: commit 42d8be0eaac5e7e109f487d4e241847e815b077a
 
 Steps::
 
-  git clone https://github.com/tianocore/edk2-staging.git -b UEFIPayload UEFIPayload
   git clone --recurse-submodules https://github.com/tianocore/edk2.git edk2
-  cd UEFIPayload\UefiPayloadPkg
-  python BuildPayload.py ApolloLake X64 DEBUG
+  cd edk2
+  git checkout 42d8be0eaac5e7e109f487d4e241847e815b077a
+  git submodule update –recursive 
+  edksetup.bat
+  build -a IA32 -a X64 -p UefiPayloadPkg\UefiPayloadPkgIa32X64.dsc -b DEBUG -t VS2015x86 -D BOOTLOADER=SBL
 
 Example outputs::
 
     - Done -
-    Build end time: 14:56:29, Jan.10 2019
-    Build total time: 00:00:21
+    Build end time: 11:09:28, Apr.23 2019
+    Build total time: 00:01:48
 
-    Patched offset 0x00000000:[00000000] with value 0x00600320  # Payload Entry point
-    Patched offset 0x00000004:[00000000] with value 0x00600000  # Payload execution base
+The **UEFIPAYLOAD.fd** will be built in *edk2\\Build\\UefiPayloadPkgX64\\DEBUG_VS2015x86\\FV*
 
 
 **STEP 2:** Build |SPN| with UEFIPayload
@@ -91,10 +114,3 @@ Use DediProg, you can flash ``sbl_lfh_ifwi_uefi64.bin`` to SPI flash on Leaf Hil
 Follow https://www.microsoft.com/en-us/software-download/windows10 to create Windows 10 USB installer.
 
 Boot from USB flash drive and follow instructions on the screen to complete Windows installation.
-
-
-
-
-
-
-
