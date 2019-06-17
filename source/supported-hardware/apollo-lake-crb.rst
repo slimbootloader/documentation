@@ -54,7 +54,10 @@ Stitching
 
   This image contains additional firmware ingredients that are required to boot on |APL|.
 
-.. note:: ``StitchLoader.py`` currently only supports stitching with boot guard feature **disabled**.
+.. note::
+.... ``StitchLoader.py`` currently only supports stitching with boot guard feature **disabled**. 
+.... Unzip the firmware images that contains two |APL| firmware images, one is Debug version and one is Release version, both of them can be used for stitch SBL IFWI. 
+
 
 2. Stitch |SPN| images into downloaded BIOS image::
 
@@ -65,7 +68,7 @@ Stitching
     python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
 
 
-See :ref:`stitch-tool` on how to stitching the flashing IFWI image with |SPN|.
+For more details on stitch tool, see :ref:`stitch-tool` on how to stitching the flashing IFWI image with |SPN|.
 
 
 Flashing
@@ -73,6 +76,7 @@ Flashing
 
 Flash the generated ``sbl_lfh_ifwi.bin`` to the target board using DediProg SF100 or SF600 programmer.
 
+.. note:: refer to `DediProg <https://www.dediprog.com//>`_ for more details.
 
 
 Booting Yocto Linux

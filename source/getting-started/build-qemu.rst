@@ -19,6 +19,14 @@ Source code is available on GitHub::
   git clone git@github.com:slimbootloader/slimbootloader.git
   cd slimbootloader
 
+
+.. tip::
+
+    Recommend to clone with HTTPS as easier way to clone source code.
+
+    Refer to `Which remote URL should I use <https://help.github.com/en/articles/which-remote-url-should-i-use/>`_ for more details.
+
+
 Setup github account user email and user name::
 
   git config --global user.email "email@example.com"
