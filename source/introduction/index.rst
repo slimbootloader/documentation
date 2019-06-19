@@ -58,8 +58,12 @@ What platforms are supported by |SPN|?
     Initially, |SPN| supports the following |APL|: |UP2| board, Intel Leaf Hill CRBs and QEMU virtual machine. More upcoming platforms will be supported in the future.
 
 What license does |SPN| use?
-    |SPN| is released under BSD 2-Clause "Simplified" License.
+    |SPN| is released under BSD plus Patents |License|.
 
+.. |License| raw:: html
+
+   <a href="https://opensource.org/licenses/BSDplusPatent" target="_blank">License</a>
+   
 Who are the maintainers of |SPN|?
     Intel maintains open source code on |GitHub|.
   
