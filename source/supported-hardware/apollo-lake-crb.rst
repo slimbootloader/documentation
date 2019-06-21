@@ -5,15 +5,88 @@ Apollo Lake CRB Boards
 
 .. note:: Intel Atom® Processor E3900 is formally known as |APL|.
 
+Supported Boards
+^^^^^^^^^^^^^^^^^^^^^
+
+|SPN| supports **Leaf Hill, Juniper Hill and Oxbow Hill** board variations of |APL|. 
+
+  
+
+Building
+^^^^^^^^^^
+
+To build |SPN| for |APL| platform::
+
+    python BuildLoader.py build apl
+
+The output images are generated under ``Outputs`` directory.
+
+
+Stitching
+^^^^^^^^^^
+
+1. Download |APL| `firmware image <https://firmware.intel.com/sites/default/files/leafhill-0.70-firmwareimages.zip>`_.
+
+  This image contains additional firmware ingredients that are required to boot on |APL|.
+
+.. note::
+  ``StitchLoader.py`` currently only supports stitching with boot guard feature **disabled**. 
+  Unzip the firmware images that contains two |APL| firmware images, one is Debug version and one is Release version, both of them can be used for stitch SBL IFWI. 
+
+
+2. Stitch |SPN| images into downloaded BIOS image::
+
+    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE> 
+
+For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
+
+    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
+
+
+For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
+
+
+Flashing
+^^^^^^^^^
+
+Flash the generated ``sbl_lfh_ifwi.bin`` to the target board using DediProg SF100 or SF600 programmer.
+
+
+.. note:: Please check the alignment/polarity when connecting Dediprog to the board. Please power off the board before connecting the Dediprog.
+
+.. note:: The connector labelled **SPI TPM - J5D1** on the target board is for DediProg. 
+
+.. note:: Please disconnect Deidprog before powering up the board again.
+
+
+Debug UART
+^^^^^^^^^^^
+
+For |APL|, LPSS UART **Port 2** is the debug UART configured in |SPN|. 
+
+The |APL| have a FTDI chip for serial to USB connection. Please connect the **micro USB connector** next to the power button on the target board to a host and a 
+terminal software to enable debug console from |SPN|.
+
+
+
+Booting Yocto Linux
+^^^^^^^^^^^^^^^^^^^^^
+
+See :ref:`boot-yocto-usb` for more details.
+
+You may need to change boot options to boot from USB. See :ref:`change-boot-options`.
+
+
+
 Board ID Assignments
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports the following board variations based on |APL|. Each board is assigned a unique platform ID by reading a set of GPIO pins (25, 26 and 30).
+Each |APL| CRB board is assigned a unique platform ID by reading a set of GPIO pins (25, 26 and 30).
 
   +-----------------+---------------+
   |      Board      |  Platform ID  |
   +-----------------+---------------+
-  |   Oxbox Hill    |       6       |
+  |   Oxbow Hill    |       6       |
   +-----------------+---------------+
   |    Leaf Hill    |       7       |
   +-----------------+---------------+
@@ -26,76 +99,3 @@ See :ref:`dynamic-platform-id` for more details.
 To customize board configurations in ``*.dlt`` file, make sure to specify ``PlatformId`` to the corresponding values for the board.
 
 See :ref:`configuration-tool` for more details.
-
-
-
-Debug UART
-^^^^^^^^^^^
-
-For |APL|, LPSS UART **Port 2** is the debug UART configured in |SPN|.
-
-
-Building
-^^^^^^^^^^
-
-To build::
-
-    python BuildLoader.py build apl
-
-The output images are generated under ``Outputs`` directory.
-
-See :ref:`getting-started` on how to building |SPN|.
-
-
-Stitching
-^^^^^^^^^^
-
-1. Download |APL| `firmware image <https://firmware.intel.com/sites/default/files/leafhill-0.70-firmwareimages.zip>`_.
-
-  This image contains additional firmware ingredients that are required to boot on |APL|.
-
-.. note::
-.... ``StitchLoader.py`` currently only supports stitching with boot guard feature **disabled**. 
-.... Unzip the firmware images that contains two |APL| firmware images, one is Debug version and one is Release version, both of them can be used for stitch SBL IFWI. 
-
-
-2. Stitch |SPN| images into downloaded BIOS image::
-
-    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE>
-
-  For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
-
-    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
-
-
-For more details on stitch tool, see :ref:`stitch-tool` on how to stitching the flashing IFWI image with |SPN|.
-
-
-Flashing
-^^^^^^^^^
-
-Flash the generated ``sbl_lfh_ifwi.bin`` to the target board using DediProg SF100 or SF600 programmer.
-
-.. note:: refer to `DediProg <https://www.dediprog.com//>`_ for more details.
-
-
-Booting Yocto Linux
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-You may need to change boot options to boot from USB. See :ref:`change-boot-options`.
-
-1. Download |APL| `Yocto image <https://www.yoctoproject.org/software-overview/layers/bsps/jethro203-leaf-hill/>`_.
-
-2. Create bootable USB key
-
-3. Copy ``initrd.lz`` and ``vmlinuz.efi`` to root directory on USB
-
-   Rename ``initrd.lz`` to ``initrd``; Rename ``vmlinuz.efi`` to ``vmlinuz``
-
-4. Create ``config.cfg`` in root directory
-
-  Copy and save the following into ``config.cfg`` on USB key::
-
-    file=/cdrom/preseed/ubuntu.seed boot=casper quiet splash nomodeset
-
-3. Boot from USB key.

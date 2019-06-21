@@ -60,7 +60,7 @@ See :ref:`change-boot-options` for more details.
 
 **Step 6:** Build, stitch, flash and boot
 
-Follow :ref:`up2-board` to build a flashable image for |UP2| or :ref:`getting-started` for QEMU.
+Follow :ref:`supported-hardware` to build a flashable image for the target platform.
 
 .. note:: If the target boot option is not the first entry, enter |SPN| shell first to switch it to the first one.
 

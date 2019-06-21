@@ -5,6 +5,8 @@ Getting Started
    :maxdepth: 2
 
    build-host-setup
-   build-qemu
+   build-source
+   misc-build-setup
+   
 
 

@@ -87,21 +87,19 @@ Building
 
 The output images are generated under ``Outputs`` directory.
 
-See :ref:`getting-started` on how to building |SPN|.
-
 
 Stitching
 ^^^^^^^^^^
 
 Stitch |SPN| images with factory BIOS image using the stitch tool::
 
-    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE> -p 0xAA00000E
+    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE_NAME> -p 0xAA00000E
 
     <BIOS_IMAGE>     : Input file. Factory BIOS extracted from |UP2| board.
     <SBL_IFWI_IMAGE> : Output file. New IFWI image with SBL in BIOS region.
     -p <value>       : 4-byte platform data for platform ID and debug UART port index.
 
-See :ref:`stitch-tool` on how to stitching the flashing IFWI image with |SPN|.
+See :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 
 
 Flashing
@@ -124,8 +122,8 @@ Booting Yocto Linux from USB
 You may need to change boot options to boot from USB. See :ref:`change-boot-options`.
 
 1. Download |APL| `Yocto Linux <http://downloads.yoctoproject.org/releases/yocto/yocto-2.0/machines/leafhill/leafhill-4.0-jethro-2.0.tar.bz2?bsp=leaf_hill>`_.
-2. Create bootable USB key
-3. Boot from USB key
+2. Create bootable USB key. 
+3. Boot from USB key.
 
 
 
@@ -136,9 +134,7 @@ Booting Pre-installed Ubuntu from eMMC
 
 Booting Ubuntu from |SPN| requires a few extra steps because |SPN| default payload (OsLoader) loads kernel directly from boot partition, compared to UEFI BIOS which relies on GRUB 2 to boot Ubuntu.
 
-1. Boot to Yocto Linux from USB.
-
-See :ref:`boot-yocto-usb` for more details.
+1. Boot to Yocto Linux from USB. See :ref:`boot-yocto-usb` for more details.
 
 
 2. Copy vmlinuz and initrd file to ``/media/mmcblk0p1`` directory

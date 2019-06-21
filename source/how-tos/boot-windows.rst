@@ -28,7 +28,7 @@ When EDK II is cloned fresh, a one time build of BaseTools is required and its d
 
 **Note**
 
-Please note that the open source UefiPayload source is designed to be a generic payload. In consumes |SPN| produced HOB data structures to get platform specific information like memory map, ACPI tables, etc. This basically allows the UefiPayload to be used with |SPN| without needing any platform porting.
+Please note that the open source UefiPayload source is designed to be a generic payload. It consumes |SPN| produced HOB data structures to get information about the platform like memory map, ACPI tables, etc. This basically allows the UefiPayload to be used with |SPN| without needing any platform porting.
 
 To allow for the UefiPayload to be a generic payload, the payload default build includes an emulated UEFI Variable driver. This emulated variable driver maintains the UEFI variable storage in memory and is **NOT** persistent across any type of reboots. 
 
