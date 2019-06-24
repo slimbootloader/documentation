@@ -122,8 +122,8 @@ Booting Yocto Linux from USB
 You may need to change boot options to boot from USB. See :ref:`change-boot-options`.
 
 1. Download |APL| `Yocto Linux <http://downloads.yoctoproject.org/releases/yocto/yocto-2.0/machines/leafhill/leafhill-4.0-jethro-2.0.tar.bz2?bsp=leaf_hill>`_.
-2. Create bootable USB key. 
-3. Boot from USB key.
+2. Create bootable USB key. For example: In Windows, roofus can be used. In Linux, etcher app can be used.
+3. Boot the bootable OS image from USB key on the board.
 
 
 

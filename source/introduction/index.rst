@@ -72,7 +72,7 @@ Who are the maintainers of |SPN|?
    <a href="https://github.com/slimbootloader/slimbootloader" target="_blank">GitHub</a>
 
 What are options to debug |SPN|?
-    |SPN| supports source level debugging using UDK debug tool (via UART). Depending on the board configuration, developers can also debug |SPN| with Intel trace hub, secure debug token (if enabled) or memory buffers.
+    |SPN| supports source level debugging using Intel UEFI Development Kit (UDK) debug tool (via UART). Depending on the board configuration, developers can also debug |SPN| with Intel trace hub, secure debug token (if enabled) or memory buffers.
 
 Is Embedded Controller (EC) supported?
     No. Different boards may have different EC or SuperIO. Developers need implement the code for the target board.
@@ -81,12 +81,12 @@ Does it support RTOS?
     |SPN| features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See :ref:`boot-zephyr`).
 
 What tool chains are supported to compile |SPN|?
-    |SPN| supports Microsoft Visual Studio 2015 and GNU GCC toolchains (gcc 5 or newer). Additional tools, include Python (2.7), nasm, and IASL are required to build |SPN|.
+    |SPN| supports Microsoft Visual Studio 2015 and GNU GCC toolchains (gcc 5 or newer). Additional tools including Python (2.7), nasm, and IASL are required to build |SPN|.
 
     The current version of BaseTools is UDK2018 from EDKII open source project.
 
 Does |SPN| support verified boot and measured boot?
-    Yes. |SPN| supports both from software point of view. In order to enable hardware root-of-trust in |SPN|, the Intel stitching software kit is required. For measured boot, |SPN| supports TPM 2.0.
+    Yes. |SPN| supports both from software point of view. In order to enable hardware root-of-trust in |SPN|, the Intel stitching software kit is required. For measured boot, |SPN| supports TPM (Trusted Platform Module) 2.0.
 
 Does |SPN| support SMM?
     |SPN| does not support SMM. If SMM is required, a new |SPN| payload can be created to support it.
