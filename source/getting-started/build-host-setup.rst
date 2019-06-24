@@ -43,6 +43,7 @@ Building on Windows
 ^^^^^^^^^^^^^^^^^^^^^
 
 Supported environment: **Microsoft Visual Studio 2015**
+**Require:**  Include x64 C/C++ compiler tools with the installation as this is not the default option.
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
@@ -63,7 +64,7 @@ Python 2.7 - 64 bit version.
 
    <a href="https://www.python.org/downloads/release/python-2713/" target="_blank">https://www.python.org/downloads/release/python-2713/</a>
 
-**Require:**  v2.7.13 is require version
+**Require:**  v2.7.13 is the required version
 
 .. note::
   Add Python to the PATH

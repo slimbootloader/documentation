@@ -36,7 +36,9 @@ Stitching
 
 2. Stitch |SPN| images into downloaded BIOS image::
 
-    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE> 
+    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE_NAME>
+
+    where -i = Input file, -o = Output file.
 
 For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
 
