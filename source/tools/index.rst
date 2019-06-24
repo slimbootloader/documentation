@@ -35,15 +35,24 @@ Windows and Linux share the same command line options as follows. For example, f
     board                 Board Name (apl, qemu)
 
     optional arguments:
-      -h, --help            show this help message and exit
-      -r, --release         Release build
-      -v, --usever          Use board version file
-      -fp FSPPATH           FSP binary path relative to FspBin in Silicon folder
-      -fd, --fspdebug       Use debug FSP binary
-      -p PAYLOAD, --payload PAYLOAD
-                            Payload file name
+      -h, --help                      Show this help message and exit
+      -r, --release                   Release build
+      -v, --usever                    Use board version file
+      -fp FSPPATH                     FSP binary path relative to FspBin in Silicon folder
+      -fd, --fspdebug                 Use debug FSP binary
+      -p PAYLOAD, --payload PAYLOAD   Payload file name
+
+
+For a list of platforms supported::
+
+  pthon BuildLoader.py build -h
+
+
+If build is successful, ``Outputs`` folder will contain the build binaries. One of the output files will be ``Stitch_Components.zip`` which will be used in the stitching step.
+
 
 |SPN| supports a single image supporting up to 32 board configurations for the same type of board or platform. To add multi-board support, see :ref:`configuration-feature`.
+
 
 .. _ias-tool:
 
@@ -57,7 +66,6 @@ This tool is available on GitHub: |https://github.com/intel/iasimage|
 .. |https://github.com/intel/iasimage| raw:: html
 
    <a href="https://github.com/intel/iasimage" target="_blank">https://github.com/intel/iasimage</a>
-
 
 
 .. _stitch-tool:
