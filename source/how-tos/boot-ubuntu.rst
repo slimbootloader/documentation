@@ -5,25 +5,11 @@ Boot Ubuntu
 
 |SPN| can boot Ubuntu Linux using |SPN| with default OS loader. This page provides a step-by-step guide how to do so.
 
-The following steps have been verified with Ubuntu Linux 18.04 LTS (64-bit) on |UP2| board.
-
+The following steps have been verified with Ubuntu Linux 18.04 LTS (64-bit).
 
 **STEP 1:** Build |SPN|
 
-Run::
-
-  python BuildLoader.py build apl
-  python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <PATH_TO_UEFI_IFWI_IMAGE_FILE> -s Outputs/apl/Stitch_Components.zip -o sbl_up2_ifwi.bin -p 0xAA00000E
-
-You can download for |UP2| website or extract original IFWI image from |UP2| board for ``PATH_TO_UEFI_IFWI_IMAGE_FILE``.
-
-At the end of stitching, you will get 16MB IFWI image ``sbl_up2_ifwi.bin``.
-
-
 **STEP 2:** Flash IFWI image to the board
-
-With DediProg, you can flash ``sbl_up2_ifwi.bin`` to SPI flash on |UP2| board
-
 
 **STEP 3:** Download Ubuntu Desktop 18.04 ISO image from Ubuntu website
 
