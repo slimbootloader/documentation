@@ -11,6 +11,14 @@
 
 .. |UP2| replace:: UP\ :sup:`2` 
 
+.. |WHL| replace:: Whiskey Lake 
+
+.. |CFLR| replace:: Coffee Lake Refresh
+
+.. |CFLSR| replace:: Coffee Lake Refresh Desktop S8+2
+
+.. |CFLHR| replace:: Coffee Lake Refresh Mobile H6+2
+
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
