@@ -9,9 +9,11 @@
 
 .. |APL| replace:: Apollo Lake platform
 
-.. |UP2| replace:: UP\ :sup:`2` 
+.. |UP2| replace:: UP\ :sup:`2`
 
-.. |WHL| replace:: Whiskey Lake 
+.. |WHL| replace:: Whiskey Lake
+
+.. |UPX| replace:: UP Xtreme
 
 .. |CFLR| replace:: Coffee Lake Refresh
 
