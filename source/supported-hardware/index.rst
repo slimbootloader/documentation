@@ -9,5 +9,6 @@ Supported Hardware
    qemu
    up2
    apollo-lake-crb
-   whl-cfl-crb
-
+   whl-crb
+   cfl-crb
+   upxtreme
