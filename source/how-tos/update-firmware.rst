@@ -23,32 +23,44 @@ Creating firmware update capsule image requires the following steps:
 
 #. Run capsule tool to generate capsule image
 
-  Capsule tool (``GenCapsuleFirmware.py``) creates a capsule image that can be processed by |SPN| in firmware update flow::
+  Capsule tool (``GenCapsuleFirmware.py``) creates a capsule image that can be processed by |SPN| in firmware update flow.
 
-    usage: GenCapsuleFirmware.py [-h] -b IMAGE [-t {b,c}] -k PRIVKEY -o NEWIMAGE
-                                 [-q]
+  Capsule tool is capable of incorporating multiple firmware images into single capsule binary. Each firmware is identified and included in the capsule image using a GUID.
+  Known GUIDs are included in the capsule generation tool, please refer to the note below for more details.
+
+    usage: GenCapsuleFirmware.py [-h] -p BIOS <BIOS_IMAGE> -p <GUID> <FW IMAGE BINARY 1>.....-p <GUID> <FW IMAGE BINARY n> -k PRIVKEY -o NEWIMAGE [-q]
 
     optional arguments:
       -h, --help            show this help message and exit
-      -b IMAGE, --image IMAGE
-                            Raw image into firmware update capsule image
-      -t {b,c}, --type {b,c}
-                            Image type b:Bootloader c:CfgData
+      -p  <GUID> <Payload Image>, 
+                            Payload image that goes into firmware update capsule
       -k PRIVKEY, --priv_key PRIVKEY
                             Private RSA 2048 key in PEM format to sign image
       -o NEWIMAGE, --output NEWIMAGE
                             Output file for signed image
       -q, --quiet           without output messages or temp files
 
+  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and firmware image (``fwimage.bin``) signed by key ``TestSigningPrivateKey.pem``::
 
-  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``) signed by key ``TestSigningPrivateKey.pem``::
-
-    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -b sbl.bios.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p fwimage.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
     Successfully signed Bootloader image!
     $
 
+.. note:: For user convenience GUID's for following firmwares are included in the capsule generation tool and these firmwares can be included in the capsule image by using known string in place of GUID in the command line.
 
-.. note:: In a real OTA scenario, OS shall *deposit* an authenticated capsule image in the boot device (eMMC) from network. During firmware update, the capsule is loaded and updated in SPI flash.
+        +-----------------------------+------------------------------------+
+        | **String for Known Guid**   |         **Firmware**               |
+        +-----------------------------+------------------------------------+
+        |         **BIOS**            |       Slim Bootloader              |
+        +-----------------------------+------------------------------------+
+        |         **CSME**            |       CSME update binary           |
+        +-----------------------------+------------------------------------+
+        |         **CSMD**            |       CSME update driver           |
+        +-----------------------------+------------------------------------+
+        |         **CFGD**            |       Configuration data binary    |
+        +-----------------------------+------------------------------------+
+
+.. note:: In a real OTA scenario, OS shall *deposit* an authenticated capsule image in the boot device from network. During firmware update, the capsule is loaded and updated in SPI flash.
 
 
 .. _trigger-update-from-shell:
