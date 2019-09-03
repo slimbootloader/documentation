@@ -21,6 +21,7 @@ A collection of recipes to make |SPN| to work for you.
    boot-ubuntu
    boot-zephyr
    boot-acrn
+   boot-with-u-boot-payload
    configure-memory-down
    collect-time-logs
 
