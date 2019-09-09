@@ -11,6 +11,11 @@ Ease of platform and board customization is one of the most important design goa
 
 After all, |SPN| is designed for embedded systems where a vast diversity of platform settings exists for the same generation of silicon.
 
+Configuration Editor Tool
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+|SPN| supports Configuration Editor Tool to configure firmware settings with graphics UI. This tool is included in |SPN| source package at /SblOpen/BootloaderCorePkg/Tools.
+
+
 |SPN| has two sets of configuration data in the image:
 
 Internal configuration data
@@ -18,6 +23,51 @@ Internal configuration data
 
 External configuration data
   Platform specific data which is configurable by tools. It can be protected with user provided key.
+
+.. _Configuration Files and Configuration Flow:
+
+One firmware image can support configuration requirements of multiple platforms. To support this, Slim Bootloader solution creates DSC file and DLT file to handle board level differences.
+
+.. image:: /images/Config1.jpg
+         :width: 600
+         :alt: Install Ubuntu 1 of 5
+
+Configuration Flow
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: /images/Config2.jpg
+         :width: 600
+         :alt: Install Ubuntu 1 of 5
+
+_DSC File
+^^^^^^^^^^^^
+* DSC file is the heart of all platform settings including memory, silicon, GPIO, OS boot policy, security settings etc.
+* DSC file, in general is located in project specific board folder. 
+* For example, you can find DSC file for APL platform under SblOpen\Platform\ApollolakeBoardPkg\CfgData folder.
+
+Please note that you may find many DSC files. However, only CfgDataDef.dsc is the primary file used for the platform configuration, and other sub DSC files will be included by the primary DSC file to provide component specific configuration.
+
+The main platform configuration file is specified in CfgDataDef.dsc.
+The following screen shots will help explain. Once DSC file is loaded, all other grayed menu will be enabled.
+
+.. image:: /images/Config3.jpg
+
+_DLT File
+^^^^^^^^^^^^^
+
+* DLT (delta) file is used to provide overrides to DSC file to address board-level difference, including GPIO, boot policy, PCIE configuration, security settings etc.
+* DLT file contains unique Platform ID, and build tools will apply the settings to firmware images based on the platform ID.
+
+DLT file can be generated in different ways:
+
+* Change any existing settings, and save it to DLT file with Configuration Editor Tool.
+* Load values from an existing binary file, and then save the changes as DLT file. 
+* Update existing DLT file with other text editor.
+
+Platform is one area that we must take care of. Most of the times, we open the DSC file and DLT file, and then save changes back to DLT file.
+
+To include the DLT file, open Platform/ApollolakeBoardPkg/BoardConfig.py, and add like this:
+self._CFGDATA_EXT_FILE    = ['CfgData_Ext_Gpmrb.dlt']
+
 
 .. _platform-id:
 
@@ -36,11 +86,6 @@ Platform ID
 
 Platform Configuration Files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.dsc
-.dlt
-
-
 
 .. _static-platform-id:
 
