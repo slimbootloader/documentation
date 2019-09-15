@@ -50,7 +50,7 @@ Clean command removes all the existing build artifacts.
 
 ::
   
-  usage: pthon BuildLoader.py clean 
+  python BuildLoader.py clean 
 
 
 Stitch IFWI
