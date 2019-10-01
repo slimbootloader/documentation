@@ -37,7 +37,11 @@ Stitching
 
     For UP Xtreme board:
       python Platform/CoffeelakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME>
-             -s Outputs/cfl/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME> -p 0xAA000210
+             -s Outputs/cfl/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME> -p 0xAA00??10
+      '??' can be the following values:
+       02:  Use PCH UART2 (Label CN16 on board) as debug serial port
+       FF:  Use SIO UART1 (Label COM1 on board) as debug serial port
+       FE:  Use SIO UART2 (Label COM2 on board) as debug serial port
 
     where -i = Input file, -o = Output file.
 
@@ -78,17 +82,17 @@ Debug UART
 
 Serial port connector on board is provided in the table below:
 
-  +---------------------------+--------------+
-  |            Board          |   Connector  |
-  +---------------------------+--------------+
-  |            |WHL|          |    **J8J1**  |
-  +---------------------------+--------------+
-  |           |CFLSR|         |    **J9B7**  |
-  +---------------------------+--------------+
-  |           |CFLHR|         |    **J4A1**  |
-  +---------------------------+--------------+
-  |            |UPX|          |    **CN16**  |
-  +---------------------------+--------------+
+  +---------------------------+------------------------+
+  |            Board          |   Connector            |
+  +---------------------------+------------------------+
+  |            |WHL|          |    **J8J1**            |
+  +---------------------------+------------------------+
+  |           |CFLSR|         |    **J9B7**            |
+  +---------------------------+------------------------+
+  |           |CFLHR|         |    **J4A1**            |
+  +---------------------------+------------------------+
+  |            |UPX|          |    **CN16/COM1/COM2**  |
+  +---------------------------+------------------------+
 
 .. note:: Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.
 
