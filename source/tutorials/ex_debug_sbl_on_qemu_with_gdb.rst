@@ -1,6 +1,6 @@
 .. _ExerciseDebugSblOnQemuWithGdb:
 
-Exercise \\- \ Debug SBL on QEMU with GDB
+Exercise \\- \ Debug |SPN| on QEMU with GDB
 -------------------------------------------
 
 This page is to provide basic GDB usage on QEMU target for better understanding SBL flow.
@@ -21,7 +21,7 @@ Prepare GDB helper scripts
 
 Download `gdbinit <files/gdbinit>`_ and `loadthis.py <files/loadthis.py>`_ files and copy them to '~/gdb' directory. ::
 
-$ make -p ~/gdb
+$ mkdir -p ~/gdb
 $ cp gdbinit ~/gdb
 $ cp loadthis.py ~/gdb
 
@@ -61,6 +61,7 @@ There are useful tui commands. ::
 Here are basic gdb commands. ::
 
 (gdb) quit (=q, quit gdb session)
+(gdb) continue (=c, continue to execute code)
 (gdb) step (step program until it reaches a different source line)
 (gdb) stepi (step one instruction exactly)
 (gdb) next (step program, proceeding through subroutine calls)
@@ -85,7 +86,7 @@ Here are basic gdb commands. ::
 Transit Stage1A to Stage1B
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-| The transition from Stage1A to Stage1B is done in ContinueFunc(). However, Stage1A is not XIP(Execution In Place).
+| The transition from Stage1A to Stage1B is done in ContinueFunc(). However, Stage1A is not XIP (eXecution In Place).
 | Stage1A code is shadow-copied to PcdStage1ALoadBase and continues to execute with relative execution offset. See, SecStartup2 () in BootloaderCorePkg/Stage1A/Stage1A.c.
 | Therefore, GDB won't stop ContinueFunc() even if you set a breakpoint at ContinueFunc().
 
@@ -115,14 +116,20 @@ Now, it's time to run loadthis again to re-load proper symbol. ::
 .. image:: /images/gdb_contf_loadthis.png
    :alt: Re-load symbol after relative code execution
 
-Let's set a breakpoint before Stage1B SecEntry. ::
+Now, we are at the beginning of Stage1A ContinueFunc(). The transition to Stage1B is done in StageEntry() at the end of ContinueFunc(). Let's set a breakpoint before going to Stage1B entry point. ::
 
-(gdb) l 407
-(gdb) b 407
+(gdb) l 407 (to see around StageEntry() code, line# may change)
+(gdb) b 407 (set a breakpoint at StageEntry(), line# may change)
 (gdb) c
 (gdb) b *0x72a14 (set a breakpoint at call *%eax, address may change)
 (gdb) c
-(gdb) si (No source available again. Time to re-load symbol)
+
+.. image:: /images/gdb_before_stage1b.png
+   :alt: Before going to Stage1B entry point
+
+Let's go into Stage1B with stepi(=si) command, re-load symbol and get to Stage1B SecStartup. ::
+
+(gdb) si (no source available again, time to re-load symbol)
 (gdb) loadthis
 (gdb) b SecStartup
 (gdb) c
@@ -137,15 +144,15 @@ Now we are at SecStartup in Stage1B. The transition from Stage1B to Stage2 is do
 
 Let's break before SwitchStack() at the end of ContinueFunc(). ::
 
-(gdb) l 567 (to see the end of ContinueFunc(). line# may change)
-(gdb) b 567
+(gdb) l 567 (to see the end of ContinueFunc(), line# may change)
+(gdb) b 567 (set a breakpoint at SwitchStack(), line# may change)
 (gdb) c
 (gdb) p/x ((STAGE_HDR *)Stage2Hob->Stage2ExeBase)->Entry
 
 .. image:: /images/gdb_b_contf.png
    :alt: Set a breakpoint before SwitchStack
 
-The result address '$n = 0xee635a0' is Stage2 entry point. Let's set a breakpoint at the address and stop at Stage2 SecStartup. ::
+The returned address '$n = 0xee635a0' is Stage2 entry point. Let's set a breakpoint at the address and stop at Stage2 SecStartup. ::
 
 (gdb) b *0xee635a0
 (gdb) c
@@ -156,8 +163,8 @@ The result address '$n = 0xee635a0' is Stage2 entry point. Let's set a breakpoin
 .. image:: /images/gdb_2_secstartup.png
    :alt: Set a breakpoint before SwitchStack
 
-Transit Stage2 to OsLoader
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Transit Stage2 to Payload
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now we are at SecStartup in Stage2. The transition from Stage2 to Payload is done at the end of Stage2 NormalBootPath().
 
@@ -172,7 +179,7 @@ Let's break before PldEntry() at the end of NormalBootPath(). ::
 .. image:: /images/gdb_before_pld.png
    :alt: Set a breakpoint before PldEntry
 
-The result address '$n = 0x7dea66c0' is Payload(OsLoader) entry point. Let's set a breakpoint at the address and stop at OsLoader SecStartup. ::
+Let's go into Payload with stepi(=si) command, re-load symbol and get to Payload SecStartup. ::
 
 (gdb) si
 (gdb) loadthis
