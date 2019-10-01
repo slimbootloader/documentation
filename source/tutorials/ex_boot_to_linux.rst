@@ -1,6 +1,6 @@
-.. _Exercise 4:
+.. _ExerciseBootToLinux:
 
-Exercise 4 \\- \ Boot to Linux
+Exercise \\- \ Boot to Linux
 ------------------------------
 
 .. note::

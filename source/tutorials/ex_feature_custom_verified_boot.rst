@@ -1,6 +1,6 @@
-.. _Exercise 6:
+.. _ExerciseFeatureCustomVerifiedBoot:
 
-Exercise 6 \\- \ Feature Customization - Verified Boot
+Exercise \\- \ Feature Customization - Verified Boot
 ------------------------------------------------------
 
 .. note::

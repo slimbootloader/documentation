@@ -1,6 +1,6 @@
-.. _Exercise 1:
+.. _ExerciseBuildSblforQemu:
 
-Exercise 1 \\- \ Build |SPN| for QEMU
+Exercise \\- \ Build |SPN| for QEMU
 ------------------------------------------
 
 .. note::

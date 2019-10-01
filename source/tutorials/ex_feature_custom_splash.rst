@@ -1,6 +1,6 @@
-.. _Exercise 5:
+.. _ExerciseFeatureCustomSplash:
 
-Exercise 5 \\- \ Feature Customization - Splash
+Exercise \\- \ Feature Customization - Splash
 -----------------------------------------------
 
 .. note::
