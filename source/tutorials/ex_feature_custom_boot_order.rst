@@ -1,6 +1,6 @@
-.. _Exercise 7:
+.. _ExerciseFeatureCustomBootOrder:
 
-Exercise 7 \\- \ Feature Customization - Boot Order
+Exercise \\- \ Feature Customization - Boot Order
 ---------------------------------------------------
 
 .. note::

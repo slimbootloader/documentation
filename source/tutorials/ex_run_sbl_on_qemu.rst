@@ -1,6 +1,6 @@
-.. _Exercise 2:
+.. _ExerciseRunSblOnQemu:
 
-Exercise 2 \\- \ Run |SPN| on QEMU
+Exercise \\- \ Run |SPN| on QEMU
 ---------------------------------------
 
 .. note::

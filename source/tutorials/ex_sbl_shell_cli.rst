@@ -1,6 +1,6 @@
-.. _Exercise 3:
+.. _ExerciseSblShellCli:
 
-Exercise 3 \\- \ SBL Shell/CLI
+Exercise \\- \ SBL Shell/CLI
 ------------------------------
 
 .. note::

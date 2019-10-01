@@ -1,6 +1,6 @@
-.. _Exercise 8:
+.. _ExerciseUefiPayload:
 
-Exercise 8 \\- \ UEFI Payload
+Exercise \\- \ UEFI Payload
 -----------------------------
 
 .. note::
