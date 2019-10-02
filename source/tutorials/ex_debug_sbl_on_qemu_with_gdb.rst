@@ -16,16 +16,6 @@ To demonstrate better source level debugging, let's lower the compile optimizati
 $ cd /path/to/slimbootloader/
 $ python BuildLoader.py build qemu --noopt
 
-Prepare GDB helper scripts
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Download `gdbinit <files/gdbinit>`_ and `loadthis.py <files/loadthis.py>`_ files and copy them to '~/gdb' directory. ::
-
-$ mkdir -p ~/gdb
-$ cp gdbinit ~/gdb
-$ cp loadthis.py ~/gdb
-
-
 Launch QEMU target
 ^^^^^^^^^^^^^^^^^^
 
@@ -42,7 +32,8 @@ Launch GDB
 
 Open an another terminal and launch GDB with helper script and '-tui'(Text UI) option::
 
-$ cd ~/gdb
+$ cd /path/to/slimbootloader/
+$ cd Platform/QemuBoardPkg/Script
 $ gdb -x gdbinit -tui
 
 .. image:: /images/gdb_host_start.png
