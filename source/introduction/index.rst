@@ -108,11 +108,11 @@ I need help...
 
 .. |ML| raw:: html
 
-   <a href="https://lists.01.org/mailman/listinfo/sbl-devel" target="_blank">Mailing List</a>
+   <a href="https://lists.01.org/postorius/lists/sbl-devel.lists.01.org/" target="_blank">Mailing List</a>
    
 .. |ML_ARCHIVE| raw:: html
 
-   <a href="https://lists.01.org/pipermail/sbl-devel/" target="_blank">Archives</a>
+   <a href="https://lists.01.org/hyperkitty/list/sbl-devel%40lists.01.org/" target="_blank">Archives</a>
 
 It doesn't work for me...
     Email us via our mailing list or direclty submit an issue on |ISSUES|.
