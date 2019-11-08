@@ -10,7 +10,6 @@ A collection of recipes to make |SPN| to work for you.
    change-boot-option
    enable-verified-boot
    enable-pre-os-payload
-   update-firmware
    reduce-debug-message
    add-new-library
    add-new-payload

@@ -61,6 +61,35 @@ Flash the generated ``sbl_lfh_ifwi.bin`` to the target board using DediProg SF10
 .. note:: Please disconnect Deidprog before powering up the board again.
 
 
+Slimbootloader binary for capsule image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Creating slimbootloader binary for capsule image requires the following steps:
+
+Build |SPN| for |APL|::
+
+  python BuildLoader.py build apl
+
+Run stitch tool to create a |SPN| image from IFWI binary
+
+  For example, the following command creates ``sbl.bios.bin`` from |SPN| image and |APL| firmware images downloaded::
+
+    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -b sbl.bios.bin -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
+
+.. note:: ``-b`` option is important for creating the slimbootloader capsule image.
+
+
+Triggering Firmware Update
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sample implementation of trigerring firmware update is explained below
+
+|SPN| for |APL| uses CMOS register 0x40 to trigger firmware update. When a value of 0x5A is found in CMOS register 0x40, |SPN| will set the boot mode to FLASH_UPDATE.
+please refer to IsFirmwareUpdate() function called in ``Platform\ApollolakeBoardPkg\Library\Stage1BBoardInitLib\Stage1BBoardInitLib.c`` to understand how |SPN| will detect firmware update mode.
+
+.. note:: CMOS register can be accessed through IO ports 0x70 and 0x71
+
+
 Debug UART
 ^^^^^^^^^^^
 
@@ -68,7 +97,6 @@ For |APL|, LPSS UART **Port 2** is the debug UART configured in |SPN|.
 
 The |APL| have a FTDI chip for serial to USB connection. Please connect the **micro USB connector** next to the power button on the target board to a host and a 
 terminal software to enable debug console from |SPN|.
-
 
 
 Booting Yocto Linux

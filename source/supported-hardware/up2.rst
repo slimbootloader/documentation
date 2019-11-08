@@ -101,6 +101,34 @@ Stitch |SPN| images with factory BIOS image using the stitch tool::
 
 See :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 
+Slimbootloader binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Creating slimbootloader binary for capsule image requires the following steps:
+
+Build |SPN| for |UP2|::
+
+  python BuildLoader.py build apl
+
+Run stitch tool to create a |SPN| image from IFWI binary
+
+  For example, the following command creates ``sbl.bios.bin`` from |SPN| image and factory BIOS ``UPA1AM33.bin`` for |UP2| board::
+
+  python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -b sbl.bios.bin -i UPA1AM33.bin -s Outputs/apl/Stitch_Components.zip -o up2_sbl.bin -p 0xAA00000E
+
+.. note:: ``-b`` option is important for creating the capsule image.
+
+
+Triggering Firmware Update
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sample implementation of trigerring firmware update is explained below
+
+|SPN| for |UP2| uses CMOS register 0x40 to trigger firmware update. When a value of 0x5A is found in CMOS register 0x40, |SPN| will set the boot mode to FLASH_UPDATE.
+please refer to IsFirmwareUpdate() function called in ``Platform\ApollolakeBoardPkg\Library\Stage1BBoardInitLib\Stage1BBoardInitLib.c`` to understand how |SPN| will detect firmware update mode.
+
+.. note:: CMOS register can be accessed through IO ports 0x70 and 0x71
+
 
 Flashing
 ^^^^^^^^^

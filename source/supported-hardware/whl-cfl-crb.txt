@@ -77,6 +77,28 @@ SPI Header to connect dediprog is provided in the table below:
 .. note:: Please disconnect Deidprog before powering up the board again.
 
 
+Slimbootloader binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Creating slimbootloader binary for capsule image requires the following steps:
+
+Build |SPN| for |WHL|, |CFLR| or |UPX|::
+
+  python BuildLoader.py build cfl
+
+slimbootloader binary generated in ``outputs\cfl\slimbootloader.bin`` can be used for generating capsule image.
+
+
+Triggering Firmware Update
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sample implementation of trigerring firmware update is explained below
+
+|SPN| for |WHL|, |CFLR| or |UPX| uses CMOS register 0x40 to trigger firmware update. When a value of 0x5A is found in CMOS register 0x40, |SPN| will set the boot mode to FLASH_UPDATE.
+please refer to IsFirmwareUpdate() function called in ``Platform\CoffeelakeBoardPkg\Library\Stage1BBoardInitLib\Stage1BBoardInitLib.c`` to understand how |SPN| will detect firmware update mode.
+
+.. note:: CMOS register can be accessed through IO ports 0x70 and 0x71
+
 Debug UART
 ^^^^^^^^^^^
 
