@@ -79,9 +79,11 @@ Platform ID
 
 |SPN| uses platform ID to select the associated configuration data. The platform ID can be specified at build time or dynamically detected from GPIO pins at runtime. At the beginning of Stage 1B (``GetBoardIdFromGpioPins()``), |SPN| attempts to load GPIO platform ID by tag ``CDATA_PID_GPIO_TAG``. If the tag is found, the actual platform ID value is read from the GPIO pins. Otherwise, |SPN| uses static platform ID.
 
-|SPN| supports up to 32 platform IDs with 16 allocated for static IDs and 16 for dynamic IDs.
+|SPN| supports up to 32 platform IDs. Note that Platform ID **0** served to carry the default CFGDATA values defined in the CfgDataDef.dsc file. So it cannot be used for a real board. So technically, SBL can support upto 31 boards.
 
-.. note:: Platform ID **0** is reserved value so cannot be used for real board.
+.. note:: In addition to board specific delta files, a DLT file that overrides configuration parameters for all boards (board id 0) is also supported. If platform ID needs to be configurable without source, DLT file for board ID 0 is required. This is useful when common board settings are to be changed without changing the platform configuration DSC file.
+
+
 
 
 Platform Configuration Files
@@ -89,7 +91,7 @@ Platform Configuration Files
 
 .. _static-platform-id:
 
-Static Platform ID Configuration
+Platform ID Configuration
 """""""""""""""""""""""""""""""""
 
 1. Provide platform ID (1-15) value in board configuration file (``*.dlt``):
@@ -104,8 +106,8 @@ Static Platform ID Configuration
 
 .. _dynamic-platform-id:
 
-Dynamic Platform ID Detection
-"""""""""""""""""""""""""""""""""
+Platform ID Detection using GPIOs
+""""""""""""""""""""""""""""""""""""""""""
 
 1. Configure designated **4** GPIO pins in board configuration file using |CFGTOOL|.
 
@@ -115,7 +117,7 @@ Dynamic Platform ID Detection
 
   PLATFORMID_CFG_DATA.PlatformId                  | 0x9
 
-.. note:: Internally, |SPN| adds 16 to dynamic Platform ID in order not to conflict with static IDs.
+.. note:: Internally, |SPN| adds 16 to Platform ID detected using GPIOs in order not to conflict with static IDs.
 
 3. Build |SPN| and stitch IFWI image
 
