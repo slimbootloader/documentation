@@ -15,10 +15,10 @@ Supported environment: **Ubuntu Linux 18.04 LTS**
 
 Install the following software:
 
-* GCC 7.3 or newer
-* Python 2.7
+* GCC 7.3 or above
+* Python 3.6 or above
+* NASM 2.11 or above
 * IASL 20160422
-* NASM
 * OpenSSL
 
 
@@ -42,35 +42,35 @@ You can also consider Dockers containers to build |SPN|. See :ref:`misc_setup_do
 Building on Windows
 ^^^^^^^^^^^^^^^^^^^^^
 
-Supported environment: **Microsoft Visual Studio 2015**
-**Require:**  Include x64 C/C++ compiler tools with the installation as this is not the default option.
+Supported environment: **Microsoft Visual Studio 2015 or Microsoft Visual Studio 2017 Community Require**
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
-* Python 2.7 - **C:\\Python27**
+* Python 3.6 - **C:\\Python36**
+* NASM 2.11 - **C:\\Nasm**
 * IASL 20160422 - **C:\\ASL**
-* NASM - **C:\\Nasm**
-* OpenSSL - **C:\\openssl**     
+* OpenSSL - **C:\\openssl**
 
 
 Build Tools Download - Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Python 2.7 - 64 bit version. 
+Python 3.6.x 64 bit version.
 
-|https://www.python.org/downloads/release/python-2713/|
+|https://www.python.org/downloads/windows/|
 
-.. |https://www.python.org/downloads/release/python-2713/| raw:: html
+.. |https://www.python.org/downloads/windows/| raw:: html
 
-   <a href="https://www.python.org/downloads/release/python-2713/" target="_blank">https://www.python.org/downloads/release/python-2713/</a>
-
-**Require:**  v2.7.13 is the required version
+   <a href="https://www.python.org/downloads/windows/" target="_blank">https://www.python.org/downloads/windows/</a>
 
 .. note::
   Add Python to the PATH
 
+  Python version 3.6.6 is the tested version.
 
-IASL 20160422-64 
+
+
+IASL 20160422-64
 
 |https://acpica.org/sites/acpica/files/iasl-win-20160422.zip|
 
@@ -107,7 +107,7 @@ Download from |https://indy.fulgan.com/SSL| (the latest version:  |https://indy.
 
    <a href="https://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip" target="_blank">https://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip</a>
 
- unzip then copy files to C:\\Openssl 
+ unzip then copy files to C:\\Openssl
 
 **Require:** Install to C:\\Openssl
 
