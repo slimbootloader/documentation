@@ -63,10 +63,10 @@ What license does |SPN| use?
 .. |License| raw:: html
 
    <a href="https://opensource.org/licenses/BSDplusPatent" target="_blank">License</a>
-   
+
 Who are the maintainers of |SPN|?
     Intel maintains open source code on |GitHub|.
-  
+
 .. |GitHub| raw:: html
 
    <a href="https://github.com/slimbootloader/slimbootloader" target="_blank">GitHub</a>
@@ -81,7 +81,7 @@ Does it support RTOS?
     |SPN| features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See :ref:`boot-zephyr`).
 
 What tool chains are supported to compile |SPN|?
-    |SPN| supports Microsoft Visual Studio 2015 and GNU GCC toolchains (gcc 5 or newer). Additional tools including Python (2.7), nasm, and IASL are required to build |SPN|.
+    |SPN| supports Microsoft Visual Studio 2015/2017 and GNU GCC toolchains (gcc 7 or newer). Additional tools including Python (3.6), nasm, and IASL are required to build |SPN|.
 
     The current version of BaseTools is UDK2018 from EDKII open source project.
 
@@ -109,7 +109,7 @@ I need help...
 .. |ML| raw:: html
 
    <a href="https://lists.01.org/postorius/lists/sbl-devel.lists.01.org/" target="_blank">Mailing List</a>
-   
+
 .. |ML_ARCHIVE| raw:: html
 
    <a href="https://lists.01.org/hyperkitty/list/sbl-devel%40lists.01.org/" target="_blank">Archives</a>
@@ -119,7 +119,7 @@ It doesn't work for me...
 
 .. |ISSUES| raw:: html
 
-   <a href="https://github.com/slimbootloader/slimbootloader/issues" target="_blank">GitHub</a>  
+   <a href="https://github.com/slimbootloader/slimbootloader/issues" target="_blank">GitHub</a>
 
 I want to contribute...
     You are welcome to contribute our project in different ways including code, documentation or ideas. We'd be happy to review your contributions!
