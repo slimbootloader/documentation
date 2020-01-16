@@ -20,6 +20,7 @@ Install the following software:
 * NASM 2.11 or above
 * IASL 20160422
 * OpenSSL
+* Git
 
 
 Build Tools Download - Ubuntu
@@ -27,7 +28,7 @@ Build Tools Download - Ubuntu
 
 Install required packages on Ubuntu::
 
-  $ sudo apt-get install -y build-essential iasl python uuid-dev nasm openssl gcc-multilib qemu
+  $ sudo apt-get install -y build-essential iasl python uuid-dev nasm openssl gcc-multilib qemu git
 
 
 Build using Dockers (Optional)
@@ -50,6 +51,7 @@ Install the **exact** versions (if specified) of the following tools to the desi
 * NASM 2.11 - **C:\\Nasm**
 * IASL 20160422 - **C:\\ASL**
 * OpenSSL - **C:\\openssl**
+* Git (ex. GitBash)
 
 
 Build Tools Download - Windows
@@ -115,3 +117,32 @@ Download from |https://indy.fulgan.com/SSL| (the latest version:  |https://indy.
   Set environment variable OPENSSL_PATH to openssl directory,
   Cmd: set OPENSSL_PATH=C:\\Openssl
 
+
+Git on Windows
+
+Install Git or add its executable path in your PATH environment if already exists.
+
+Here is GitBash as an example.
+
+Download GitBash from |https://git-scm.com|
+
+.. |https://git-scm.com| raw:: html
+
+   <a href="https://git-scm.com" target="_blank">https://git-scm.com</a>
+
+Below are **RECOMMENDED** options. For others, it's okay to use default selected option.
+
+Make sure **"Git LFS (Large File Support)"** is selected.
+
+.. image:: /images/gitbash_components.png
+   :alt: Make sure "Git LFS (Large File Support)" is selected
+
+Make sure **"Git from the command line..."** is selected.
+
+.. image:: /images/gitbash_path_env.png
+   :alt: Make sure "Git from the command line..." is selected
+
+Make sure **"Checkout as-is, commit as-is"** is selected.
+
+.. image:: /images/gitbash_line_ending.png
+   :alt: Make sure "Checkout as-is, commit as-is" is selected
