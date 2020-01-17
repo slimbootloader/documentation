@@ -43,7 +43,7 @@ You can also consider Dockers containers to build |SPN|. See :ref:`misc_setup_do
 Building on Windows
 ^^^^^^^^^^^^^^^^^^^^^
 
-Supported environment: **Microsoft Visual Studio 2015 or Microsoft Visual Studio 2017 Community Require**
+Supported environment: **Microsoft Visual Studio 2015 or Microsoft Visual Studio 2017 Community**
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
