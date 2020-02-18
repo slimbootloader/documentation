@@ -113,6 +113,7 @@ Following operations are supported::
     usage: GenContainer.py create [-h] (-l LAYOUT | -cl COMP_LIST [COMP_LIST ...])
                                   [-t IMG_TYPE] [-o OUT_PATH] [-k KEY_PATH]
                                   [-cd COMP_DIR] [-td TOOL_DIR]
+                                  [-a {SHA2_256, SHA2_384, RSA2048_SHA2_256, RSA3072_SHA2_384, NONE}]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -121,6 +122,11 @@ Following operations are supported::
                             List of each component files, following XXXX:FileName format
       -t IMG_TYPE           Container Image Type : [NORMAL, CLASSIC, MULTIBOOT]
       -o OUT_PATH           Container output directory/file
+      -a {SHA2_256, SHA2_384,
+          RSA2048_SHA2_256,
+          RSA3072_SHA2_384,
+          NONE}
+                            Authentication algorithm
       -k KEY_PATH           Input key directory/file
       -cd COMP_DIR          Componet image input directory
       -td TOOL_DIR          Compression tool directory
@@ -141,11 +147,10 @@ Following operations are supported::
       #
       #    Name ,  ImageFile      ,CompAlg  ,  AuthType,       KeyFile                 , Alignment,  Size
       # ===================================================================================================
-        ( 'BOOT', 'Out'           , ''      , 'RSA2048', 'TestSigningPrivateKey.pem'   ,  0x10,       0),  <--- Container Hdr
-        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048', 'TestSigningPrivateKey.pem'   ,  0,          0),  <--- Component Entry 1
-        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048', 'TestSigningPrivateKey.pem'   ,  0,          0),  <--- Component Entry 2
-        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048', 'TestSigningPrivateKey.pem'   ,  0x1000,     0),  <--- Component Entry 3
-        ( '_SG_', ''              , 'Dummy' , 'SHA2_256',''                            ,  0,          0),  <--- _SG_ MONO SIGN Component
+        ( 'BOOT', 'Out'           , ''      , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Container Hdr
+        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Component Entry 1
+        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Component Entry 2
+        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Component Entry 3
 
     If you provide the full path or a file/dir name to output or key, in both layout.txt and command line,
     command line options will always overwrite the values in layout.txt.
@@ -191,19 +196,22 @@ Following operations are supported::
 * sign::
 
     usage: GenContainer.py sign [-h] -f COMP_FILE [-o SIGN_FILE]
-                                [-c {lz4,lzma,dummy}] [-a {rsa2048,sha256,none}]
+                                [-c {lz4,lzma,dummy}] [-a {SHA2_256, SHA2_384, RSA2048_SHA2_256, RSA3072_SHA2_384, NONE}]
                                 [-k KEY_FILE] [-od OUT_DIR] [-td TOOL_DIR]
 
     optional arguments:
-      -h, --help            show this help message and exit
-      -f COMP_FILE          Component input file path
-      -o SIGN_FILE          Signed output image name
-      -c {lz4,lzma,dummy}   compression algorithm
-      -a {rsa2048,sha256,none}
-                            authentication algorithm
-      -k KEY_FILE           Private key file path to sign component
-      -od OUT_DIR           Output directory
-      -td TOOL_DIR          Compression tool directory
+      -h, --help                show this help message and exit
+      -f COMP_FILE              Component input file path
+      -o SIGN_FILE              Signed output image name
+      -c {lz4,lzma,dummy}       compression algorithm
+      -a {SHA2_256, SHA2_384,
+          RSA2048_SHA2_256,
+          RSA3072_SHA2_384,
+          NONE}
+                                Authentication algorithm
+      -k KEY_FILE               Private key file path to sign component
+      -od OUT_DIR               Output directory
+      -td TOOL_DIR              Compression tool directory
 
  - example::
 
