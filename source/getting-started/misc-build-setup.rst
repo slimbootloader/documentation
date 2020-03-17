@@ -39,14 +39,14 @@ Build docker image using Dockerfile::
 Run the container in the background::
 
   cd <slimboot_source_tree>
-  docker run -it --rm --network=host --name=sbl -d -v $PWD:/work sbl
+  docker run -it --rm --network=host --name=sbl -d -v $PWD:/tmp/work sbl
 
 
 **Step 4: Build Inside Docker Container**
 
 Build |SPN| inside running container::
 
-  docker exec -w /work sbl python BuildLoader.py build <platform_name>
+  docker exec -w /tmp/work sbl python BuildLoader.py build <platform_name>
 
 
 .. _misc_setup_Proxy:
