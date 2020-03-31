@@ -94,10 +94,10 @@ Triggering Firmware Update
 
 Sample implementation of trigerring firmware update is explained below
 
-|SPN| for |WHL|, |CFLR| or |UPX| uses CMOS register 0x40 to trigger firmware update. When a value of 0x5A is found in CMOS register 0x40, |SPN| will set the boot mode to FLASH_UPDATE.
+|SPN| for |WHL|, |CFLR| uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
+
 please refer to IsFirmwareUpdate() function called in ``Platform\CoffeelakeBoardPkg\Library\Stage1BBoardInitLib\Stage1BBoardInitLib.c`` to understand how |SPN| will detect firmware update mode.
 
-.. note:: CMOS register can be accessed through IO ports 0x70 and 0x71
 
 Debug UART
 ^^^^^^^^^^^
