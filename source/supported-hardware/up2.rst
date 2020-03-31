@@ -124,10 +124,9 @@ Triggering Firmware Update
 
 Sample implementation of trigerring firmware update is explained below
 
-|SPN| for |UP2| uses CMOS register 0x40 to trigger firmware update. When a value of 0x5A is found in CMOS register 0x40, |SPN| will set the boot mode to FLASH_UPDATE.
-please refer to IsFirmwareUpdate() function called in ``Platform\ApollolakeBoardPkg\Library\Stage1BBoardInitLib\Stage1BBoardInitLib.c`` to understand how |SPN| will detect firmware update mode.
+|SPN| for |UP2| uses BIT16 of PMC I/O register (Scratchpad for sharing data between BIOS and PMC Firmware (BIOS_SCRATCHPAD) - Offset 1090h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
 
-.. note:: CMOS register can be accessed through IO ports 0x70 and 0x71
+please refer to IsFirmwareUpdate() function called in ``Platform\ApollolakeBoardPkg\Library\Stage1BBoardInitLib\Stage1BBoardInitLib.c`` to understand how |SPN| will detect firmware update mode.
 
 
 Flashing

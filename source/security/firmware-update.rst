@@ -53,23 +53,22 @@ An overview of high level flow is provided below
 
 .. _generate-capsule:
 
-Generating capsule 
-^^^^^^^^^^^^^^^^^^
+Generating capsule
+***********************************
 
-Please refer to **Slimbootloader binary for capsule image** section of desired board page in **Supported Hardware** to understand how to generate Slimbootloader binary for capsule.
-
-After gathering required firmware binaries, capsule image can be generated using capsule generation tool
+After gathering required firmware binaries, capsule image can be generated using capsule generation tool. Please refer to :ref:`generate-binaries-for-capsule` for details about generating component binaries for capsule.
 
   Capsule tool (``GenCapsuleFirmware.py``) creates a capsule image that can be processed by |SPN| in firmware update flow.
 
-  Capsule tool is capable of incorporating multiple firmware images into single capsule binary. Each firmware is identified and included in the capsule image using a GUID.
-  Known GUIDs are included in the capsule generation tool, please refer to the note below for more details.
+  Capsule tool is capable of incorporating multiple firmware images into single capsule binary. Each firmware is identified and included in the capsule image using a 4 byte string. While using the tool for capsule generation, Unique string identifier and associated binary should be provided as input to the tool.
 
-    usage: GenCapsuleFirmware.py [-h] -p BIOS <BIOS_IMAGE> -p <GUID> <FW IMAGE BINARY 1>.....-p <GUID> <FW IMAGE BINARY n> -k PRIVKEY -o NEWIMAGE [-q]
+  For components inside the container region <4 byte id for component inside container : 4 byte id container id> along with associated component binary should be provided as input to the tool. This format is required for components inside container region because there can be multiple container inside BIOS region
+
+    usage: GenCapsuleFirmware.py [-h] -p <4 byte comp id> < FW IMAGE BINARY > -p <4 byte container component string id:4 byte comp id> <FW IMAGE BINARY> -p <4 byte comp id> <FW IMAGE BINARY n> -k PRIVKEY -o NEWIMAGE [-q]
 
     optional arguments:
       -h, --help            show this help message and exit
-      -p  <GUID> <Payload Image>, 
+      -p  <4 byte string> <Payload Image>, 
                             Payload image that goes into firmware update capsule
       -k PRIVKEY, --priv_key PRIVKEY
                             Private RSA 2048 key in PEM format to sign image
@@ -77,16 +76,41 @@ After gathering required firmware binaries, capsule image can be generated using
                             Output file for signed image
       -q, --quiet           without output messages or temp files
 
-  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and firmware image (``fwimage.bin``) signed by key ``TestSigningPrivateKey.pem``::
+  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``TestSigningPrivateKey.pem``::
 
-    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p fwimage.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
     Successfully signed Bootloader image!
     $
 
-.. note:: For user convenience GUID's for following firmwares are included in the capsule generation tool and these firmwares can be included in the capsule image by using known string in place of GUID in the command line.
+Component ID String
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This section explains how to determine 4 byte string identifier for each of updatable components used in |SPN|
+
+If the updatable component is part of flash map, 4 byte string identifying the component should be the component id from flash map. During the runtime, firmware update payload will look for this 4 byte string in the flash map, if found, it will update the component.
+
+As an example, following is a sample flash map
+
+  +----------+------------------------+------------+-----------------------+
+  |   SG1B   |  0x4e5000(0xFFCE5000)  |  0x0db000  |  Uncompressed, R_B    |
+  +----------+------------------------+------------+-----------------------+
+  |   KEYH   |  0x4e4000(0xFFCE4000)  |  0x001000  |  Uncompressed, R_B    |
+  +----------+------------------------+------------+-----------------------+
+  |   CNFG   |  0x4e0000(0xFFCE0000)  |  0x004000  |  Uncompressed, R_B    |
+  +----------+------------------------+------------+-----------------------+
+  |   FWUP   |  0x4c0000(0xFFCC0000)  |  0x020000  |  Compressed  , R_B    |
+  +----------+------------------------+------------+-----------------------+
+  |   SG02   |  0x440000(0xFFC40000)  |  0x080000  |  Compressed  , R_B    |
+  +----------+------------------------+------------+-----------------------+
+  |   UCOD   |  0x3c0000(0xFFBC0000)  |  0x080000  |  Uncompressed, R_B    |
+  +----------+------------------------+------------+-----------------------+
+
+if Configuration data component to be updated, 4 byte string "CNFG" should be passed to capsule generation tool along with configuration data binary.
+
+BIOS, CSME binaries and CSME update driver are assigned 4 byte pre-defined string identifier and can be found in the table below.
 
         +-----------------------------+------------------------------------+
-        | **String for Known Guid**   |         **Firmware**               |
+        |       **String ID**         |         **Firmware**               |
         +-----------------------------+------------------------------------+
         |         **BIOS**            |       Slim Bootloader              |
         +-----------------------------+------------------------------------+
@@ -94,11 +118,37 @@ After gathering required firmware binaries, capsule image can be generated using
         +-----------------------------+------------------------------------+
         |         **CSMD**            |       CSME update driver           |
         +-----------------------------+------------------------------------+
-        |         **CFGD**            |       Configuration data binary    |
-        +-----------------------------+------------------------------------+
+
+.. _generate-binaries-for-capsule:
+
+Generating Component Binaries for Capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Generating SBL binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  Please refer to **Slimbootloader binary for capsule image** section of desired board page in **Supported Hardware** to understand how to generate Slimbootloader binary for capsule.
+
+Generating Configuration data binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  Components inside the BIOS region are often padded to certain alignment and size.
+
+  Configuration Data region inside SBL is padded and so for generating capsule image to update configuration data region, please use CFGDATA.pad file available after building Slim Bootloader. After building Slim Bootloader, CFGDATA.pad file is available at Build/BootloaderCorePkg/DEBUG_VS2015x86/FV/CFGDATA.pad
+
+Generating Container Component binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  Slim Bootloader can update component regions inside container component in the BIOS region.
+  GenContainer.py tool can help sign and create a component binary that can be used for updating a specific component region inside the container.
+
+  Following is a sample command to create signed component for capsule
+  GenContainer.py sign -f <name of the component> -o <output file name> -c lz4 -a RSA2048_SHA2_256 -k BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -td BaseTools/Bin/Win32
+
+  The output file generated using above command can be used to create capsule.
+
+..  note::  GenContainer.py tool is available at SblPlatform/BootloaderCorePkg/Tools folder.
 
 Capsule Definition
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+*********************
 
 |SPN| capsule starts with a |SPN| capsule header followed by |SPN| capsule data, SHA 256 signature and public key. 
 
@@ -235,11 +285,29 @@ EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is followed by one or multiple update ima
 .. note:: Please refer to UEFI specification for more details about capsule header and data.
 
 Triggering Firmware Update 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*****************************
 
-Triggering firmware update is a platform specific mechanism.
+|SPN| supports triggering firmware update from Windows and |SPN| shell.
 
-|SPN| uses platform specific register that can survive a reset to signal firmware update. Please refer to **Triggering Firmware Update** section of desired board page in **Supported Hardware** to find Sample implementation.
+|SPN| provides a platform independent abstracted way of triggering firmware update from operating system. |SPN| provides two ACPI methods, \DWMI.WQ00 for read and \DWMI.WS00 for write to a platform specific chipset register that can survive a reset to signal firmware update. Please refer to **Triggering Firmware Update** section of desired board page in **Supported Hardware** to find Sample implementation.
+
+Trigger Update From Windows Operating System
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can use windows provided WMI service to call \DWMI.WQ00 and \DWMI.WS00 ACPI methods to trigger firmware update. Following the reset, Slim Bootloader boots into firmware update mode
+
+A sample implementation of a VB script to call these methods from Windows operating system is provided below
+
+.. code-block:: guess
+
+    set Service = GetObject("winmgmts:root/wmi")
+    set EnumSet = Service.InstancesOf ("AcpiFirmwareCommunication")
+    for each Instance in EnumSet
+      Wscript.Echo "Current  Val: " & Hex(instance.Command)
+      instance.Command = 1
+      instance.Put_()
+      Wscript.Echo "Set New Val: " & Hex(instance.Command)
+    next 'instance
 
 Trigger Update From Shell
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -354,7 +422,7 @@ During development, one can use shell command to manually test firmware update w
 
 
 Capsule Location
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+***********************
 
 The location of the firmware update capsule image is passed to Firmware update payload through CAPSULE_INFO_CFG_DATA configuration data.
 
@@ -364,7 +432,7 @@ As an example, please refer to CAPSULE_INFO_CFG_DATA configuration data from ``P
 
 
 Firmware Update Status
-^^^^^^^^^^^^^^^^^^^^^^^^
+************************
 
 |SPN| reports firmware update status through custom defined Firmware Update status (FWST) ACPI table. FWST ACPI table will be available as part of RSDT and can be identified with a table signature "FWST".
 
