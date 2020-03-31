@@ -1,5 +1,7 @@
 IAS Image
------------
+---------
+
+.. attention:: IAS image format is deprecated; container format is preferred. See :ref:`gen-container-tool` for more details.
 
 Booting quickly and securely is highly desirable, and in many use cases, mandatory. |SPN| is designed to boot an OS by loading and verifying a kernel image contained in IAS image format. |SPN| also supports |Multiboot Specification| compliant boot images encapsulated in an IAS image.
 
