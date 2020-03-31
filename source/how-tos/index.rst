@@ -15,6 +15,7 @@ A collection of recipes to make |SPN| to work for you.
    add-new-payload
    add-fastboot
    integrate-multiple-payloads
+   create-container-boot-image
    create-ias-boot-image
    boot-windows
    boot-ubuntu

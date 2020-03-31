@@ -3,6 +3,8 @@
 Create IAS Boot Image
 ----------------------
 
+.. attention:: IAS image format is deprecated; container format is preferred. See :ref:`create-container-boot-image` for more details.
+
 This page provides instructions to create a bootable Linux kernel image in IAS format and setup boot partition in |SPN| to boot from it.
 
 
