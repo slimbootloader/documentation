@@ -30,7 +30,7 @@ Run::
 
   iasimage -i 0x30300 -o iasimage.bin -d <RSA_private_key> <cmdline.txt> <vmlinuz> <initrd>
 
-    <RSA_private_key>: use the same key located in BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem
+    <RSA_private_key>: hash of the public key should be included in |SPN| Key Manifest and HASH_USAGE should be set to 'PUBKEY_OS' during |SPN| build.
 
 Sample output messages::
 
