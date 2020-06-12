@@ -32,7 +32,7 @@ Run::
 
   GenContainer.py create -cl CMDL:<cmdline.txt> KRNL:<vmlinuz> INRD:<initrd> -k <RSA_private_key> -t CLASSIC -o container.bin
 
-    <RSA_private_key>: the key located in BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem can be used
+    <RSA_private_key>: hash of the public key should be included in |SPN| Key Manifest and HASH_USAGE should be set to 'PUBKEY_OS' during |SPN| build.
 
 Sample output messages::
 
