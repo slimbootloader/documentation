@@ -24,5 +24,5 @@ A collection of recipes to make |SPN| to work for you.
    boot-with-u-boot-payload
    configure-memory-down
    collect-time-logs
-
+   configure_gpio
 
