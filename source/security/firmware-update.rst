@@ -287,9 +287,19 @@ EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is followed by one or multiple update ima
 Triggering Firmware Update 
 *****************************
 
-|SPN| supports triggering firmware update from Windows and |SPN| shell.
+|SPN| supports triggering firmware update from Linux, Windows, and |SPN| shell.
 
 |SPN| provides a platform independent abstracted way of triggering firmware update from operating system. |SPN| provides two ACPI methods, \DWMI.WQ00 for read and \DWMI.WS00 for write to a platform specific chipset register that can survive a reset to signal firmware update. Please refer to **Triggering Firmware Update** section of desired board page in **Supported Hardware** to find Sample implementation.
+
+Trigger Update From Linux Operating System
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If your Linux kernel includes the Kconfig option `INTEL_WMI_SBL_FW_UPDATE` you can trigger a firmware update with the command below followed by restarting the system
+
+.. code-block:: bash
+
+  echo 1 > /sys/bus/wmi/devices/44FADEB1-B204-40F2-8581-394BBDC1B651/firmware_update_request
+  reboot
 
 Trigger Update From Windows Operating System
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -298,7 +308,7 @@ Users can use windows provided WMI service to call \DWMI.WQ00 and \DWMI.WS00 ACP
 
 A sample implementation of a VB script to call these methods from Windows operating system is provided below
 
-.. code-block:: guess
+.. code-block:: vbscript
 
     set Service = GetObject("winmgmts:root/wmi")
     set EnumSet = Service.InstancesOf ("AcpiFirmwareCommunication")
