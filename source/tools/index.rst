@@ -420,14 +420,24 @@ The command line options to perform stitching::
 
 **PLAT_DATA** is a DWORD containing platform data to configure debug UART port number. Format is defined below::
 
-  typedef struct {
-    UINT8               PlatformId : 5;    /* Platform ID      */
-    UINT8               Reserved1  : 3;
-    UINT8               DebugUart  : 2;    /* UART port index */
-    UINT8               Reserved2  : 6;
-    UINT8               Reserved3;
-    UINT8               Marker;            /* 'AA'            */
-  } STITCH_DATA;
+  For Apollo Lake:
+    typedef struct {
+        UINT8               PlatformId : 5;    /* Platform ID     */
+        UINT8               Reserved1  : 3;
+        UINT8               DebugUart  : 2;    /* UART port index */
+        UINT8               Reserved2  : 6;
+        UINT8               Reserved3;
+        UINT8               Marker;            /* 'AA'            */
+    } STITCH_DATA;
+
+  For Coffee Lake Refresh and Whiskey Lake:
+    typedef struct {
+        UINT8               PlatformId : 5;    /* Platform ID     */
+        UINT8               Reserved1  : 3;
+        UINT8               DebugUart;         /* UART port index */
+        UINT8               Reserved3;
+        UINT8               Marker;            /* 'AA'            */
+    } STITCH_DATA;
 
 
 
