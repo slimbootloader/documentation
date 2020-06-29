@@ -71,16 +71,19 @@ After gathering required firmware binaries, capsule image can be generated using
       -p  <4 byte string> <Payload Image>, 
                             Payload image that goes into firmware update capsule
       -k PRIVKEY, --priv_key PRIVKEY
-                            Private RSA 2048 key in PEM format to sign image
+                            KEY_ID or RSA 2048/3072 private key path in PEM format to sign image.
+                            Use 'KEY_ID_FIRMWAREUPDATE_RSA2048/KEY_ID_FIRMWAREUPDATE_RSA3072' for KEY_ID
       -o NEWIMAGE, --output NEWIMAGE
                             Output file for signed image
       -q, --quiet           without output messages or temp files
 
-  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``TestSigningPrivateKey.pem``::
+  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``::
 
-    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
     Successfully signed Bootloader image!
     $
+
+  SBL_KEY_DIR is path to SblKeys directory used on |SPN|.
 
 Component ID String
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -141,7 +144,7 @@ Generating Container Component binary for capsule
   GenContainer.py tool can help sign and create a component binary that can be used for updating a specific component region inside the container.
 
   Following is a sample command to create signed component for capsule
-  GenContainer.py sign -f <name of the component> -o <output file name> -c lz4 -a RSA2048_SHA2_256 -k BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -td BaseTools/Bin/Win32
+  GenContainer.py sign -f <name of the component> -o <output file name> -c lz4 -a RSA2048_PSS_SHA2_256 -k $SBL_KEY_DIR/ContainerTestKey_Priv_RSA2048.pem -td BaseTools/Bin/Win32
 
   The output file generated using above command can be used to create capsule.
 

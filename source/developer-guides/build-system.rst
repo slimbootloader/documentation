@@ -42,6 +42,10 @@ Build |SPN|
 
   python BuildLoader.py build -h
 
+Set env variable for SBL Key directory::
+
+    $set SBL_KEY_DIR=$(SBL_ROOT)\..\SblKeys\
+
 Build |SPN| for a supported platform::
 
   python BuildLoader.py build <platform_name>
