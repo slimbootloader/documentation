@@ -95,7 +95,7 @@ This section describes how to build a custom |SPN| with fastboot support.
 
     python BuildLoader.py build apl
     python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i UPA1AM40.bin -s Outputs/apl/Stitch_Components.zip -o sbl_up2_ifwi.bin -p 0xAA00000E -b bios.bin
-    python BootloaderCorePkg/Tools/GenCapsuleFirmware.py -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin -b bios.bin
+    python BootloaderCorePkg/Tools/GenCapsuleFirmware.py -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin -b bios.bin
 
 ``sbl_up2_ifwi.bin``
   The binary file to be flashed by BIOS flash tool or SPI programmer

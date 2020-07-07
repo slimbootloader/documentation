@@ -53,6 +53,21 @@ Install the **exact** versions (if specified) of the following tools to the desi
 * OpenSSL - **C:\\openssl**
 * Git (ex. GitBash)
 
+.. _sbl-keys:
+
+|SPN| Keys Generation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Generate |SPN| keys and this is pre-requiste before |SPN| build:
+
+Generate SBLKeys::
+
+  python $(SBL_ROOT)\BooloaderCorePkg\Tools\GenerateKeys.py -k $SBL_KEY_DIR
+
+Set of private and public keys would be generated for specified key sizes:
+
+.. note:: Replace OS Test Public keys generated OS1_TestKey_Pub_RSA2048.pem/OS1_TestKey_Pub_RSA3072.pem keys with respective public keys used in signing OS Image
+
 
 Build Tools Download - Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
