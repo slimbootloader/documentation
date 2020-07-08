@@ -113,7 +113,7 @@ Following operations are supported::
     usage: GenContainer.py create [-h] (-l LAYOUT | -cl COMP_LIST [COMP_LIST ...])
                                   [-t IMG_TYPE] [-o OUT_PATH] [-k KEY_PATH]
                                   [-cd COMP_DIR] [-td TOOL_DIR]
-                                  [-a {SHA2_256, SHA2_384, RSA2048_SHA2_256, RSA3072_SHA2_384, NONE}]
+                                  [-a {SHA2_256, SHA2_384, RSA2048_PKCS1_SHA2_256, RSA3072_PKCS1_SHA2_384, RSA2048_PSS_SHA2_256, RSA3072_PSS_SHA2_384,  NONE}]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -122,12 +122,15 @@ Following operations are supported::
                             List of each component files, following XXXX:FileName format
       -t IMG_TYPE           Container Image Type : [NORMAL, CLASSIC, MULTIBOOT]
       -o OUT_PATH           Container output directory/file
-      -a {SHA2_256, SHA2_384,
-          RSA2048_SHA2_256,
-          RSA3072_SHA2_384,
+      -a {SHA2_256,
+          SHA2_384,
+          RSA2048_PKCS1_SHA2_256,
+          RSA3072_PKCS1_SHA2_384,
+          RSA2048_PSS_SHA2_256,
+          RSA3072_PSS_SHA2_384,
           NONE}
                             Authentication algorithm
-      -k KEY_PATH           Input key directory/file
+      -k KEY_PATH           KEY_ID or Private key file
       -cd COMP_DIR          Componet image input directory
       -td TOOL_DIR          Compression tool directory
 
@@ -147,10 +150,10 @@ Following operations are supported::
       #
       #    Name ,  ImageFile      ,CompAlg  ,  AuthType,       KeyFile                 , Alignment,  Size
       # ===================================================================================================
-        ( 'BOOT', 'Out'           , ''      , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Container Hdr
-        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Component Entry 1
-        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Component Entry 2
-        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_SHA2_256', 'TestSigningPrivateKey.pem'   ,  0,     0),  <--- Component Entry 3
+        ( 'BOOT', 'Out'           , ''      , 'RSA2048_PSS_SHA2_256', 'CONTAINER_KEY_ID'        ,  0,     0),  <--- Container Hdr
+        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0),  <--- Component Entry 1
+        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0),  <--- Component Entry 2
+        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0),  <--- Component Entry 3
 
     If you provide the full path or a file/dir name to output or key, in both layout.txt and command line,
     command line options will always overwrite the values in layout.txt.
@@ -185,7 +188,7 @@ Following operations are supported::
       -n COMP_NAME         Component name to replace
       -f COMP_FILE         Component input file path
       -c {lz4,lzma,dummy}  compression algorithm
-      -k KEY_FILE          Private key file path to sign component
+      -k KEY_FILE          KEY_ID/Private key file path to sign component
       -od OUT_DIR          Output directory
       -td TOOL_DIR         Compression tool directory
 
@@ -196,7 +199,7 @@ Following operations are supported::
 * sign::
 
     usage: GenContainer.py sign [-h] -f COMP_FILE [-o SIGN_FILE]
-                                [-c {lz4,lzma,dummy}] [-a {SHA2_256, SHA2_384, RSA2048_SHA2_256, RSA3072_SHA2_384, NONE}]
+                                [-c {lz4,lzma,dummy}] [-a {SHA2_256, SHA2_384, RSA2048_PKCS1_SHA2_256, RSA3072_PKCS1_SHA2_384, RSA2048_PSS_SHA2_256, RSA3072_PSS_SHA2_384, NONE}]
                                 [-k KEY_FILE] [-od OUT_DIR] [-td TOOL_DIR]
 
     optional arguments:
@@ -204,12 +207,15 @@ Following operations are supported::
       -f COMP_FILE              Component input file path
       -o SIGN_FILE              Signed output image name
       -c {lz4,lzma,dummy}       compression algorithm
-      -a {SHA2_256, SHA2_384,
-          RSA2048_SHA2_256,
-          RSA3072_SHA2_384,
+      -a {SHA2_256,
+          SHA2_384,
+          RSA2048_PKCS1_SHA2_256,
+          RSA3072_PKCS1_SHA2_384,
+          RSA2048_PSS_SHA2_256,
+          RSA3072_PSS_SHA2_384,
           NONE}
                                 Authentication algorithm
-      -k KEY_FILE               Private key file path to sign component
+      -k KEY_FILE               KEY_ID or Private key file path to sign component
       -od OUT_DIR               Output directory
       -td TOOL_DIR              Compression tool directory
 
@@ -420,14 +426,24 @@ The command line options to perform stitching::
 
 **PLAT_DATA** is a DWORD containing platform data to configure debug UART port number. Format is defined below::
 
-  typedef struct {
-    UINT8               PlatformId : 5;    /* Platform ID      */
-    UINT8               Reserved1  : 3;
-    UINT8               DebugUart  : 2;    /* UART port index */
-    UINT8               Reserved2  : 6;
-    UINT8               Reserved3;
-    UINT8               Marker;            /* 'AA'            */
-  } STITCH_DATA;
+  For Apollo Lake:
+    typedef struct {
+        UINT8               PlatformId : 5;    /* Platform ID     */
+        UINT8               Reserved1  : 3;
+        UINT8               DebugUart  : 2;    /* UART port index */
+        UINT8               Reserved2  : 6;
+        UINT8               Reserved3;
+        UINT8               Marker;            /* 'AA'            */
+    } STITCH_DATA;
+
+  For Coffee Lake Refresh and Whiskey Lake:
+    typedef struct {
+        UINT8               PlatformId : 5;    /* Platform ID     */
+        UINT8               Reserved1  : 3;
+        UINT8               DebugUart;         /* UART port index */
+        UINT8               Reserved3;
+        UINT8               Marker;            /* 'AA'            */
+    } STITCH_DATA;
 
 
 

@@ -71,16 +71,19 @@ After gathering required firmware binaries, capsule image can be generated using
       -p  <4 byte string> <Payload Image>, 
                             Payload image that goes into firmware update capsule
       -k PRIVKEY, --priv_key PRIVKEY
-                            Private RSA 2048 key in PEM format to sign image
+                            KEY_ID or RSA 2048/3072 private key path in PEM format to sign image.
+                            Use 'KEY_ID_FIRMWAREUPDATE_RSA2048/KEY_ID_FIRMWAREUPDATE_RSA3072' for KEY_ID
       -o NEWIMAGE, --output NEWIMAGE
                             Output file for signed image
       -q, --quiet           without output messages or temp files
 
-  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``TestSigningPrivateKey.pem``::
+  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``::
 
-    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
     Successfully signed Bootloader image!
     $
+
+  SBL_KEY_DIR is path to SblKeys directory used on |SPN|.
 
 Component ID String
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -141,7 +144,7 @@ Generating Container Component binary for capsule
   GenContainer.py tool can help sign and create a component binary that can be used for updating a specific component region inside the container.
 
   Following is a sample command to create signed component for capsule
-  GenContainer.py sign -f <name of the component> -o <output file name> -c lz4 -a RSA2048_SHA2_256 -k BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -td BaseTools/Bin/Win32
+  GenContainer.py sign -f <name of the component> -o <output file name> -c lz4 -a RSA2048_PSS_SHA2_256 -k $SBL_KEY_DIR/ContainerTestKey_Priv_RSA2048.pem -td BaseTools/Bin/Win32
 
   The output file generated using above command can be used to create capsule.
 
@@ -287,9 +290,19 @@ EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is followed by one or multiple update ima
 Triggering Firmware Update 
 *****************************
 
-|SPN| supports triggering firmware update from Windows and |SPN| shell.
+|SPN| supports triggering firmware update from Linux, Windows, and |SPN| shell.
 
 |SPN| provides a platform independent abstracted way of triggering firmware update from operating system. |SPN| provides two ACPI methods, \DWMI.WQ00 for read and \DWMI.WS00 for write to a platform specific chipset register that can survive a reset to signal firmware update. Please refer to **Triggering Firmware Update** section of desired board page in **Supported Hardware** to find Sample implementation.
+
+Trigger Update From Linux Operating System
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If your Linux kernel includes the Kconfig option `INTEL_WMI_SBL_FW_UPDATE` you can trigger a firmware update with the command below followed by restarting the system
+
+.. code-block:: bash
+
+  echo 1 > /sys/bus/wmi/devices/44FADEB1-B204-40F2-8581-394BBDC1B651/firmware_update_request
+  reboot
 
 Trigger Update From Windows Operating System
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -298,7 +311,7 @@ Users can use windows provided WMI service to call \DWMI.WQ00 and \DWMI.WS00 ACP
 
 A sample implementation of a VB script to call these methods from Windows operating system is provided below
 
-.. code-block:: guess
+.. code-block:: vbscript
 
     set Service = GetObject("winmgmts:root/wmi")
     set EnumSet = Service.InstancesOf ("AcpiFirmwareCommunication")

@@ -22,6 +22,7 @@ Developer's Guide
    payload
    ias
    boot-options
+   flash-boot
    versioning
    boot-performance
    shell
