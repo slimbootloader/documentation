@@ -402,7 +402,7 @@ Stitch Tool
 This tool is used to create two output files:
 
 * IFWI image with SBL (-o option).
-* |SPN| BIOS image for capsule update (-b option). See :ref:`update-firmware`.
+* |SPN| BIOS image for capsule update (-b option). See :ref:`firmware-update`.
 
 
 The command line options to perform stitching::
