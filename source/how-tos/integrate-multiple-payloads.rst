@@ -13,8 +13,11 @@ You can integrate more than one payload files using |SPN| build tool::
 
     <PAYLOAD_FILE>           : external payload file name. Required to be placed in ``PayloadPkg/PayloadBins`` directory
     <PAYLOAD_ID>             : 4-byte ASCII name for this payload
-    <COMPRESSION_ALGORITHM>  : compression algorithm for this payload ('Lz4' or 'Lzma')
+    <COMPRESSION_ALGORITHM>  : compression algorithm for this payload ('Lz4', 'Lzma' or 'Dummy'). 'Dummy' indicates no compression.
+                               This parameter is optional, and default is 'Dummy' if not specified.
 
+If only one payload is specified, this payload will be built into normal payload compoment (PYLD) in the SBL flash map.
+If more then one payloads are specified, the first payload will be built into PLD and the remaining will be built into extended payload container (EPLD) in the SBL flash map.
 
 The following procedure shows you how to integrate ``UefiPld.fd`` into |SPN| image. Adding other custom payloads is similar.
 

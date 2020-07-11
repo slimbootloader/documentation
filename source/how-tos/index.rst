@@ -22,6 +22,7 @@ A collection of recipes to make |SPN| to work for you.
    boot-vxworks
    boot-zephyr
    boot-acrn
+   boot-with-linux-payload
    boot-with-u-boot-payload
    configure-memory-down
    collect-time-logs
