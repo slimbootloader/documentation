@@ -43,7 +43,9 @@ ACM0       ACM module
 UCOD       Microcode Patch
 MRCD       MRC training data
 VARS       Variable data
-PYLD       OS loader Payload
+KEYH       Key hash store
+PYLD       Normal Payload (typically OS loader)
+EPLD       Extended Payload container (UEFI payload, Linux payload, etc)
 IAS1       First IAS image (typically for provisioning or recovery use)
 IAS2       Second IAS image
 FWUP       Firmware Update Payload
