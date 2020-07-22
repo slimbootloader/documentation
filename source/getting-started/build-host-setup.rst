@@ -62,7 +62,7 @@ Generate |SPN| keys and this is pre-requiste before |SPN| build:
 
 Generate SBLKeys::
 
-  python $(SBL_ROOT)\BooloaderCorePkg\Tools\GenerateKeys.py -k $SBL_KEY_DIR
+  python $(SBL_ROOT)\BootloaderCorePkg\Tools\GenerateKeys.py -k $SBL_KEY_DIR
 
 Set of private and public keys would be generated for specified key sizes:
 
