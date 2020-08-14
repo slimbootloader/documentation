@@ -19,10 +19,12 @@ A collection of recipes to make |SPN| to work for you.
    create-ias-boot-image
    boot-windows
    boot-ubuntu
+   boot-vxworks
    boot-zephyr
    boot-acrn
+   boot-with-linux-payload
    boot-with-u-boot-payload
    configure-memory-down
    collect-time-logs
-
+   configure_gpio
 

@@ -47,7 +47,7 @@ Stitching
 
 For example, stitching |SPN| IFWI image ``sbl_cfl_ifwi.bin`` from |CFLR| firmware image::
 
-    python Platform/CoffeelakeBoardPkg/Script/StitchLoader.py -i xxxx.bin -s Outputs/cfl/Stitch_Components.zip -o sbl_cfl_ifwi.bin
+    python Platform/CoffeelakeBoardPkg/Script/StitchLoader.py -i xxxx.bin -s Outputs/cfl/SlimBootloader.bin -o sbl_cfl_ifwi.bin
 
 For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 

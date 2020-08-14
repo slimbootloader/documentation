@@ -48,7 +48,7 @@ Steps::
   git clone --recurse-submodules https://github.com/tianocore/edk2.git edk2
   cd edk2
   git checkout 42d8be0eaac5e7e109f487d4e241847e815b077a
-  git submodule update –recursive 
+  git submodule update --recursive
   edksetup.bat
   build -a IA32 -a X64 -p UefiPayloadPkg\UefiPayloadPkgIa32X64.dsc -b DEBUG -t VS2015x86 -D BOOTLOADER=SBL
 

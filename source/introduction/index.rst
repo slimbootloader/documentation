@@ -104,11 +104,15 @@ Do you have a porting guide for new boards?
     Please visit and search :ref:`developer-guide` section first. We plan to post step-by-step porting guides with more details.
 
 I need help...
-    Subscribe to our |ML|.
+    Subscribe to our |ML| or search |ML_ARCHIVE|.
 
 .. |ML| raw:: html
 
    <a href="https://groups.io/g/slimbootloader" target="_blank">Mailing List</a>
+   
+.. |ML_ARCHIVE| raw:: html
+
+   <a href="https://groups.io/g/slimbootloader/topics" target="_blank">Archives</a>
 
 It doesn't work for me...
     Email us via our mailing list or direclty submit an issue on |ISSUES|.
