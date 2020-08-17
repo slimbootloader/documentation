@@ -4,7 +4,7 @@ Logging
 ---------
 
 |SPN| provides logging for debugging purpose. It can be configured at build time
-for verbosity. One can control debug messages in multiple ways by modifying the following PCDs defined in ``BootloaderCorePkg.dsc`` file:
+for verbosity. One can control debug messages in multiple ways by modifying the following PCDs defined in ``BootloaderCorePkg.yaml`` file:
 
 +------------------------------+------------------------------------------------------------------+
 | PCD Name                     | Description                                                      |

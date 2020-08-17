@@ -441,7 +441,7 @@ Capsule Location
 
 The location of the firmware update capsule image is passed to Firmware update payload through CAPSULE_INFO_CFG_DATA configuration data.
 
-As an example, please refer to CAPSULE_INFO_CFG_DATA configuration data from ``Platform\ApollolakeBoardPkg\CfgData\CfgData_CapsuleInformation.dsc``.
+As an example, please refer to CAPSULE_INFO_CFG_DATA configuration data from ``Platform\ApollolakeBoardPkg\CfgData\CfgData_CapsuleInformation.yaml``.
 
 .. note:: Capsule update defined by UEFI specification is different from |SPN| capsule format.
 

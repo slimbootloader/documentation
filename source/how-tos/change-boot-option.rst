@@ -34,9 +34,9 @@ Please follow the below steps to make the changes before buiding SBL.
 
 .. image:: /images/Boot_options_1.jpg
 
-**Step2.** Open the "Config DSC" file, then select the description file
+**Step2.** Open the "Config YAML" file, then select the description file
 according to your platform( eg.
-/Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.dsc")
+/Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.yaml")
 
 .. image:: /images/Boot_options_2.jpg
 

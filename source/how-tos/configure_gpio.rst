@@ -32,9 +32,9 @@ ConfigEditor is run using ConfigEditor.py script::
 
 .. image:: /images/Gpio_config_1.jpg
 
-**Step2.** Open the "Config DSC" file, then select the description file
+**Step2.** Open the "Config YAML" file, then select the description file
 according to your platform( eg.
-/Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.dsc")
+/Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.yaml")
 
 .. image:: /images/Gpio_config_2.jpg
 
@@ -81,7 +81,7 @@ GenGpioData Tool
 
 GenGpioData.py is a utility that converts the GPIO pin data from one format to other. 
 When starting a new project, often times the GPIO information for that platform is 
-available in a format that needs to be converted to dsc/dlt to be used in SBL. 
+available in a format that needs to be converted to yaml/dlt to be used in SBL. 
 For example, the GPIO information for a platform may have to be retrieved from the 
 chipset data sheet or from the CRB BIOS..
 
@@ -97,19 +97,19 @@ GenGpioData Tool is run using GenGpioData.py script::
     option 1     : GPIO input data file
     option 2     : Output SBL format
     option 3     : output path 
- Example: Python GenGpioData.py -if GpioTableXxx.h -of dsc -o .
+ Example: Python GenGpioData.py -if GpioTableXxx.h -of yaml -o .
  
-Input is .h and output is .dsc::
+Input is .h and output is .yaml::
 
-	python GenGpioData.py -if GpioTableXxx.h -of dsc -o . 
+	python GenGpioData.py -if GpioTableXxx.h -of yaml -o . 
 
 Input is .h and output is .dlt::
 
 	python GenGpioData.py -if GpioTableXxx.h -of dlt -o .
 
-Input is .csv and output is .dsc::
+Input is .csv and output is .yaml::
 
-	python GenGpioData.py -if GpioTablexx.csv -of dsc -o .
+	python GenGpioData.py -if GpioTablexx.csv -of yaml -o .
 
 Input is .csv and output is .dlt::
 
@@ -121,11 +121,11 @@ description regarding GPIO tool supported formats .
 GpioTablexxx.h file shall be imported from BIOS source. Depending upon
 requirement this table can be updated.
 
-Example :Input format is .h and output generated is .dsc file
+Example :Input format is .h and output generated is .yaml file
 
-Using Config editor the generated Dsc file can be loaded and modified
+Using Config editor the generated Yaml file can be loaded and modified
 
-Generated Dsc file looks like
+Generated Yaml file looks like
 
 .. image:: /images/Gpio_config_9.jpg
 

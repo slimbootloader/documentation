@@ -229,7 +229,7 @@ Following operations are supported::
 Gpio Tool
 ---------
 
-``GenGpioData.py`` is a utility that converts the GPIO pin data from one format to other. The formats currently supported are [h, csv, txt, dsc, dlt]. ``h, csv, txt`` formats are external to |SPN| and ``dsc, dlt`` formats are known to |SPN|. So, this tool provides a way to convert one of the ``h, csv, txt`` to ``dsc, dlt`` and vice-versa.
+``GenGpioData.py`` is a utility that converts the GPIO pin data from one format to other. The formats currently supported are [h, csv, txt, dsc, yaml, dlt]. ``h, csv, txt`` formats are external to |SPN| and ``dsc, yaml, dlt`` formats are known to |SPN|. So, this tool provides a way to convert one of the ``h, csv, txt`` to ``dsc, yaml, dlt`` and vice-versa.
 
 Each of the above mentioned formats is as follows:
 
@@ -380,17 +380,19 @@ Each of the above mentioned formats is as follows:
 
     GPP_A07:0x0001A880:0x01FCF77F:0x01FE5FFF:0x40100102:0x0000301F
 
-* dsc, dlt::
+* dsc, yaml, dlt::
 
-    Please take a look at your project's dsc and dlt files for this format.
+    Please take a look at your project's dsc, yaml and dlt files for this format.
 
  - example::
 
-        dsc :   # !BSF SUBT:{GPIO_TMPL:GPP_A07: 0x031885E1: 0x00070619}
+        dsc  :   # !BSF SUBT:{GPIO_TMPL:GPP_A07: 0x031885E1: 0x00070619}
 
-        dlt :   GPIO_CFG_DATA.GpioPinConfig0_GPP_A07 | 0x031885E1
+        yaml :   - !expand { CFGHDR_TMPL : [ PSD_CFG_DATA, 0x800, 0, 0 ] }
 
-                GPIO_CFG_DATA.GpioPinConfig1_GPP_A07 | 0x00070619
+        dlt  :   GPIO_CFG_DATA.GpioPinConfig0_GPP_A07 | 0x031885E1
+
+                 GPIO_CFG_DATA.GpioPinConfig1_GPP_A07 | 0x00070619
 
 .. _stitch-tool:
 
@@ -458,7 +460,7 @@ IFWI image is used as input to program SPI flash on the hardware, while |SPN| BI
 |CFGTOOL|
 --------------------
 
-``ConfigEditor.py`` is a GUI program provided in |SPN| to allow user to customize board specific settings. You will need this tool in porting or customizing a new board. It provides features to load a platform configuration file (``*.dsc``) and generate board configuration delta file (``*.dlt``). This tool can be used in pre-build or post-build process.
+``ConfigEditor.py`` is a GUI program provided in |SPN| to allow user to customize board specific settings. You will need this tool in porting or customizing a new board. It provides features to load a platform configuration file (``*.yaml``) and generate board configuration delta file (``*.dlt``). This tool can be used in pre-build or post-build process.
 
 This tool depends on Python GUI tool kit **Tkinter**. It runs on both Windows and Linux.
 
