@@ -9,6 +9,7 @@ This page provides instructions for creating a bootable Linux kernel image in co
 
 The following step-by-step instructions is an example to boot Yocto kernel using container image format on |UP2|.
 
+.. important:: SBL Linux boot image containers typically include the kernel, kernel params and initramfs. The kernel then will mount the root file system from the boot media. There may be additional requirements in terms of configuration and layout for the kernel to locate and mount the root file system. If your boot image has some partition layout requirements, file/file-path dependencies, etc., you still need to adhere to those requirements when using container boot.
 
 **Step 1:** Download |CNT| and |CMU| to the same working directory to use the container tool.
 
