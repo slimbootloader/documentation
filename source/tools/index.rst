@@ -133,10 +133,14 @@ Following operations are supported::
       -k KEY_PATH           KEY_ID or Private key file
       -cd COMP_DIR          Componet image input directory
       -td TOOL_DIR          Compression tool directory
+      -s  SVN               Security version number for Component for  no -cl option
+
 
  - example::
 
-    python GenContainer.py create -cl CMDL:cmdline.txt KRNL:vmlinuz INRD:initrd -o Out
+    python GenContainer.py create -cl CMDL:cmdline.txt:$svn KRNL:vmlinuz:$svn INRD:initrd:$svn -o Out
+
+    $svn is optional
 
     or
 
@@ -148,12 +152,12 @@ Following operations are supported::
 
       # Container Layout File
       #
-      #    Name ,  ImageFile      ,CompAlg  ,  AuthType,       KeyFile                 , Alignment,  Size
-      # ===================================================================================================
-        ( 'BOOT', 'Out'           , ''      , 'RSA2048_PSS_SHA2_256', 'CONTAINER_KEY_ID'        ,  0,     0),  <--- Container Hdr
-        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0),  <--- Component Entry 1
-        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0),  <--- Component Entry 2
-        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0),  <--- Component Entry 3
+      #    Name ,  ImageFile      ,CompAlg  ,  AuthType,       KeyFile                 , Alignment,  Size,     Svn
+      # ============================================================================================================
+        ( 'BOOT', 'Out'           , ''      , 'RSA2048_PSS_SHA2_256', 'CONTAINER_KEY_ID'        ,  0,     0,    0),  <--- Container Hdr
+        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0,    0),  <--- Component Entry 1
+        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0,    0),  <--- Component Entry 2
+        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0,    0),  <--- Component Entry 3
 
     If you provide the full path or a file/dir name to output or key, in both layout.txt and command line,
     command line options will always overwrite the values in layout.txt.
@@ -191,6 +195,7 @@ Following operations are supported::
       -k KEY_FILE          KEY_ID/Private key file path to sign component
       -od OUT_DIR          Output directory
       -td TOOL_DIR         Compression tool directory
+      -s  SVN              Security version number for Component
 
  - example::
 
