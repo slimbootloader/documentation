@@ -26,7 +26,7 @@ Prebuild process determines the build time configuration by generating multiple 
 File                         Description
 ==================           ================
 Platform.dsc                 Finalized platform configuration based on ``BoardConfig.py``
-ConfigDataStruct.h           C header file for configuration data structure based on ``*.dsc`` file
+ConfigDataStruct.h           C header file for configuration data structure based on ``*.yaml`` file
 ConfigDataBlob.h             C file for *Internal* configuration data with default values
 ==================           ================
 

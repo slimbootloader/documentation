@@ -11,12 +11,12 @@ Step 1 - Read schematic and understand DDR memory layout and model from datashee
 
 Step 2 - Configure the following memory parameters in |SPN|
 
-Start with ``<platform>\CfgData\CfgData_Memory.dsc`` to understand the possible values for memory parameters
+Start with ``<platform>\CfgData\CfgData_Memory.yaml`` to understand the possible values for memory parameters
 
 For |UP2|, open ``CfgData_Ext_Up2.dlt`` and customize values that match the actual memory parameters. Given an example for 8GB LPDDR4 memory::
 
   ...
-  
+
   PLATFORMID_CFG_DATA.PlatformId           | 0x000E <-- Match actual Board ID
 
   MEMORY_CFG_DATA.DualRankSupportEnable    | 0x1
@@ -39,7 +39,7 @@ Optionally, you can use |CFGTOOL| to graphically view and modify configurations.
 
 Step 3 - Build, stitch and test
 
-If the memory configuration is correct, |SPN| should boot all the way to the shell. Verify the memory map information from the log to ensure the memory size matches with hardware. 
+If the memory configuration is correct, |SPN| should boot all the way to the shell. Verify the memory map information from the log to ensure the memory size matches with hardware.
 
 Otherwise, |SPN| may hang after calling FSP-M and never returns. In this case, you have two troubleshooting options:
 
