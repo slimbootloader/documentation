@@ -27,37 +27,26 @@ External configuration data
 
 .. _Configuration Files and Configuration Flow:
 
-Configuration Flow
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. image:: /images/ConfigFlow.png
-
-Configuration Editor Tool
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-|SPN| supports a Configuration Editor Tool (ConfigEditor.py) to configure firmware settings with graphics UI. This tool is included in |SPN| source package at /SblOpen/BootloaderCorePkg/Tools.
-
-.. image:: /images/CfgEditOpen.png
-
 
 YAML Files
 ^^^^^^^^^^^^
 * All platform configuration settings including memory, silicon, GPIO, OS boot policy, security settings etc are declared in a custom format and uses YAML Syntax.
 * YAML configuration files, in general are located in project specific board folder. 
-* For example, you can find the configuration files for Apollo Lake platform under SblOpen\Platform\ApollolakeBoardPkg\CfgData folder.
+* For example, you can find the configuration files for Apollo Lake platform under Platform\ApollolakeBoardPkg\CfgData folder.
 
 Please note that you may find many YAML files. However, only CfgDataDef.ya is the primary file used for the platform configuration, and other sub YAML files will be 
 included by the primary YAML file to provide component specific configuration.
 
-The main platform configuration file is specified in CfgDataDef.yaml.
-The following screen shots will help explain. Once an YAML file is loaded, all other grayed menu will be enabled.
+The main platform configuration file is specified in CfgDataDef.yaml. An example configuration file in YAML syntax is provided below.
 
-.. image:: /images/CfgEditDefYaml.png
+.. image:: /images/ConfigDefYaml.png
 
 
 DLT Files
 ^^^^^^^^^^^^^
 
 * DLT (delta) files are used to provide overrides to settings in YAML files to address board-level differences, including GPIO, boot policy, PCIE configuration, security settings etc.
-* DLT file contains unique Platform ID, and build tools will apply the settings to firmware images based on the platform ID.
+* DLT files contain unique Platform ID, and build tools will apply the settings to firmware images based on the platform ID.
 * DLT file that overrides configuration parameters for all boards (board id 0) is also supported. A typical use case is in case of Platform ID as explained below.
 
 DLT file can be generated in different ways:
@@ -67,9 +56,38 @@ DLT file can be generated in different ways:
 * Update existing DLT file with other text editor.
 
 A project may include multiple DLT files to handle multiple boards and are included in the project's BoardConfig.py file as below. 
-self._CFGDATA_EXT_FILE    = ['CfgData_Ext_Gpmrb.dlt']
+self._CFGDATA_EXT_FILE    = ['CfgData_Ext_Def.dlt', 'CfgData_Ext_Gpmrb.dlt']
 
 .. image:: /images/ConfigDlt.png
+
+
+Configuration Flow
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: /images/ConfigFlow.png
+
+
+During |SPN| build, the configuration data in the YAML files are parsed by the configuration tools to generate the header files as well as the configuration binary. 
+In addition to generating and stitching of configuration binaries through |SPN| build process, editing of configuration parameters post build is also supported.
+
+Post-build configuration update can be done with the project's configuration YAML/DLT files and the updated configuration binary can be restitched without having to rebuild |SPN|
+project. 
+
+All the configuration tools required by the configuration process can be found under BootloaderCorePkg/Tools folder.
+
+
+
+Configuration Editor Tool
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+|SPN| supports a Configuration Editor Tool (ConfigEditor.py) to configure firmware settings with graphics UI. This tool is included in |SPN| source package at BootloaderCorePkg/Tools.
+
+.. image:: /images/CfgEditOpen.png
+
+.. image:: /images/CfgEditDefYaml.png
+
+
+.. Note:: An example pre build configuration flow to configure GPIOs can be found here https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data
+
+.. Note:: An example post build configuration flow to configure Boot Options can be found here https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time
 
 
 .. _platform-id:
@@ -126,7 +144,7 @@ Platform ID Detection using GPIOs
 
 Common Configuration Categories
 """""""""""""""""""""""""""""""""
-|SPN| comes with commonly used configurable options for a given platform [#f2]_. One can add new configurations (``Platform/<platform_foo>/CfgData/*.yaml``) and Stage 1B board specific code (``Platform/<platform_foo>/Library/Stage1BBoardInitLib/``)
+|SPN| comes with commonly used configurable options for a given platform. One can add new configurations (``Platform/<platform_foo>/CfgData/*.yaml``) and Stage 1B board specific code (``Platform/<platform_foo>/Library/Stage1BBoardInitLib/``)
 
 Configuration data are grouped by categories:
 
@@ -161,6 +179,3 @@ External configuration data for board (platform 1) is loaded::
   Load Graphics Cfg Data
   ...
 
-.. rubric:: Footnotes
-
-.. [#f2] |APL| code includes various validated configuration options supporting |UP2| board.

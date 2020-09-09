@@ -1,7 +1,7 @@
 .. _change-gpio-options:
 
-What is a GPIO?
-----------------
+GPIO
+^^^^^^^^
 General Purpose IO (GPIO) is a digital signal pin and can be configured 
 to be either an input or an output signal. GPIO pins offer flexibility 
 to platform designers and can be used for a variety of purposes. For 
@@ -76,8 +76,9 @@ file in notepad and check if the value is updated accordingly.
 
 For SBL build process, Please refer https://slimbootloader.github.io/getting-started/build-source.html 
 
+
 GenGpioData Tool
-^^^^^^^^^^^^^^^^
+----------------
 
 GenGpioData.py is a utility that converts the GPIO pin data from one format to other. 
 When starting a new project, often times the GPIO information for that platform is 
