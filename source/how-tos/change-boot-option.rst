@@ -82,9 +82,7 @@ Change at Post Build time
 Use Configuration Editor to modify a boot option entry then stitch the
 update configuration data component in SBL.
 
-update IFWI with new Configuration
-
-Follow steps 1 to 6 .Changes get saved into the dlt file .Copy the
+Follow steps 1 to 6. Changes get saved into the dlt file. Copy the
 generated .dlt file into the same directory where CfgDataStitch.py is
 located
 
