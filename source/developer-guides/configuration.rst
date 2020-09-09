@@ -31,10 +31,10 @@ External configuration data
 YAML Files
 ^^^^^^^^^^^^
 * All platform configuration settings including memory, silicon, GPIO, OS boot policy, security settings etc are declared in a custom format and uses YAML Syntax.
-* YAML configuration files, in general are located in project specific board folder. 
+* YAML configuration files, in general are located in project specific board folder, while some common configuration files are located at Platform\CommonBoardPkg\CfgData. 
 * For example, you can find the configuration files for Apollo Lake platform under Platform\ApollolakeBoardPkg\CfgData folder.
 
-Please note that you may find many YAML files. However, only CfgDataDef.ya is the primary file used for the platform configuration, and other sub YAML files will be 
+Please note that you may find many YAML files. However, only CfgDataDef.yaml is the primary file used for the platform configuration, and other sub YAML files will be 
 included by the primary YAML file to provide component specific configuration.
 
 The main platform configuration file is specified in CfgDataDef.yaml. An example configuration file in YAML syntax is provided below.
@@ -53,7 +53,6 @@ DLT file can be generated in different ways:
 
 * Change any existing settings, and save it to DLT file with Configuration Editor Tool.
 * Load values from an existing binary file, and then save the changes as DLT file. 
-* Update existing DLT file with other text editor.
 
 A project may include multiple DLT files to handle multiple boards and are included in the project's BoardConfig.py file as below. 
 self._CFGDATA_EXT_FILE    = ['CfgData_Ext_Def.dlt', 'CfgData_Ext_Gpmrb.dlt']

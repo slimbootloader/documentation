@@ -28,7 +28,7 @@ GPIO config data
 
 ConfigEditor is run using ConfigEditor.py script::
 
-    python Sblopen/BootloaderCorePkg/Tools/ConfigEditor.py
+    python BootloaderCorePkg/Tools/ConfigEditor.py
 
 .. image:: /images/Gpio_config_1.jpg
 
