@@ -30,7 +30,7 @@ Please follow the below steps to make the changes before buiding SBL.
 **Step1**. In the console launch the "ConfigEditor" from
 "slimbootloader" folder.
 
-**Command** : python Sblopen/BootloaderCorePkg/Tools/ConfigEditor.py
+**Command** : python BootloaderCorePkg/Tools/ConfigEditor.py
 
 .. image:: /images/Boot_options_1.jpg
 

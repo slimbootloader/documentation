@@ -39,7 +39,7 @@ included by the primary YAML file to provide component specific configuration.
 
 The main platform configuration file is specified in CfgDataDef.yaml. An example configuration file in YAML syntax is provided below.
 
-.. image:: /images/ConfigDefYaml.png
+.. image:: /images/ConfigDefYaml.PNG
 
 
 DLT Files
@@ -57,12 +57,12 @@ DLT file can be generated in different ways:
 A project may include multiple DLT files to handle multiple boards and are included in the project's BoardConfig.py file as below. 
 self._CFGDATA_EXT_FILE    = ['CfgData_Ext_Def.dlt', 'CfgData_Ext_Gpmrb.dlt']
 
-.. image:: /images/ConfigDlt.png
+.. image:: /images/ConfigDlt.PNG
 
 
 Configuration Flow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. image:: /images/ConfigFlow.png
+.. image:: /images/ConfigFlow.PNG
 
 
 During |SPN| build, the configuration data in the YAML files are parsed by the configuration tools to generate the header files as well as the configuration binary. 
