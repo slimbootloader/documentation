@@ -21,6 +21,14 @@
 
 .. |CFLHR| replace:: Coffee Lake Refresh Mobile H6+2
 
+.. |CML| replace:: Comet Lake
+
+.. |CMLH| replace:: CML S RVP with PCH H
+
+.. |CMLV| replace:: CML S RVP with PCH V
+
+.. |CMLH420E| replace:: CML S RVP with PCH H420E
+
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
