@@ -25,4 +25,5 @@ Welcome to |LPN| (version |version|) documentation!
    how-tos/index
    tools/index
    tutorials/index
+   specs/index
    references/*
