@@ -272,15 +272,11 @@ Configuration data blob starts with a header **CDATA_BLOB_HEADER**.
 
     UINT8 Attribute;
 
-    // Internal configuration data offset in DWORD from the start of data blob.
-    // This value is only valid in runtime.
-    UINT16 InternalDataOffset;
+    UINT16 InternalDataOffset; // Internal config data offset in DWORD within the data blob. This value is only valid in runtime.
 
-    // The total valid configuration data length including this header.
-    UINT32 UsedLength;
+    UINT32 UsedLength;         // The total valid configuration data length including this header.
 
-    // The total space for configuration data including this header.
-    UINT32 TotalLength;
+    UINT32 TotalLength;        // The total space for configuration data including this header.
 
   } CDATA_BLOB_HEADER;
 
@@ -300,15 +296,15 @@ tag field which can be used to identify the structure.
 
     UINT32 ConditionNum : 2; // [1:0] #of condition words present
 
-    UINT32 Length : 10; // [11:2] total size of item i.e;CDATA payload data length (in dwords)
+    UINT32 Length : 10;      // [11:2] total size of item i.e;CDATA payload data length (in dwords)
 
-    UINT32 Flags : 4; // [15:12] reserved. Currently used by CfgDataTool
+    UINT32 Flags : 4;        // [15:12] reserved. Currently used by CfgDataTool
 
-    UINT32 Version : 4; // [19:16] item (payload) format version
+    UINT32 Version : 4;      // [19:16] item (payload) format version
 
-    UINT32 Tag : 12; // [31:20] identifies item (in payload)
+    UINT32 Tag : 12;         // [31:20] identifies item (in payload)
 
-    UINT32 Value; // Bit masks on supported platforms
+    UINT32 Value;            // Bit masks on supported platforms
 
   } CDATA_HEADER;
 
@@ -483,7 +479,7 @@ YAML Tags
 
 YAML represents type information of native data structures with a simple
 identifier, called a tag. Explicit typing is denoted with a tag using
-the exclamation point (“!”) symbol. The following application-specific
+the exclamation point ("!") symbol. The following application-specific
 local tags are used.
 
 !INCLUDE
@@ -491,7 +487,7 @@ local tags are used.
 
 Configuration declarations may be logically organized in multiple files.
 Additional YAML files are included in the CfgDataDef.yaml using
-“!include” tag.
+"!include" tag.
 
 *!include* statement may appear within any section. A relative file path
 is required to specific the file path to be included.  This path should
@@ -523,7 +519,7 @@ Example::
 !EXPAND
 ^^^^^^^
 
-“!expand” tag is used for declaring a configuration option defined by a template (:ref:`sbl_template`).
+"!expand" tag is used for declaring a configuration option defined by a template (:ref:`sbl_template`).
 *!expand* tag can only appear in *template* or *configs* section.
 
 Format::
@@ -649,11 +645,11 @@ This section contains the configuration option declarations.
 
 A YAML **node** represents a single native data structure. A **mapping
 node** is an unordered set of *key: value* node pairs. Mappings use a
-colon and space (“: ”) to mark each key: value pair.
+colon and space (": ") to mark each key: value pair.
 
 A **block sequence** is simply a series of nodes, each denoted by a
-leading “-” indicator. The “-” indicator must be separated from the node
-by white space. YAML’s **block collections** use indentation for scope
+leading "-" indicator. The "-" indicator must be separated from the node
+by white space. YAML's **block collections** use indentation for scope
 and begin each entry on its own line.
 
 SBL configuration options are a series of YAML block sequence and form a
@@ -686,9 +682,9 @@ As discussed in :ref:`sbl_config_tags`, SBL configuration options are organized 
 
 ::
 
-  -  Each group is represented as a YAML block sequence and starts with a leading “-“ indicator followed by a white space.
+  -  Each group is represented as a YAML block sequence and starts with a leading "-" indicator followed by a white space.
 
-  -  Each group has a configuration header. The Configuration header is declared using “!expand” tag to expand a template declaration. The configuration header itself is a YAML block sequence
+  -  Each group has a configuration header. The Configuration header is declared using "!expand" tag to expand a template declaration. The configuration header itself is a YAML block sequence
 
   -  Each configuration option within the group is also a block sequence made of mapping nodes, each with key:value pair.
 
@@ -738,7 +734,7 @@ The below shows the MrcFastBoot config option being under MEMORY_CFG_DATA.
       value  : 0x1
 
 
-Example showing the MrcFastBoot config option being under MEMORY_CFG_DATA which is displayed in a “MEM” page.
+Example showing the MrcFastBoot config option being under MEMORY_CFG_DATA which is displayed in a "MEM" page.
 
 ::
 
@@ -771,7 +767,7 @@ Example showing the MrcFastBoot config option being under MEMORY_CFG_DATA which 
 Configuration Option Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The below sections explain each of the “keys” used in a configuration
+The below sections explain each of the "keys" used in a configuration
 option.
 
 NAME
