@@ -272,15 +272,11 @@ Configuration data blob starts with a header **CDATA_BLOB_HEADER**.
 
     UINT8 Attribute;
 
-    // Internal configuration data offset in DWORD from the start of data blob.
-    // This value is only valid in runtime.
-    UINT16 InternalDataOffset;
+    UINT16 InternalDataOffset; // Internal config data offset in DWORD within the data blob. This value is only valid in runtime.
 
-    // The total valid configuration data length including this header.
-    UINT32 UsedLength;
+    UINT32 UsedLength;         // The total valid configuration data length including this header.
 
-    // The total space for configuration data including this header.
-    UINT32 TotalLength;
+    UINT32 TotalLength;        // The total space for configuration data including this header.
 
   } CDATA_BLOB_HEADER;
 
