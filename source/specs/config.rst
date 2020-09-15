@@ -1,3 +1,5 @@
+.. _configuration-spec:
+
 SBL Configuration
 ==================
 
@@ -408,7 +410,7 @@ that contains some meta-data.
 PAGE
 ^^^^
 
-PAGE used to declare a list of pages used in the GUI. 
+PAGE is used to declare a list of pages used in the GUI. 
 
 PAGE is also used to define the display scope for a configuration
 parameter and can be applied for individual configuration parameters. 
@@ -503,9 +505,9 @@ Example
 
 ::
 
-  !include Platform/CommonBrdPkg/CfgData/CfgData.dsc
+  !include Platform/CommonBrdPkg/CfgData/CfgData.yaml
 
-  !include Platform/Rvp7Pkg/CfgData/CfgData_GPIO.dsc
+  !include Platform/Rvp7Pkg/CfgData/CfgData_GPIO.yaml
 
 
 .. _sbl_expand:
@@ -1033,8 +1035,7 @@ DLT file rules
 
 -  Below are the current formats that can be used in DLT:
 
-   -  Hash "#" symbol indicates comments in the DLT file. Note that *#
-      !BSF* or *# !HDR* are not valid here.
+   -  Hash "#" symbol indicates comments in the DLT file. 
 
    -  Users can overwrite the values of existing Tag items in DLT as follows
 
@@ -1095,64 +1096,4 @@ in SPI.
 **All these steps are executed as part of the Slim Bootloader build
 process.** In addition to generation and stitching of configuration
 binaries through SBL build, editing of configuration parameters post
-build is also supported and a detailed step by step procedure is
-provided below.
-
-Step-by-step Configuration Flow
--------------------------------
-
-Users will need to have the following prerequisites to begin the flow.
-
-Files
-~~~~~
-
--  Top-level YAML file, CfgDataDef.dsc, and Internal/External .DLT files.
-
--  Default configuration data, CfgDataInt.bin and/or CfgData_Default.dlt
-
--  RSA key file.
-
-Tools
-~~~~~
-
--  CfgDataStitch.py, CfgDataTool.py, ConfigEditor.py, GenCfgData.py
-
-Process
-~~~~~~~
-
-**Load:**
-
-Open *ConfigEditor* GUI tool, ConfigEditor.py.
-
-Load top-level CfgDataDef.dsc file. Now the platform settings with
-default values are shown in the *ConfigEditor*.
-
-Load board-specific DLT file (e.g., CfgData_Ext_Up2.dlt, and so on).
-Once this is loaded, *ConfigEditor* will display the overwritten values
-as specified in the DLT file.
-
-**Change values:**
-
-If user choose to change additional settings, it can be done at this
-time either in the DLT file directly or using *ConfigEditor*. For a
-different platform, make sure to set/modify the platform ID value
-accordingly. Then save the changes back into the DLT file (or) it can
-also be saved as a binary file using *ConfigEditor*. New DLT file or new
-binary that is created will then have the newly changed settings.
-
-**Stitch into final image:**
-
-Open a command window and cd into the location of the CfgDataStitch.py
-folder.
-
-Run this Python\* script in the command window: **CfgDataStitch.py -h**
-for parameters for this script.
-
-Once the above script is run successfully, the new configuration data is
-patched and the new IFWI image has been created.
-
-**Boot:**
-
-Users can now flash the new image that contains the changed
-configuration values onto the board, then boot to SBL shell and check
-boot options that are changed with the new values.
+build is also supported. Please see :ref:`config-steps` for details.
