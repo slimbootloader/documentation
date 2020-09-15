@@ -18,8 +18,8 @@ Command Syntax::
 
     python BuildLoader.py <subcommand> <target> <options>
 
-    <subcommand>  : build or clean
-    <target>      : board name (e.g. apl or qemu)
+    <subcommand>  : build or build_dsc or clean
+    <target>      : board name (e.g. apl, qemu, etc.)
 
 
 Windows and Linux share the same command line options as follows. For example, for ``build`` subcommand::
@@ -27,7 +27,7 @@ Windows and Linux share the same command line options as follows. For example, f
     usage: BuildLoader.py build [-h] [-r] [-v] [-fp FSPPATH] [-fd] [-p PAYLOAD] board
 
     positional arguments:
-    board                 Board Name (apl, qemu)
+    board                 Board Name (apl, qemu, etc.)
 
     optional arguments:
       -h, --help                      Show this help message and exit
@@ -40,7 +40,7 @@ Windows and Linux share the same command line options as follows. For example, f
 
 For a list of platforms supported::
 
-  pthon BuildLoader.py build -h
+  python BuildLoader.py build ?
 
 
 If build is successful, ``Outputs`` folder will contain the build binaries. One of the output files will be ``Stitch_Components.zip`` which will be used in the stitching step.
