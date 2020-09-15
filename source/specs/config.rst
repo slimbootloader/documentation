@@ -189,7 +189,7 @@ Standalone/Custom External Configuration
 
 -  Example command to generate the merged custom/standalone external
    configuration binary using *CfgDataTool*
-   
+
 ::
 
   python BootloaderCorePkg/Tools/CfgDataTool.py merge -o CfgData_Ext_xx.bin CfgDataInt.bin extcfg_brd1.bin extcfg_brd2.bin
@@ -219,7 +219,7 @@ currently supports 0 to 31 as platform ID values.
 
 Platform ID can be specified in the board-specific DLT file.
 
-   
+
 ::
 
   PLATFORMID_CFG_DATA.PlatformId | 0x16
@@ -290,7 +290,7 @@ Configuration data blob starts with a header **CDATA_BLOB_HEADER**.
 Config Data
 ^^^^^^^^^^^
 
-The configuration blob header is followed by a series of configuration 
+The configuration blob header is followed by a series of configuration
 data structures each with a **CDATA_HEADER**. The CDATA_HEADER has the
 tag field which can be used to identify the structure.
 
@@ -386,7 +386,7 @@ File Layout
 
 The configuration YAML file has a basic organization as below
 
--  A collection of **Variables**
+-  **Variable** declarations
 
 -  **Template** declarations
 
@@ -395,40 +395,43 @@ The configuration YAML file has a basic organization as below
 Meta-Data Markers
 ~~~~~~~~~~~~~~~~~
 
-The configuration YAML files uses the **$** sign as meta-data 
-indicator. This is used by the SBL configuration parsing tools. 
+The configuration YAML files uses the **$** sign as meta-data
+indicator. This is used by the SBL configuration parsing tools.
 
 The current specification version supports the following meta-data markers.
 
-$ACTION 
+$ACTION
 ^^^^^^^^
 
-**$ACTION** is a meta-data marker and is followed by a YAML mapping node 
-that contains some meta-data. 
+**$ACTION** is a meta-data marker and is followed by a YAML mapping node
+that contains some meta-data. The following attributes are supported currently.
 
 
 PAGE
 ^^^^
 
-PAGE is used to declare a list of pages used in the GUI. 
+PAGE is used to declare a list of pages used in the GUI.
 
 PAGE is also used to define the display scope for a configuration
-parameter and can be applied for individual configuration parameters. 
+parameter and can be applied for individual configuration parameters.
 
-In this way multiple configuration parameters can be grouped to be 
-visually displayed together in the same page in GUI. 
+In this way multiple configuration parameters can be grouped to be
+visually displayed together in the same page in GUI.
 
 Since the page: value(s) is a meta-data used by the tool (not a
 configuration option itself), it has be preceded by the **$ACTION**
-directive.
+node.
 
 Format::
 
-  PAGE:PageId1 : ParentPageId1 : PageTxetDescription1, PageId2 : ParentPageId2 : PageTxetDescription2
+  page:  PageId1:ParentPageId1:PageTxetDescription1, PageId2:ParentPageId2:PageTxetDescription2
 
+If a root page needs to be defined, the ParentPageId could be empty as below::
+
+  page:  RootPageId::RootPageTxetDescription
 
 .. image:: /images/YAMLPage.PNG
-  
+
 
 $STRUCT
 ^^^^^^^
@@ -454,14 +457,14 @@ For example, consider the nested structure below::
 
   } FEATURES_DATA;
 
-  typedef struct { 
+  typedef struct {
 
     FEATURES_DATA               Features;
 
   } FEATURES_CFG_DATA;
 
 
-The following example shows this declaration using a $STRUCT as shown below 
+The following example shows this declaration using a $STRUCT as shown below
 
 .. image:: /images/YAMLStruct.PNG
 
@@ -469,8 +472,6 @@ The following example shows this declaration using a $STRUCT as shown below
 
   - $ACTION      :
       page       : FEATURES:PLT:"Features"
-  - $ACTION      :
-      page       : FEATURES
   - FEATURES_CFG_DATA :
     - !expand { CFGHDR_TMPL : [ FEATURES_CFG_DATA, 0x310, 0, 0 ] }
     - !expand { FEATURES_TMPL : [  0x0000001F ] }
@@ -492,22 +493,29 @@ Configuration declarations may be logically organized in multiple files.
 Additional YAML files are included in the CfgDataDef.yaml using
 “!include” tag.
 
-*!include* statement may appear within any section. The *!include* file
-content must match the content type of the current section definition,
-contain complete sections, or combination of both.
+*!include* statement may appear within any section. A relative file path
+is required to specific the file path to be included.  This path should
+be relative to the current yaml file containing the *!include* statement.
+The file content to be included must match the content type of the current
+section definition, contain complete sections, or combination of both.
 
 Statements in *!include* files must not break the integrity of the Yaml
 file, the included file is read by parsing tools in the exact position
 of the file, and is functionally equivalent to copying contents of the
-included file and pasting them into Yaml.
+included file and pasting them into Yaml. The indentation of the included
+file will be adjusted automatically so that the top-level indentation in
+the included file has the same level as the *!include* statement line.
+line.
 
-Example
+Format::
 
-::
+  - !include RelativeFilePath
 
-  !include Platform/CommonBrdPkg/CfgData/CfgData.yaml
+Example::
 
-  !include Platform/Rvp7Pkg/CfgData/CfgData_GPIO.yaml
+  - !include Platform/CommonBrdPkg/CfgData/CfgData.yaml
+
+  - !include Platform/Rvp7Pkg/CfgData/CfgData_GPIO.yaml
 
 
 .. _sbl_expand:
@@ -515,7 +523,8 @@ Example
 !EXPAND
 ^^^^^^^
 
-“!expand” tag is used for declaring a configuration option using a template (:ref:`sbl_template`).
+“!expand” tag is used for declaring a configuration option defined by a template (:ref:`sbl_template`).
+*!expand* tag can only appear in *template* or *configs* section.
 
 Format::
 
@@ -544,15 +553,14 @@ $(3) is replaced with 0 and
 $(4) is replaced with 0.
 
 
-Variables
+Variable
 ---------
 
 Variables may be considered as something equivalent to a C language
-macro. Variables are primarily used as symbolic names given to Python 
-expressions.
-
-Whenever the variable name is used, it is replaced by the contents of
-the macro.
+macro. Variables are primarily used as symbolic names given to Python
+expressions. Whenever the variable name is used, it is replaced by the
+contents of the macro. Variables should only be defined in *variable*
+section.
 
 Example::
 
@@ -562,28 +570,29 @@ Example::
 
 .. _sbl_template:
 
-Templates
+Template
 ---------
 
 Templates are used to declare the format of configuration options and
-are useful when many configuration options of the same type are needed.
+are useful when many configuration options of the similar type are needed.
 GPIO configuration option is a good example where templates are useful.
 A platform may have a lot of GPIO pins and instead of declaring
 configuration options for GPIO_1, GPIO_2, GPIO_3, etc., a template for
 GPIO can be declared and each GPIO can reuse the same configuration
 template with different values as needed.
 
-Templates support reference to parameters to customize the expansion. 
+Templates should be declared in *template* section only, and should always be
+represented as a mapping node using folded block style indicated by a right
+angle bracket (>).
+
+Templates support reference to parameters to customize the expansion.
 $(n) can be used to refer to the Nth parameter passed into this template
-macro. During expansion, $(n) will be substituted with the actual Nth parameter.
+macro by *!expland* tag.  During expansion, $(n) will be substituted with the
+actual Nth parameter.
 
 For example, a template for PCIe root port configuration is shown below::
 
   PCIERP_TMPL: >
-    - $ACTION      :
-        page         : PLT_PCIE_RP_FEAT_$(1):PLT_PCIE_RP_FEAT:"PCIE RP $(1) Features"
-    - $ACTION      :
-        page         : PLT_PCIE_RP_FEAT_$(1)
     - PcieRpFeatures$(1) :
       - $STRUCT      :
           name         : PCIE RP $(1) Config Data
@@ -650,8 +659,8 @@ and begin each entry on its own line.
 SBL configuration options are a series of YAML block sequence and form a
 YAML block collection.
 
-Every ConfigDataDef.yaml configs section starts with the declaration for the 
-**CDATA_BLOB_HEADER** as shown in :ref:`sbl_config_blob_header` followed by a 
+Every ConfigDataDef.yaml configs section starts with the declaration for the
+**CDATA_BLOB_HEADER** as shown in :ref:`sbl_config_blob_header` followed by a
 series of configuration data identied by unique tags::
 
   configs:
@@ -851,7 +860,7 @@ Example::
 
   option : >
 
-  0:1:HEX, 1:1:HEX, 2:1:HEX, 3:1:HEX, 4:1:HEX, 5:1:HEX, 6:1:HEX, 7:1:HEX, 8:1:HEX, 9:1:HEX, A:1:HEX, B:1:HEX, C:1:HEX, D:1:HEX, E:1:HEX, F:1:HEX  
+  0:1:HEX, 1:1:HEX, 2:1:HEX, 3:1:HEX, 4:1:HEX, 5:1:HEX, 6:1:HEX, 7:1:HEX, 8:1:HEX, 9:1:HEX, A:1:HEX, B:1:HEX, C:1:HEX, D:1:HEX, E:1:HEX, F:1:HEX
 
 Byte width in each cell of the table can be displayed as 1 byte, 2 bytes or 4 bytes.
 
@@ -877,7 +886,7 @@ Format::
 
   OPTION: > Value1:TextStr1, Value2:TextStr2, ….
 
-.. Note:: Config tools allow the value/contents for OPTION to be split into multiple lines. The lines except for the very first line need to start with ‘\ **+’ (plus sign)** 
+.. Note:: Config tools allow the value/contents for OPTION to be split into multiple lines. The lines except for the very first line need to start with ‘\ **+’ (plus sign)**
    to tell the parsing tool to append this string to previous one.
 
 HELP
@@ -960,8 +969,8 @@ Example::
 VALUE
 ^^^^^
 
-Value is used to specify the default value of the configuration option. When used with an array option, 
-the values should be provided using **{** **}** braces. String values are specified using single 
+Value is used to specify the default value of the configuration option. When used with an array option,
+the values should be provided using **{** **}** braces. String values are specified using single
 quotes 'String'.
 
 Example::
@@ -1017,8 +1026,8 @@ DLT file rules
    see overrides in *ConfigEditor* that is mentioned in DLT.
 
 -  Delta files should be included as part of the Board Configuration
-   script, BoardConfig.py in order to take effect. 
-   
+   script, BoardConfig.py in order to take effect.
+
    Example::
 
      self._CFGDATA_INT_FILE = ['CfgData_Int_Brd0_Def.dlt']
@@ -1035,11 +1044,11 @@ DLT file rules
 
 -  Below are the current formats that can be used in DLT:
 
-   -  Hash "#" symbol indicates comments in the DLT file. 
+   -  Hash "#" symbol indicates comments in the DLT file.
 
    -  Users can overwrite the values of existing Tag items in DLT as follows
 
-   Format:: 
+   Format::
 
      Tagname.itemname(s) | <data value>
 
