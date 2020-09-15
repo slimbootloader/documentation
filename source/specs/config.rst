@@ -296,15 +296,15 @@ tag field which can be used to identify the structure.
 
     UINT32 ConditionNum : 2; // [1:0] #of condition words present
 
-    UINT32 Length : 10; // [11:2] total size of item i.e;CDATA payload data length (in dwords)
+    UINT32 Length : 10;      // [11:2] total size of item i.e;CDATA payload data length (in dwords)
 
-    UINT32 Flags : 4; // [15:12] reserved. Currently used by CfgDataTool
+    UINT32 Flags : 4;        // [15:12] reserved. Currently used by CfgDataTool
 
-    UINT32 Version : 4; // [19:16] item (payload) format version
+    UINT32 Version : 4;      // [19:16] item (payload) format version
 
-    UINT32 Tag : 12; // [31:20] identifies item (in payload)
+    UINT32 Tag : 12;         // [31:20] identifies item (in payload)
 
-    UINT32 Value; // Bit masks on supported platforms
+    UINT32 Value;            // Bit masks on supported platforms
 
   } CDATA_HEADER;
 
