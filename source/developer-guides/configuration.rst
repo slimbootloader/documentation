@@ -10,13 +10,15 @@ Ease of platform and board customization is one of the most important design goa
 * By defining a standardized human readable configuration format, it is easier to create tools to provide user interface to manage many platform configurations.
 
 
-|SPN| has two sets of configuration data in the image:
+|SPN| has two sets of configuration data in the image
 
-Internal configuration data
+**Internal configuration data**
   Software default values. It is unchangeable once |SPN| is built. In case of external configuration data is not available or corrupted, internal data is loaded instead.
 
-External configuration data
+
+**External configuration data**
   Platform specific data which is configurable by tools. It can be protected with user provided key.
+
 
 |SPN| configuration infrastructure includes the following and is designed to support multiple boards with one firmware image. 
 
@@ -30,7 +32,8 @@ External configuration data
 
 YAML Files
 ^^^^^^^^^^^^
-* All platform configuration settings including memory, silicon, GPIO, OS boot policy, security settings etc are declared in a custom format and uses YAML Syntax.
+* All platform configuration settings including memory, silicon, GPIO, OS boot policy, security settings etc are declared in a custom format and uses YAML Syntax 
+  (:ref:`configuration-spec`).
 * YAML configuration files, in general are located in project specific board folder, while some common configuration files are located at Platform\CommonBoardPkg\CfgData. 
 * For example, you can find the configuration files for Apollo Lake platform under Platform\ApollolakeBoardPkg\CfgData folder.
 
@@ -69,7 +72,7 @@ During |SPN| build, the configuration data in the YAML files are parsed by the c
 In addition to generating and stitching of configuration binaries through |SPN| build process, editing of configuration parameters post build is also supported.
 
 Post-build configuration update can be done with the project's configuration YAML/DLT files and the updated configuration binary can be restitched without having to rebuild |SPN|
-project. 
+project. Please see :ref:`config-steps` for details.
 
 All the configuration tools required by the configuration process can be found under BootloaderCorePkg/Tools folder.
 
@@ -84,11 +87,6 @@ Configuration Editor Tool
 .. image:: /images/CfgEditDefYaml.png
 
 
-.. Note:: An example pre build configuration flow to configure GPIOs can be found here https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data
-
-.. Note:: An example post build configuration flow to configure Boot Options can be found here https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time
-
-
 .. _platform-id:
 
 Platform ID
@@ -100,8 +98,7 @@ Platform ID
 
 |SPN| supports up to 32 platform IDs. Note that Platform ID **0** served to carry the default CFGDATA values defined in the CfgDataDef.yaml file. So it cannot be used for a real board. So technically, SBL can support upto 31 boards.
 
-.. note:: In addition to board specific delta files, a DLT file that overrides configuration parameters for all boards (board id 0) is also supported. If platform ID needs to be configurable without source, DLT file for board ID 0 is required. This is useful when common board settings are to be changed without changing the platform configuration DSC file.
-
+.. note:: In addition to board specific delta files, a DLT file that overrides configuration parameters for all boards (board id 0) is also supported. If platform ID needs to be configurable without source, DLT file for board ID 0 is required. This is useful when common board settings are to be changed without changing the platform configuration YAML file.
 
 
 
@@ -113,14 +110,11 @@ Platform Configuration Files
 Platform ID Configuration
 """""""""""""""""""""""""""""""""
 
-1. Provide platform ID (1-15) value in board configuration file (``*.dlt``):
+Provide platform ID (1-15) value in board configuration file (``*.dlt``):
 
 .. code::
 
   PLATFORMID_CFG_DATA.PlatformId                  | 0x7
-
-2. Build |SPN| and stitch IFWI image
-
 
 
 .. _dynamic-platform-id:
@@ -137,8 +131,6 @@ Platform ID Detection using GPIOs
   PLATFORMID_CFG_DATA.PlatformId                  | 0x9
 
 .. note:: Internally, |SPN| adds 16 to Platform ID detected using GPIOs in order not to conflict with static IDs.
-
-3. Build |SPN| and stitch IFWI image
 
 
 Common Configuration Categories
@@ -157,6 +149,75 @@ Configuration data are grouped by categories:
 * ...
 
 Configuration data is loaded and verified in Stage1B. Once loaded, |SPN| groups related configuration item by *tags* and the data can be retrieved by calling function ``FindConfigDataByTag()``. For example, ``CDATA_USB_TAG``.
+
+
+.. _config-steps:
+
+Step-by-step Configuration Flow
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users will need to have the following prerequisites to begin the flow.
+
+Files
+"""""
+
+-  Top-level YAML file, CfgDataDef.yaml, and Internal/External .DLT files.
+
+-  Default configuration data, CfgDataInt.bin and/or CfgData_Default.dlt
+
+-  RSA key file.
+
+Tools
+"""""
+
+-  CfgDataStitch.py, CfgDataTool.py, ConfigEditor.py, GenCfgData.py
+
+Process
+"""""""
+
+**Load:**
+
+Open *ConfigEditor* GUI tool, ConfigEditor.py.
+
+Load top-level CfgDataDef.yaml file. Now the platform settings with
+default values are shown in the *ConfigEditor*.
+
+Load board-specific DLT file (e.g., CfgData_Ext_Up2.dlt, and so on).
+Once this is loaded, *ConfigEditor* will display the overwritten values
+as specified in the DLT file.
+
+**Change values:**
+
+If user choose to change additional settings, it can be done at this
+time either in the DLT file directly or using *ConfigEditor*. For a
+different platform, make sure to set/modify the platform ID value
+accordingly. Then save the changes back into the DLT file (or) it can
+also be saved as a binary file using *ConfigEditor*. New DLT file or new
+binary that is created will then have the newly changed settings.
+
+**Stitch into final image:**
+
+Open a command window and cd into the location of the CfgDataStitch.py
+folder.
+
+Run this Python\* script in the command window: **CfgDataStitch.py -h**
+for parameters for this script.
+
+Once the above script is run successfully, the new configuration data is
+patched and the new IFWI image has been created.
+
+**Boot:**
+
+Users can now flash the new image that contains the changed
+configuration values onto the board, then boot to SBL shell and check
+boot options that are changed with the new values.
+
+
+.. Note:: An example pre build configuration flow to configure GPIOs can be found here https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data
+
+.. Note:: An example post build configuration flow to configure Boot Options can be found here https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time
+
+
 
 Example Console Outputs
 """""""""""""""""""""""""
