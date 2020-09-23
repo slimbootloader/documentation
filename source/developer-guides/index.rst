@@ -20,7 +20,7 @@ Developer's Guide
    memory-map
    configuration
    payload
-   ias
+   bootimage
    boot-options
    flash-boot
    versioning
