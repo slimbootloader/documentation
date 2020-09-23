@@ -1,7 +1,7 @@
-.. _debug:
+.. _swdebugger:
 
-Source Level Debugging
-----------------------
+Source Level Debugging with Intel(R) UDK Debugger
+-------------------------------------------------
 
 This explains how to perform basic debugging operation with Intel UDK Debugger on |SPN| over serial port. 
 

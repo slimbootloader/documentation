@@ -20,12 +20,13 @@ Developer's Guide
    memory-map
    configuration
    payload
-   ias
+   bootimage
    boot-options
    flash-boot
    versioning
    boot-performance
    shell
+   debugging-with-cca
    debugging-with-udk
    logging
    contributions
