@@ -107,6 +107,8 @@ Open the 85-isysdbg-env.bat file from Intel(R) System Debugger installation dire
   * set ISYSDBG_FLASH_BASE=0x9B000000
   * set ISYSDBG_FLASH_SIZE=0x02000000
 
+  .. Note:: FLASH Base and Size are project specific. Please refer the project boardconfig.py for project specific settings.
+
 
 Debug steps
 ~~~~~~~~~~~
