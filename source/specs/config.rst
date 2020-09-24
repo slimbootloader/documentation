@@ -965,15 +965,23 @@ Example::
 VALUE
 ^^^^^
 
-Value is used to specify the default value of the configuration option. When used with an array option,
-the values should be provided using **{** **}** braces. String values are specified using single
-quotes 'String'.
+Value is used to specify the default value of the configuration option. It could be a number, string, or data array.
+
+  *  For number, it can be DEC or HEX.   HEX needs to have prefix '0x'.  
+  *  For array,   **{** **}** braces are required around the element list. List elements should be numbers and are separated by comma.
+     Each element should have the same unit size (1, 2, 4, 8 bytes). By default, it is BYTE for each element.  The unit size can be changed 
+     through an extended dummy element at the beginning of the array, noted as  "0:0[B|W|D|Q]".  
+  *  For string,  single or double quotes are required.
 
 Example::
 
   value        : 0xFF
 
   value        : {0, 1, 3, 2, 4, 5, 6, 7}
+                 {0:0B, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08}
+                 {0:0W, 0x0201, 0x0403, 0x0605, 0x0807}
+                 {0:0D, 0x04030201, 0x08070605}
+                 {0:0Q, 0x0807060504030201}
 
   value        : 'FwuImage.bin'
 
