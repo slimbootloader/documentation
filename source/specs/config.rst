@@ -953,7 +953,7 @@ Example::
 LENGTH
 ^^^^^^
 
-Length is used to specify the size of the configuration option. Length can also specify size in
+Length is used to specify the size of the configuration option in bytes. Length can also be specified in
 bits by appending 'b' at the end.
 
 Example::

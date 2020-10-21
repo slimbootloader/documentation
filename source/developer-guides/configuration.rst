@@ -203,6 +203,10 @@ folder.
 Run this Python\* script in the command window: **CfgDataStitch.py -h**
 for parameters for this script.
 
+Example::
+
+  python CfgDataStitch.py -i sbl_ifwi_old.bin -k ConfigTestKey_Priv_RSA3072.pem -s SblOpen\BootloaderCorePkg\Tools -c . -o sbl_ifwi_patched.bin -p <<platform ID>>
+
 Once the above script is run successfully, the new configuration data is
 patched and the new IFWI image has been created.
 
