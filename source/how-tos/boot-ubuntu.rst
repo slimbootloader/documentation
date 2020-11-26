@@ -7,7 +7,11 @@ Boot Ubuntu
 
 The following steps have been verified with Ubuntu Linux 18.04 LTS (64-bit).
 
+.. important:: Traditional Linux booting using vmlinuz, initrd, and config.cfg is only supported with the debug build of |SPN| or if you have **self.HAVE_VERIFIED_BOOT = 0** in your BoardConfig.py; you can test using debug build initially but for release build support consider packaging the vmlinuz, initrd, and config.cfg into container image format. See :ref:`create-container-boot-image` for more details.
+
 **STEP 1:** Build |SPN|
+
+.. note:: The BoardConfig.py option **self.ENABLE_GRUB_CONFIG = 1** should be set when building |SPN|.
 
 **STEP 2:** Flash IFWI image to the board
 
