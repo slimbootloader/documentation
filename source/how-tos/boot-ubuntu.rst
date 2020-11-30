@@ -64,17 +64,22 @@ the ‘x’ to close the message box.  It returns to the Ubuntu desktop.
 
 6. Open a terminal console and copy kernel files to the FAT partition created in previous step
 
-Run::
+Run:
 
-    sudo mount  /dev/mmcblk1p1 /mnt   <-- mmcblk1p1 is the FAT partition on eMMC. Change it to the actual partition name in your board
-    sudo cp /cdrom/casper/vmlinuz /mnt
-    sudo cp /cdrom/casper/initrd.lz  /mnt/initrd
-    sudo echo "root=/dev/mmcblk1p2  ro  quiet splash"  > /mnt/config.cfg   <-- mmcblk1p2 is the EXT4 partition on eMMC.  Change it to the actual partition name on your board
-    sudo unmount /mnt   <-- IMPORTANT: this ensures config.cfg is written to eMMC
+.. code-block:: bash
+
+    sudo mount  /dev/mmcblk1p1 /mnt   # mmcblk1p1 is the FAT partition on eMMC. Change it to the actual partition name on your board
+    sudo mkdir  /mnt2
+    sudo mount  /dev/mmcblk1p2 /mnt2  # mmcblk1p2 is the EXT4 partition on eMMC. Change it to the actual partition name on your board
+    sudo cp /mnt2/boot/vmlinuz-* /mnt/vmlinuz # vmlinuz-* will correspond to some version of the kernel you have, ex. vmlinuz-5.4.0-42-generic
+    sudo cp /mnt2/boot/initrd.img-* /mnt/initrd # initrd.img-* will correspond to some version of the kernel's initrd you have, ex. initrd.img-5.4.0-42-generic
+    sudo echo "root=/dev/mmcblk1p2  ro  quiet splash"  > /mnt/config.cfg   # mmcblk1p2 is the EXT4 partition on eMMC. Change it to the actual partition name on your board
+    sudo unmount /mnt2
+    sudo unmount /mnt   # IMPORTANT: this ensures config.cfg is written to eMMC
 
 
 7. Remove USB flash drive and reboot
 
 |SPN| should boot to Ubuntu automatically from eMMC now.
 
-
+.. note:: If you encounter any error loading the vmlinuz or initrd files due to space allocation issues you may need to increase the value of your **self.PLD_HEAP_SIZE** set in your board's BoardConfig.py and re-build |SPN| and flash as a new IFWI.
