@@ -45,7 +45,7 @@ Depending on the boot media being used, ``container.bin`` should be copied to th
 
 Make sure the boot option is configured to the location of ``container.bin`` on the boot device. E.g., if ``container.bin`` is located on the first FAT32 partition on a USB, the boot option entry should look like the following::
 
-  # !BSF SUBT:{OS_TMPL:0 :  0    :  0 :   5   :  0   :   0  :    0 :    0 :'container.bin' }
+    - !expand { BOOT_OPTION_TMPL : [ 0 ,   0    ,  0 ,    5   ,   0   ,    0  ,     0 ,     0 , 'container.bin' ] }
 
 See :ref:`change-boot-options` for more details.
 
