@@ -6,7 +6,7 @@ Boot Options
 |SPN| supports boot options configuration for different boot targets. This feature is designed to provide flexibility and configurability, including:
 
 * Partition layout options (RAW, MBR, or GPT)
-* File system support (FAT and Ext2/3)
+* File system support (FAT and Ext2/3/4)
 * Multiple boot devices (eMMC, UFS, NVMe, SATA, USB, SPI flash etc)
 * Redundant and fallback options
 

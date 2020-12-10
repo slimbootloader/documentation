@@ -123,11 +123,11 @@ For example, to switch boot options of index 0 and 3::
     Shell> boot
     Boot options (in HEX):
 
-    Idx|ImgType|DevType|Flags|DevAddr |HwPart|FsType|SwPart|File/Lbaoffset
-      0|      0|   MMC |   0 |    1C00|    0 |  FAT |    0 | iasimage.bin
-      1|      0|   MMC |   0 |    1C00|    0 | AUTO |    1 | iasimage.bin
-      2|      0|  SATA |   0 |    1200|    0 |  FAT |    0 | iasimage.bin
-      3|      0|   USB |   0 |    1500|    0 |  FAT |    0 | iasimage.bin
+    Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+      0|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin *Current
+      1|      0|   MMC |    0 |   0 |    0 | AUTO |    1 | iasimage.bin
+      2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+      3|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
 
     SubCommand:
       s   -- swap boot order by index
@@ -142,11 +142,11 @@ For example, to switch boot options of index 0 and 3::
     Updated the Boot Option List
     Boot options (in HEX):
 
-    Idx|ImgType|DevType|Flags|DevAddr |HwPart|FsType|SwPart|File/Lbaoffset
-      0|      0|   USB |   0 |    1500|    0 |  FAT |    0 | iasimage.bin
-      1|      0|   MMC |   0 |    1C00|    0 | AUTO |    1 | iasimage.bin
-      2|      0|  SATA |   0 |    1200|    0 |  FAT |    0 | iasimage.bin
-      3|      0|   MMC |   0 |    1C00|    0 |  FAT |    0 | iasimage.bin
+    Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+      0|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin *Current
+      1|      0|   MMC |    0 |   0 |    0 | AUTO |    1 | iasimage.bin
+      2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+      3|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
 
 
     Shell> exit

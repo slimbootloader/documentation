@@ -55,7 +55,7 @@ Depending whether you are booting from eMMC or USB, ``iasimage.bin`` should be c
 
 Make sure the boot option is configured to the location of ``iasimage.bin`` on the boot device. E.g., if ``iasimage.bin`` is located on the first boot FAT32 partition on USB, the boot option entry should look like the following::
 
-  # !BSF SUBT:{OS_TMPL:3 :  0    :  0 :   5   :  0   :   0  :    0 :    0 :'iasimage.bin' :       0 :      0 :     0         :     0   :  0     :     0         :     8   :   0    }
+    - !expand { BOOT_OPTION_TMPL : [ 3 ,   0    ,  0 ,    5   ,   0   ,    0  ,     0 ,     0 , 'iasimage.bin' ] }
 
 See :ref:`change-boot-options` for more details.
 
