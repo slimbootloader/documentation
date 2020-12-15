@@ -113,24 +113,18 @@ Nasm 2.11
 
 Openssl (latest)
 
-Download from |https://indy.fulgan.com/SSL| (the latest version:  |https://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip|)
+Download latest win64 version from |https://wiki.openssl.org/index.php/Binaries|)
 
-.. |https://indy.fulgan.com/SSL| raw:: html
+.. |https://wiki.openssl.org/index.php/Binaries| raw:: html
 
-   <a href="https://indy.fulgan.com/SSL" target="_blank">https://indy.fulgan.com/SSL</a>
+   <a href="https://wiki.openssl.org/index.php/Binaries" target="_blank">https://wiki.openssl.org/index.php/Binaries</a>
 
-
-.. |https://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip| raw:: html
-
-   <a href="https://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip" target="_blank">https://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip</a>
-
- unzip then copy files to C:\\Openssl
 
 **Require:** Install to C:\\Openssl
 
 .. note::
-  Set environment variable OPENSSL_PATH to openssl directory,
-  Cmd: set OPENSSL_PATH=C:\\Openssl
+  Set environment variable OPENSSL_PATH to openssl directory where openssl.exe is present.
+  For example: set OPENSSL_PATH=C:\\Openssl\\bin
 
 
 Git on Windows

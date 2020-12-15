@@ -22,7 +22,7 @@ SBL Hash Store
 
 SBL maintains a “Hash Store” to save digests needed by the bootloader. This includes the hash digests of |SPN| stages as well as the hash digests of the public keys used to verify discrete components.
 
-The hash store is included in Stage 1A and is verified as part of Stage 1B by the HWROT. The hash store can be extended using a loadable module as well. Stage 1B verifies this loadable module before extending the built-in hash store. 
+The hash store is included in Stage 1A and is verified as part of IBB by the HWROT. The hash store can be extended using a loadable module as well. Stage 1B verifies this loadable module before extending the built-in hash store. 
 
 
 Verified Boot FLow
