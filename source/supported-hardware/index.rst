@@ -13,3 +13,4 @@ Supported Hardware
    cfl-crb
    upxtreme
    cml-rvp
+   tgl-rvp
