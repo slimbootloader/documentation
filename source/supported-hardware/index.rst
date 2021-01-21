@@ -14,3 +14,4 @@ Supported Hardware
    upxtreme
    cml-rvp
    tgl-rvp
+   ehl-crb

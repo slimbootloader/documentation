@@ -35,6 +35,8 @@
 
 .. |DDRLP4| replace:: Tiger Lake UP3 DDRLP4
 
+.. |EHL| replace:: Elkhart Lake
+
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
