@@ -29,6 +29,12 @@
 
 .. |CMLH420E| replace:: CML S RVP with PCH H420E
 
+.. |TGL| replace:: Tiger Lake
+
+.. |DDR4| replace:: Tiger Lake UP3 DDR4
+
+.. |DDRLP4| replace:: Tiger Lake UP3 DDRLP4
+
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
