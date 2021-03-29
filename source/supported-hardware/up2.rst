@@ -99,7 +99,11 @@ Stitch |SPN| images with factory BIOS image using the stitch tool::
     <SBL_IFWI_IMAGE> : Output file. New IFWI image with SBL in BIOS region.
     -p <value>       : 4-byte platform data for platform ID and debug UART port index.
 
+.. Note:: StitchLoader.py script works only if Boot Guard in the base image is not enabled, and the silicon is not fused with Boot Guard enabled.
+          If Boot Guard is enabled, please use StitchIfwi.py script instead.
+
 See :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
+
 
 Slimbootloader binary for capsule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -110,13 +114,17 @@ Build |SPN| for |UP2|::
 
   python BuildLoader.py build apl
 
-Run stitch tool to create a |SPN| image from IFWI binary
+Run stitching process as described above to create a |SPN| IFWI binary ``sbl_up2_ifwi.bin``::
 
-For example, the following command creates ``sbl.bios.bin`` from |SPN| image and factory BIOS ``UPA1AM33.bin`` for |UP2| board::
+  python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/apl/Stitch_Components.zip -o sbl_up2_ifwi.bin -p 0xAA00000E
 
-  python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -b sbl.bios.bin -i UPA1AM33.bin -s Outputs/apl/Stitch_Components.zip -o up2_sbl.bin -p 0xAA00000E
+Extract ``bios.bin`` from |SPN| IFWI image::
 
-.. note:: ``-b`` option is important for creating the capsule image.
+  python BootloaderCorePkg/Tools/IfwiUtility.py extract -i sbl_up2_ifwi.bin -p IFWI/BIOS -o bios.bin
+
+Generate capsule update image ``FwuImage.bin``::
+
+  python BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS bios.bin -k KEY_ID_FIRMWAREUPDATE_RSA2048 -o FwuImage.bin
 
 
 Triggering Firmware Update

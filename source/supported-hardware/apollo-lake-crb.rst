@@ -8,9 +8,9 @@ Apollo Lake CRB Boards
 Supported Boards
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports **Leaf Hill, Juniper Hill and Oxbow Hill** board variations of |APL|. 
+|SPN| supports **Leaf Hill, Juniper Hill and Oxbow Hill** board variations of |APL|.
 
-  
+
 
 Building
 ^^^^^^^^^^
@@ -29,9 +29,7 @@ Stitching
 
   This image contains additional firmware ingredients that are required to boot on |APL|.
 
-.. note::
-  ``StitchLoader.py`` currently only supports stitching with boot guard feature **disabled**. 
-  Unzip the firmware images that contains two |APL| firmware images, one is Debug version and one is Release version, both of them can be used for stitch SBL IFWI. 
+.. note:: Unzip the firmware images that contains two |APL| firmware images, one is Debug version and one is Release version, both of them can be used for stitch SBL IFWI.
 
 
 2. Stitch |SPN| images into downloaded BIOS image::
@@ -40,10 +38,11 @@ Stitching
 
     where -i = Input file, -o = Output file.
 
-For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
+  For example, stitching |SPN| IFWI image ``sbl_lfh_ifwi.bin`` from |APL| firmware images downloaded::
 
     python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
 
+.. Note:: ``StitchLoader.py`` script works only if Boot Guard in the base image is not enabled, and the silicon is not fused with Boot Guard enabled. If Boot Guard is enabled, please use StitchIfwi.py script instead.
 
 For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 
@@ -56,7 +55,7 @@ Flash the generated ``sbl_lfh_ifwi.bin`` to the target board using DediProg SF10
 
 .. note:: Please check the alignment/polarity when connecting Dediprog to the board. Please power off the board before connecting the Dediprog.
 
-.. note:: The connector labelled **SPI TPM - J5D1** on the target board is for DediProg. 
+.. note:: The connector labelled **SPI TPM - J5D1** on the target board is for DediProg.
 
 .. note:: Please disconnect Deidprog before powering up the board again.
 
@@ -70,13 +69,17 @@ Build |SPN| for |APL|::
 
   python BuildLoader.py build apl
 
-Run stitch tool to create a |SPN| image from IFWI binary
+Run stitching process as described above to create a |SPN| IFWI binary ``sbl_lfh_ifwi.bin``::
 
-  For example, the following command creates ``sbl.bios.bin`` from |SPN| image and |APL| firmware images downloaded::
+  python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
 
-    python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -b sbl.bios.bin -i LEAFHILD.X64.0070.R01.1805070352.bin -s Outputs/apl/Stitch_Components.zip -o sbl_lfh_ifwi.bin
+Extract ``bios.bin`` from |SPN| IFWI image::
 
-.. note:: ``-b`` option is important for creating the slimbootloader capsule image.
+  python BootloaderCorePkg/Tools/IfwiUtility.py extract -i sbl_lfh_ifwi.bin -p IFWI/BIOS -o bios.bin
+
+Generate capsule update image ``FwuImage.bin``::
+
+  python BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS bios.bin -k KEY_ID_FIRMWAREUPDATE_RSA2048 -o FwuImage.bin
 
 
 Triggering Firmware Update
@@ -92,9 +95,9 @@ please refer to IsFirmwareUpdate() function called in ``Platform\ApollolakeBoard
 Debug UART
 ^^^^^^^^^^^
 
-For |APL|, LPSS UART **Port 2** is the debug UART configured in |SPN|. 
+For |APL|, LPSS UART **Port 2** is the debug UART configured in |SPN|.
 
-The |APL| have a FTDI chip for serial to USB connection. Please connect the **micro USB connector** next to the power button on the target board to a host and a 
+The |APL| have a FTDI chip for serial to USB connection. Please connect the **micro USB connector** next to the power button on the target board to a host and a
 terminal software to enable debug console from |SPN|.
 
 
