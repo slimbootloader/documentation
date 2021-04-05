@@ -11,11 +11,15 @@ The following step-by-step instructions is an example to boot Yocto kernel using
 
 .. important:: SBL Linux boot image containers typically include the kernel, kernel params and initramfs. The kernel then will mount the root file system from the boot media. There may be additional requirements in terms of configuration and layout for the kernel to locate and mount the root file system. If your boot image has some partition layout requirements, file/file-path dependencies, etc., you still need to adhere to those requirements when using container boot.
 
-**Step 1:** Download |CNT| and |CMU| to the same working directory to use the container tool.
+**Step 1:** Download |CNT|, |SS| and |CMU| to the same working directory to use the container tool.
 
 .. |CNT| raw:: html
 
    <a href="https://github.com/slimbootloader/slimbootloader/blob/master/BootloaderCorePkg/Tools/GenContainer.py" target="_blank">GenContainer.py</a>
+
+.. |SS| raw:: html
+
+   <a href="https://github.com/slimbootloader/slimbootloader/blob/master/BootloaderCorePkg/Tools/SingleSign.py" target="_blank">SingleSign.py</a>
 
 .. |CMU| raw:: html
 
@@ -33,8 +37,10 @@ Run::
 
   GenContainer.py create -cl CMDL:<cmdline.txt> KRNL:<vmlinuz> INRD:<initrd> -k <RSA_private_key> -t CLASSIC -o container.bin
 
-     <RSA_private_key>: KEY_ID or RSA 2048/3072 private key path in PEM format to sign image. Use '_KEY_ID_CONTAINER' for KEY_ID type.
-     <RSA_private_key>: hash of the public key should be included in |SPN| Key Manifest and HASH_USAGE should be set to 'PUBKEY_OS' during |SPN| build
+     <RSA_private_key>: RSA 2048/3072 private key path in PEM format to sign image.
+                        Ex: OS1_TestKey_Priv_RSA2048.pem/OS1_TestKey_Priv_RSA3072.pem available in SblKeys directory. Alternatively it can be generated from GenerateKeys.py
+     <RSA_private_key>: Hash of the public key should be included in SBL Key Manifest and HASH_USAGE should be set to 'PUBKEY_OS' during SBL build.
+                        SBL Key hash manifest is configured in GetKeyHashList in platform BoarConfig.py. Default hash included is for OS1_TestKey_Priv_RSA2048.pem/OS1_TestKey_Priv_RSA3072.pem.
 
 Sample output messages::
 
