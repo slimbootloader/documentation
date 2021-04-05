@@ -50,25 +50,26 @@ Boot to Yocto on QEMU Emulator
 2. Mount ``core-image-minimal-genericx86-64.hddimg`` locally and rename ``bzImage`` to ``vmlinuz``
 
 Linux Users:: Use the commands below
-  
+
     sudo mkdir /mnt/yocto
     sudo mount -o loop core-image-minimal-genericx86-64.hddimg /mnt/yocto
     sudo mv /mnt/yocto/bzImage /mnt/yocto/vmlinuz
     sudo umount /mnt/yocto
 
 Windows Users:: Use the method below
-  
+
   Windows users may need tools that allow mounting the hddimg as a virtual drive in Windows.
   Once mounted, the bzImage file can be renamed to vmlinuz as required by |SPN|.
 
 
-3. Boot new Yocto image (without graphic console).
+3. Boot new Yocto image (with graphic console).
 
   Command for booting Yocto using |SPN|::
 
-    qemu-system-x86_64 -machine q35 -m 256 -drive id=mydrive,if=none,file=core-image-minimal-genericx86-64.hddimg,format=raw -device ide-hd,drive=mydrive -nographic -serial mon:stdio -boot order=d -pflash Outputs/qemu/SlimBootloader.bin
+    qemu-system-x86_64 -machine q35 -m 256 -drive id=mydrive,if=none,file=core-image-minimal-genericx86-64.hddimg,format=raw -device ide-hd,drive=mydrive -serial mon:stdio -boot order=d -pflash Outputs/qemu/SlimBootloader.bin
 
-  |SPN| should load Yocto and allow you to login.
+  |SPN| should load Yocto and allow you to login from graphics console with username 'root'.
+
 
 
 
