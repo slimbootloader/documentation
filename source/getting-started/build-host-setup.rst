@@ -17,7 +17,7 @@ Install the following software:
 
 * GCC 7.3 or above
 * Python 3.6 or above
-* NASM 2.11 or above
+* NASM 2.12.02 or above
 * IASL 20160422
 * OpenSSL
 * Git
