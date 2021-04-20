@@ -17,7 +17,7 @@ Install the following software:
 
 * GCC 7.3 or above
 * Python 3.6 or above
-* NASM 2.11 or above
+* NASM 2.12.02 or above
 * IASL 20160422
 * OpenSSL
 * Git
@@ -48,7 +48,7 @@ Supported environment: **Microsoft Visual Studio 2015 or Microsoft Visual Studio
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
 * Python 3.6 - **C:\\Python36**
-* NASM 2.11 - **C:\\Nasm**
+* NASM 2.12.02 - **C:\\Nasm**
 * IASL 20160422 - **C:\\ASL**
 * OpenSSL - **C:\\openssl**
 * Git (ex. GitBash)
@@ -100,13 +100,13 @@ unzip then copy files to C:\\asl
 **Require:** Install to C:\\Asl
 
 
-Nasm 2.11
+Nasm 2.12.02
 
-|https://www.nasm.us/pub/nasm/releasebuilds/2.11.08/|
+|https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/|
 
-.. |https://www.nasm.us/pub/nasm/releasebuilds/2.11.08/| raw:: html
+.. |https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/| raw:: html
 
-   <a href="https://www.nasm.us/pub/nasm/releasebuilds/2.11.08/" target="_blank">https://www.nasm.us/pub/nasm/releasebuilds/2.11.08/</a>
+   <a href="https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/" target="_blank">https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/</a>
 
 **Require:** Install to C:\\Nasm
 
