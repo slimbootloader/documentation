@@ -52,7 +52,7 @@ Enable Linux Payload for LeafHill
 
 6. Build Slim Bootloader with Linux Payload ::
 
-    python BuildLoader.py build apl -p config.cfg:OSLD;vmlinuz:LINX;config.cfg:CMDL;initrd:INRD
+    python BuildLoader.py build apl -p "config.cfg:OSLD;vmlinuz:LINX;config.cfg:CMDL;initrd:INRD"
 
    Note::
 
@@ -71,13 +71,18 @@ Enable Linux Payload for QEMU
 
     GEN_CFG_DATA.PayloadId  |  'LINX'
 
-2. Build Slim Bootloader with Linux Payload using command ::
+2. Increase SBL reserved memory size so as to allow loading Linux kernel and InitRd (Require more memory).
+   It can be done by adding the line below in Platform/ApollolakeBoardPkg/BoardConfig.py ::
 
-    python BuildLoader.py build qemu -p config.cfg:OSLD;vmlinuz:LINX;config.cfg:CMDL;initrd:INRD
+    self.LOADER_RSVD_MEM_SIZE = 0x0078C000
 
-3. Test Linux Payload boot on QEMU using command ::
+3. Build Slim Bootloader with Linux Payload using command ::
 
-    qemu-system-x86_64 -cpu max -machine q35 -m 256 -serial stdio -boot order=d -pflash Outputs/qemu/SlimBootloader.bin
+    python BuildLoader.py build qemu -p "config.cfg:OSLD;vmlinuz:LINX;config.cfg:CMDL;initrd:INRD"
+
+4. Test Linux Payload boot on QEMU using command ::
+
+    qemu-system-x86_64 -cpu qemu64,+movbe -machine q35 -m 256 -serial mon:stdio -boot order=d -pflash Outputs/qemu/SlimBootloader.bin
 
    The following boot log should be seen on console ::
 
