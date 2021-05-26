@@ -7,6 +7,7 @@ Supported Hardware
    :maxdepth: 2
 
    qemu
+   qsp
    up2
    apollo-lake-crb
    whl-crb
