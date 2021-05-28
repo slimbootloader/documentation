@@ -148,7 +148,7 @@ html_favicon = 'images/sbl_logo_blue_32x32_icon.ico'
 html_static_path = ['_static']
 
 def setup(app):
-   app.add_stylesheet("custom.css")
+   app.add_css_file("custom.css")
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
