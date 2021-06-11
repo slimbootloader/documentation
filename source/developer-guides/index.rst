@@ -30,4 +30,6 @@ Developer's Guide
    debugging-with-udk
    logging
    contributions
+   ingredients-update
+
 
