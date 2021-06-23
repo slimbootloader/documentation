@@ -17,3 +17,4 @@ Security is a built-in feature in |SPN| to ensure the boot integrity.
    key-management
    measured-boot
    firmware-update
+   container-security
