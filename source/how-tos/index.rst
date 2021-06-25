@@ -9,6 +9,7 @@ A collection of recipes to make |SPN| to work for you.
    customize-build
    change-boot-option
    enable-verified-boot
+   enable-intel-tcc
    enable-pre-os-payload
    reduce-debug-message
    add-new-library
