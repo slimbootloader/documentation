@@ -26,7 +26,7 @@ Intel® TCC (Time Coordinated Computing) is a set of capabilities that improve c
 Here is the Intel® TCC work flow overview with SBL when Intel® TCC is supported on the platforms.
 
 .. image:: /images/tcc/tcc_overview.png
-
+  :width: 500
 
 SBL defined several subregions for TCC components inside SBL IFWI. Each subregion could be updated via SBL firmware update mechanism. During boot time, SBL would load these TCC components from these subregions and install TCC RTCT ACPI table.
 
