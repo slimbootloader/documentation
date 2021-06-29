@@ -72,7 +72,7 @@ Enable Linux Payload for QEMU
     GEN_CFG_DATA.PayloadId  |  'LINX'
 
 2. Increase SBL reserved memory size so as to allow loading Linux kernel and InitRd (Require more memory).
-   It can be done by adding the line below in Platform/ApollolakeBoardPkg/BoardConfig.py ::
+   It can be done by adding the line below in Platform/QemuBoardPkg/BoardConfig.py ::
 
     self.LOADER_RSVD_MEM_SIZE = 0x0078C000
 
