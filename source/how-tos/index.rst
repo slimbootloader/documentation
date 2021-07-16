@@ -10,6 +10,7 @@ A collection of recipes to make |SPN| to work for you.
    change-boot-option
    enable-verified-boot
    enable-intel-tcc
+   enable-intel-tsn
    enable-pre-os-payload
    reduce-debug-message
    add-new-library
