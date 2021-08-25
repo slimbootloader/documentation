@@ -205,4 +205,10 @@ To customize board configurations in ``*.dlt`` file, make sure to specify ``Plat
 
 See :ref:`configuration-tool` for more details.
 
+Latest Milestone Release
+^^^^^^^^^^^^^^^^^^^^^
+
+**EHL MR1**
+
+Commit ID: 748aeb0eaf50918926e11466960d79ca3333a4f1
 
