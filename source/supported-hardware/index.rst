@@ -13,6 +13,7 @@ Supported Hardware
    whl-crb
    cfl-crb
    upxtreme
+   upxtremei11
    cml-rvp
    tgl-rvp
    ehl-crb
