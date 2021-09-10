@@ -95,7 +95,7 @@ Stitch |SPN| images with factory BIOS image using the stitch tool::
 
     python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/apl/Stitch_Components.zip -o <SBL_IFWI_IMAGE_NAME> -p 0xAA00000E
 
-    <BIOS_IMAGE>     : Input file. Factory BIOS extracted from |UP2| board.
+    <BIOS_IMAGE>     : Input file. Factory BIOS extracted from UP Squared board.
     <SBL_IFWI_IMAGE> : Output file. New IFWI image with SBL in BIOS region.
     -p <value>       : 4-byte platform data for platform ID and debug UART port index.
 
@@ -108,7 +108,7 @@ See :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 Slimbootloader binary for capsule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Creating slimbootloader binary for capsule image requires the following steps:
+Creating Slimbootloader binary for capsule image requires the following steps:
 
 Build |SPN| for |UP2|::
 
