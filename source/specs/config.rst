@@ -871,6 +871,39 @@ Format::
 
   type : Reserved
 
+Altpage
+^^^^^^^
+
+Alternate page allows a specific configuration item to appear at multiple pages as desired. Lets describe this using an example.
+
+::
+
+  - MEMORY_CFG_DATA :
+
+    - HyperThreading :
+
+      name   : HyperThreading
+
+      altpage: TCC_SETTINGS
+
+      type   : Combo
+
+      option : $EN_DIS
+
+      help   : >
+
+               Enable or Disable Hyper Threading; 0- Disable; <b>1- Enable</b>
+
+      length : 0x01
+
+      value  : 0x1
+
+
+HyperThreading is a configuration option which is defined under MEMORY_CFG_DATA. The same can appear in a different page say "TCCSETTINGS"
+with the help of keyword 'altpage' as shown above. The same value will be reflected at both places and when changed in one page, the changed value is reflected in the alternate page as well.
+
+This option can be useful when user wants to create a feature specific page or want to group specific config options related to a feature into separate page without affecting the original configuration present in the parent page.
+
 OPTION
 ^^^^^^
 
