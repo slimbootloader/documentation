@@ -26,5 +26,44 @@ For **tightly-coupled** payload, two steps are required to integrate a new paylo
 
 For **loosely-coupled** payload, you are full control of payload design and implementation.
 
-UEFI Payload is loosely-coupled payload. 
+For example, UEFI Payload is loosely-coupled payload.
+
+
+HelloWorld Payload
+---------------------------
+
+|SPN| provides a HelloWorld payload example to illustrate how to write a very simple payload.
+
+
+To build the HelloWorld payload, run the following command from |SPN| source tree::
+
+  python BuildLoader.py build_dsc PayloadPkg\PayloadPkg.dsc
+
+The generated payload binary will be located at::
+
+  Build\PayloadPkg\DEBUG_VS2019\IA32\HelloWorld.efi
+
+.. note:: The path might change a little bit if using different toolchain or build options.
+
+To use HelloWorld payload as the default payload instead of the OsLoader on QEMU platform, build |SPN| with the following command::
+
+  copy Build\PayloadPkg\DEBUG_VS2019\IA32\HelloWorld.efi PayloadPkg\PayloadBins /y
+  python BuildLoader.py build qemu -p HelloWorld.efi:HLWD:Lz4
+
+This generated SlimBootloader.bin will boot into HelloWorld payload on QEMU platform.
+
+To add HelloWorld payload as additional paylaod, build |SPN| with the following command::
+
+  copy Build\PayloadPkg\DEBUG_VS2019\IA32\HelloWorld.efi PayloadPkg\PayloadBins /y
+  python BuildLoader.py build qemu -p OsLoader.efi:LLDR:Lz4;HelloWorld.efi:HLWD:Lz4
+
+The generated SlimBootloader.bin will boot into OsLoader or HelloWorld payload on QEMU platform depends
+on the GEN_CFG_DATA.PayloadId value at build time and runtime.
+
+.. note:: GEN_CFG_DATA.PayloadId can be customized in board CFGDATA DLT file. The PayloadId can be
+  updated by |SPN| at runtime code by SetPayloadId() function.
+
+Please refer to :ref:`integrate-multiple-payloads` for multiple payloads support.
+
+
 
