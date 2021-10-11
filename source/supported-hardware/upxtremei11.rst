@@ -79,7 +79,7 @@ Stitching
 
 Stitch |SPN| images with factory BIOS image using the stitch tool::
 
-    python Platform/TigerlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/tgl/Stitch_Components.zip -o <SBL_IFWI_IMAGE_NAME> -p 0xAA000204
+    python Platform/TigerlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/tgl/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME> -p 0xAA000204
 
     <BIOS_IMAGE>     : Input file. Factory BIOS extracted from UP Xtreme i11 board.
     <SBL_IFWI_IMAGE> : Output file. New IFWI image with SBL in BIOS region.
@@ -102,7 +102,7 @@ Build |SPN| for |UPX11|::
 
 Run stitching process as described above to create a |SPN| IFWI binary ``sbl_upx11_ifwi.bin``::
 
-  python Platform/TigerlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/tgl/Stitch_Components.zip -o sbl_upx11_ifwi.bin -p 0xAA000204
+  python Platform/TigerlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/tgl/SlimBootloader.bin -o sbl_upx11_ifwi.bin -p 0xAA000204
 
 Extract ``bios.bin`` from |SPN| IFWI image::
 
