@@ -206,7 +206,7 @@ To customize board configurations in ``*.dlt`` file, make sure to specify ``Plat
 See :ref:`configuration-tool` for more details.
 
 Latest Milestone Release
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **EHL MR1**
 
