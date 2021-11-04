@@ -864,12 +864,25 @@ Reserved
 ''''''''
 
 Reserved type can be used to prevent configuration parameters from being
-displayed in the Config Editor. But the configuration parameters will
-still be generated in the auto-generated C header structure.
+displayed in the Config Editor. This type will not be generated as part
+of the DLT file output.  But the configuration parameters will still be
+generated in the auto-generated C header structure.
 
 Format::
 
   type : Reserved
+
+Constant
+''''''''
+
+Constant type can be used to describe an item that should not be configured
+by the Config Editor, it always holds a constant value. Similar to Reserved
+type the Config Editor will not display it. But different from Reserved type,
+this type will be generated as part of the DLT file output.
+
+Format::
+
+  type : Constant
 
 Altpage
 ^^^^^^^
@@ -1000,10 +1013,10 @@ VALUE
 
 Value is used to specify the default value of the configuration option. It could be a number, string, or data array.
 
-  *  For number, it can be DEC or HEX.   HEX needs to have prefix '0x'.  
+  *  For number, it can be DEC or HEX.   HEX needs to have prefix '0x'.
   *  For array,   **{** **}** braces are required around the element list. List elements should be numbers and are separated by comma.
-     Each element should have the same unit size (1, 2, 4, 8 bytes). By default, it is BYTE for each element.  The unit size can be changed 
-     through an extended dummy element at the beginning of the array, noted as  "0:0[B|W|D|Q]".  
+     Each element should have the same unit size (1, 2, 4, 8 bytes). By default, it is BYTE for each element.  The unit size can be changed
+     through an extended dummy element at the beginning of the array, noted as  "0:0[B|W|D|Q]".
   *  For string,  single or double quotes are required.
 
 Example::
