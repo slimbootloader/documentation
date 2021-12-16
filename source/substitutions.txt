@@ -39,6 +39,7 @@
 
 .. |EHL| replace:: Elkhart Lake
 
+.. |UP26000| replace:: UP\ :sup:`2` 6000
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
