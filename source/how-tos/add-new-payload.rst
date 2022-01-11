@@ -37,7 +37,7 @@ HelloWorld Payload
 
 To build the HelloWorld payload, run the following command from |SPN| source tree::
 
-  python BuildLoader.py build_dsc PayloadPkg\PayloadPkg.dsc
+  python BuildLoader.py build_dsc -p PayloadPkg\PayloadPkg.dsc
 
 The generated payload binary will be located at::
 
