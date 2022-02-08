@@ -1,11 +1,32 @@
 .. _gpio-convert-tool:
 
-Gpio Tool
----------
+Gpio Data Convert Tool
+----------------------
 
-``GenGpioData.py`` is a utility that converts the GPIO pin data from one format to other. The formats currently supported are [h, csv, txt, dsc, yaml, dlt]. ``h, csv, txt`` formats are external to |SPN| and ``dsc, yaml, dlt`` formats are known to |SPN|. So, this tool provides a way to convert one of the ``h, csv, txt`` to ``dsc, yaml, dlt`` and vice-versa.
+``GenDataConvert.py`` is a utility that converts the GPIO pin data from one format to other. The formats currently supported are [h, csv, txt, yaml, dlt]. ``h, csv, txt`` formats are external to |SPN| and ``yaml, dlt`` formats are known to |SPN|. So, this tool provides a way to convert one of the ``h, csv, txt`` to one of ``yaml, dlt`` and vice-versa.
 
-Each of the above mentioned formats is as follows:
+* Usage::
+
+    usage:  GpioDataConvert.py [-h]
+            -if INP_FMT
+            -cf CFG_FILE
+            -of {yaml,dlt,h,csv,txt}
+            [-o OUT_PATH]
+            [-t {old,new}]
+            -p {def,h,lp,s,p}
+
+    -if     Input data file, must have [yaml, dlt] or [h , csv, txt] file extension
+    -cf     Config file containing inputs like Group Info(dict with name & index in GPIO_GROUP_INFO in Gpio Lib code)
+    -of     Output SBL format, either [h, csv, txt] or [yaml, dlt]
+    -o      Output directory/file
+    -t      Determine the GPIO template format. For new platforms, please use new format.
+    -p      PCH series to get the correct gpio group info
+
+.. note::
+
+    Refer to last section in this page for additional porting info.
+
+Each of the previously mentioned supported formats is as follows:
 
 * h::
 
@@ -154,17 +175,60 @@ Each of the above mentioned formats is as follows:
 
     GPP_A07:0x0001A880:0x01FCF77F:0x01FE5FFF:0x40100102:0x0000301F
 
-* dsc, yaml, dlt::
+* yaml, dlt::
 
-    Please take a look at your project's dsc, yaml and dlt files for this format.
+    Please take a look at your project's yaml and dlt files for this format.
 
  - example::
 
-        dsc  :   # !BSF SUBT:{GPIO_TMPL:GPP_A07: 0x031885E1: 0x00070619}
-
-        yaml :   - !expand { CFGHDR_TMPL : [ PSD_CFG_DATA, 0x800, 0, 0 ] }
+        yaml :   - !expand { GPIO_TMPL : [ GPP_A00, 0x0350A3A3,  0x0000221F ] }
 
         dlt  :   GPIO_CFG_DATA.GpioPinConfig0_GPP_A07 | 0x031885E1
 
                  GPIO_CFG_DATA.GpioPinConfig1_GPP_A07 | 0x00070619
 
+
+
+Additional Porting Info
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+While using the tool for gpio pin data creation for a new platform, a GpioDataConfig.py (-cf CFG_FILE) file needs to be created. See the example of a similar config file for an existing platform. This input config file must have a grp_info_*** dictionary. To create this dictionary:
+
+First, locate the GPIO_GROUP_INFO table from the GpioSiLib.c (must be created prior to this) for the new platform.
+
+ - example::
+
+    GLOBAL_REMOVE_IF_UNREFERENCED GPIO_GROUP_INFO mPchLpGpioGroupInfo[] = {
+    {PID_GPIOCOM0, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_PAD_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_HOSTSW_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_GPI_IS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_GPI_IE, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_GPI_GPE_STS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_GPI_GPE_EN, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_SMI_STS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_SMI_EN, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_NMI_STS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_NMI_EN, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_PADCFGLOCK,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_PADCFGLOCKTX,   R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_B_PADCFG_OFFSET,  GPIO_VER2_PCH_LP_GPIO_GPP_B_PAD_MAX}, //TGL PCH-LP GPP_B
+    {PID_GPIOCOM0, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_PAD_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_HOSTSW_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_GPI_IS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_GPI_IE, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_GPI_GPE_STS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_GPI_GPE_EN, NO_REGISTER_FOR_PROPERTY,            NO_REGISTER_FOR_PROPERTY,           NO_REGISTER_FOR_PROPERTY,            NO_REGISTER_FOR_PROPERTY,           R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_PADCFGLOCK,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_PADCFGLOCKTX,   R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_T_PADCFG_OFFSET,  GPIO_VER2_PCH_LP_GPIO_GPP_T_PAD_MAX}, //TGL PCH-LP GPP_T
+    {PID_GPIOCOM0, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_PAD_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_HOSTSW_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_GPI_IS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_GPI_IE, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_GPI_GPE_STS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_GPI_GPE_EN, NO_REGISTER_FOR_PROPERTY,            NO_REGISTER_FOR_PROPERTY,           NO_REGISTER_FOR_PROPERTY,            NO_REGISTER_FOR_PROPERTY,           R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_PADCFGLOCK,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_PADCFGLOCKTX,   R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_A_PADCFG_OFFSET,  GPIO_VER2_PCH_LP_GPIO_GPP_A_PAD_MAX}, //TGL PCH-LP GPP_A
+    {PID_GPIOCOM5, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_PAD_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_HOSTSW_OWN,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_GPI_IS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_GPI_IE, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_GPI_GPE_STS, R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_GPI_GPE_EN, NO_REGISTER_FOR_PROPERTY,            NO_REGISTER_FOR_PROPERTY,           NO_REGISTER_FOR_PROPERTY,            NO_REGISTER_FOR_PROPERTY,           R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_PADCFGLOCK,  R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_PADCFGLOCKTX,   R_GPIO_VER2_PCH_LP_GPIO_PCR_GPP_R_PADCFG_OFFSET,  GPIO_VER2_PCH_LP_GPIO_GPP_R_PAD_MAX}, //TGL PCH-LP GPP_R
+    };
+
+Each key to the grp_info_*** dictionary will be the string 'GPP_*', where '*' is the group (gpio group's name) that is being referred to in the above table's each row.
+
+ - example::
+
+    GPP_B is a key coming from above table's first  entry.
+    GPP_T is a key coming from above table's second entry.
+    ...
+
+Value for each 'key' (GPP_*) will be the index of the group info entry for group '*' in the above table.
+
+ - example::
+
+    grp_info_***[GPP_B] = 0.
+    grp_info_***[GPP_T] = 1.
+    ...
+
+Final dictionary looks like:
+
+ - example::
+
+    grp_info_lp = {
+    # Grp     Index
+    'GPP_B' : [ 0x0],
+    'GPP_T' : [ 0x1],
+    'GPP_A' : [ 0x2],
+    'GPP_R' : [ 0x3],
+    }
