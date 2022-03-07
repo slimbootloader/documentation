@@ -196,9 +196,9 @@ Each TGL UP3 RVP board is assigned with a unique platform ID
   +---------------------------+---------------+
   |           Board           |  Platform ID  |
   +---------------------------+---------------+
-  |          |DDR4|           |     0x01      |
+  |      |TGL| UP3 DDR4       |     0x01      |
   +---------------------------+---------------+
-  |         |DDRLP4|          |     0x03      |
+  |      |TGL| UP3 LPDDR4     |     0x03      |
   +---------------------------+---------------+
 
 See :ref:`dynamic-platform-id` for more details.

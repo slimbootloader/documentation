@@ -33,13 +33,16 @@
 
 .. |TGL| replace:: Tiger Lake
 
-.. |DDR4| replace:: Tiger Lake UP3 DDR4
-
-.. |DDRLP4| replace:: Tiger Lake UP3 DDRLP4
-
 .. |EHL| replace:: Elkhart Lake
 
+.. |ADLS| replace:: Alder Lake S
+
+.. |adlDDR4| replace:: ADL-S DDR4
+
+.. |adlDDR5| replace:: ADL-S DDR5
+
 .. |UP26000| replace:: UP\ :sup:`2` 6000
+
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
