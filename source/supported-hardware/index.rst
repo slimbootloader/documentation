@@ -18,3 +18,4 @@ Supported Hardware
    cml-rvp
    tgl-rvp
    ehl-crb
+   adls-rvp
