@@ -42,15 +42,15 @@ Details on how this is all generated and packaged will be discussed in the later
 
 **TSN enable**
 
-For each platform, there is a build configuration file BoardConfig.py. User can check this build configuration  file to make sure self.ENABLE_TSN_MAC_ADDRESS is set to 1 to enable TSN MAC Address binary.
-The other TSN related configuration data is PchTsnEnable. Make sure to set this to 1 under Silicon Configuration Data.
+For each platform, there is a build configuration file BoardConfig.py. User can check this build configuration file to make sure self.ENABLE_TCC is set to 1 to enable TSN feature.
+For other TSN related configuration data, please refer to :ref:`tsn_settings`.
 
 Take Tiger Lake as an example.
 
   https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/BoardConfig.py::
 
-    self.ENABLE_TSN_MAC_ADDRESS = 1
-    if self.ENABLE_TSN_MAC_ADDRESS:
+    self.ENABLE_TSN = 1
+    if self.ENABLE_TSN:
         self.TMAC_SIZE = 0x00001000
 
     # Name | Image File     | CompressAlg |         AuthType          |                 Key File                   | Region Align   | Region Size  | Svn Info
@@ -58,7 +58,7 @@ Take Tiger Lake as an example.
     ('IPFW',  'SIIPFW.bin',      ''    ,     container_list_auth_type,   'KEY_ID_CONTAINER'+'_'+self._RSA_SIGN_TYPE,          0,          0      ,        0),   # Container Header
     ('TMAC',     ''       ,     'Lz4'  ,     container_list_auth_type,   'KEY_ID_CONTAINER_COMP'+'_'+self._RSA_SIGN_TYPE,     0,   self.TMAC_SIZE,        0),   # TSN MAC Address
 
-In the build configuration file, user can set ``self.ENABLE_TSN_MAC_ADDRESS`` to 1 to enable TSN component and adjust the size if needed.
+In the build configuration file, user can set ``self.ENABLE_TSN`` to 1 to enable TSN component and adjust the size if needed.
 Inside the IPFW container, the TSN MAC component is identified by 4 unique characters. SBL would use it when loading container and update it via firmware update.
 For TSN, the unique name is ``TMAC`` that SBL looks at while loading the TSN binary.
 
