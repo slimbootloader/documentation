@@ -31,28 +31,40 @@ ConfigEditor is run using ConfigEditor.py script::
     python BootloaderCorePkg/Tools/ConfigEditor.py
 
 .. image:: /images/Gpio_config_1.jpg
+   :width: 6.51469in
+   :height: 4.61806in
 
 **Step2.** Open the "Config YAML" file, then select the description file
 according to your platform( eg.
 /Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.yaml")
 
 .. image:: /images/Gpio_config_2.jpg
+   :width: 6.50000in
+   :height: 4.53264in
 
 
 .. image:: /images/Gpio_config_3.jpg
+   :width: 5.86538in
+   :height: 4.02847in
 
 **Step 3.**  Load the "Config Delta" file from the same folder of the
 description file by selecting "Load Config Changes from Delta File"
 menu.
 
 .. image:: /images/Gpio_config_4.jpg
+   :width: 6.50000in
+   :height: 4.49861in
 
 .. image:: /images/Gpio_config_5.jpg
+   :width: 6.07292in
+   :height: 3.80985in
 
 **Step 4**. At the menu panel in left, select the "GPIO Settings", and
 Select GPIO number which needs to be updated.
 
 .. image:: /images/Gpio_config_6.jpg
+   :width: 6.50000in
+   :height: 3.92083in
 
 -  Refer to https://slimbootloader.github.io/tools/index.html#cfgtool
    for description regarding these pins .
@@ -66,8 +78,12 @@ Select GPIO number which needs to be updated.
 File**\ ” to the required board specific dlt file
 
 .. image:: /images/Gpio_config_7.jpg
+   :width: 6.50000in
+   :height: 3.75139in
 
 .. image:: /images/Gpio_config_8.jpg
+   :width: 6.50000in
+   :height: 4.07778in
 
 Changes shall be reflected into the dlt file. Open the corresponding dlt
 file in notepad and check if the value is updated accordingly.
@@ -129,31 +145,5 @@ Using Config editor the generated Yaml file can be loaded and modified
 Generated Yaml file looks like
 
 .. image:: /images/Gpio_config_9.jpg
-
-.. |image0| image:: media/image1.png
-   :width: 6.51469in
-   :height: 4.61806in
-.. |image1| image:: media/image2.png
-   :width: 6.50000in
-   :height: 4.53264in
-.. |image2| image:: media/image3.png
-   :width: 5.86538in
-   :height: 4.02847in
-.. |image3| image:: media/image4.png
-   :width: 6.50000in
-   :height: 4.49861in
-.. |image4| image:: media/image5.png
-   :width: 6.07292in
-   :height: 3.80985in
-.. |image5| image:: media/image6.png
-   :width: 6.50000in
-   :height: 3.92083in
-.. |image6| image:: media/image7.png
-   :width: 6.50000in
-   :height: 3.75139in
-.. |image7| image:: media/image8.png
-   :width: 6.50000in
-   :height: 4.07778in
-.. |image8| image:: media/image9.png
    :width: 5.71875in
    :height: 4.54167in
