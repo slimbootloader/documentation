@@ -21,6 +21,7 @@ A collection of recipes to make |SPN| to work for you.
    create-container-boot-image
    create-ias-boot-image
    boot-windows
+   boot-netboot
    boot-ubuntu
    boot-vxworks
    boot-zephyr
