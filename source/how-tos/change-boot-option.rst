@@ -33,39 +33,57 @@ Please follow the below steps to make the changes before buiding SBL.
 **Command** : python BootloaderCorePkg/Tools/ConfigEditor.py
 
 .. image:: /images/Boot_options_1.jpg
+   :width: 6.51469in
+   :height: 4.61806in
 
 **Step2.** Open the "Config YAML" file, then select the description file
 according to your platform( eg.
 /Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.yaml")
 
 .. image:: /images/Boot_options_2.jpg
+   :width: 6.50000in
+   :height: 4.53264in
 
 
 .. image:: /images/Boot_options_3.jpg
+   :width: 5.86538in
+   :height: 4.02847in
 
 **Step 3.**  Load the "Config Delta" file from the same folder of the
 description file by selecting "Load Config Changes from Delta File"
 menu.
 
 .. image:: /images/Boot_options_4.jpg
+   :width: 6.50000in
+   :height: 4.49861in
 
 .. image:: /images/Boot_options_5.jpg
+   :width: 6.07292in
+   :height: 3.80985in
 
 **Step 4**. At the menu panel in left, select the "OS Boot options", and
 go the Boot option number which needs to be updated.
 
 .. image:: /images/Boot_options_6.jpg
+   :width: 6.38787in
+   :height: 3.91667in
 
 Example: Update boot device 0 to usb
 
 .. image:: /images/Boot_options_7.jpg
+   :width: 6.09375in
+   :height: 4.28451in
 
 **Step 5.** Save the changes with "**save config changes to Delta
 File**\ ” to the required board specific dlt file
 
 .. image:: /images/Boot_options_8.jpg
+   :width: 6.50000in
+   :height: 3.75139in
 
 .. image:: /images/Boot_options_9.jpg
+   :width: 6.50000in
+   :height: 4.07778in
 
 After saving, changes shall be reflected in the dlt file. Open the
 corresponding dlt file in notepad and check if the value is updated
@@ -107,6 +125,8 @@ Outputs
 If the stitch is successful, new IFWI file with patched cfgdata shall be generated in the output directory.
 
 .. image:: /images/Boot_options_10.jpg
+   :width: 5.82292in
+   :height: 2.17708in
 
 Change at Runtime
 ^^^^^^^^^^^^^^^^^^^^^
@@ -155,34 +175,3 @@ SBL shall boot from USB by attempting loading IAS
 image iasimage.bin from partition 0. If IAS image not found, it
 fallbacks to loading vmlinuz. If nothing is bootable, it returns to
 shell.
-
-.. |image0| image:: media/image1.png
-   :width: 6.51469in
-   :height: 4.61806in
-.. |image1| image:: media/image2.png
-   :width: 6.50000in
-   :height: 4.53264in
-.. |image2| image:: media/image3.png
-   :width: 5.86538in
-   :height: 4.02847in
-.. |image3| image:: media/image4.png
-   :width: 6.50000in
-   :height: 4.49861in
-.. |image4| image:: media/image5.png
-   :width: 6.07292in
-   :height: 3.80985in
-.. |image5| image:: media/image6.png
-   :width: 6.38787in
-   :height: 3.91667in
-.. |image6| image:: media/image7.png
-   :width: 6.09375in
-   :height: 4.28451in
-.. |image7| image:: media/image8.png
-   :width: 6.50000in
-   :height: 3.75139in
-.. |image8| image:: media/image9.png
-   :width: 6.50000in
-   :height: 4.07778in
-.. |image9| image:: media/image10.png
-   :width: 5.82292in
-   :height: 2.17708in
