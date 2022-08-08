@@ -208,7 +208,7 @@ See :ref:`configuration-tool` for more details.
 Latest Milestone Release
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**EHL MR1**
+**EHL MR4**
 
-Commit ID: 748aeb0eaf50918926e11466960d79ca3333a4f1
+Commit ID: 3112989fdcec8240857b96c942d9942ec0e18254
 
