@@ -29,6 +29,7 @@ A collection of recipes to make |SPN| to work for you.
    boot-micropython
    boot-with-linux-payload
    boot-with-u-boot-payload
+   boot-pxe-uboot
    configure-memory-down
    collect-time-logs
    configure_gpio
