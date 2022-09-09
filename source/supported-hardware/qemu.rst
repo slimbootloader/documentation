@@ -1,9 +1,7 @@
 .. _getting-started_qemu:
 
-
 QEMU Virtual Platform
 -----------------------
-
 
 Building SBL
 ^^^^^^^^^^^^

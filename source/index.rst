@@ -14,7 +14,7 @@ Welcome to |LPN| (version |version|) documentation!
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
 
    introduction/index
