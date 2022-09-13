@@ -35,11 +35,11 @@
 
 .. |EHL| replace:: Elkhart Lake
 
-.. |ADLS| replace:: Alder Lake S
+.. |ADL| replace:: Alder Lake
 
-.. |adlDDR4| replace:: ADL-S DDR4
+.. |ADLS| replace:: ADL-S
 
-.. |adlDDR5| replace:: ADL-S DDR5
+.. |ADLP| replace:: ADL-P 
 
 .. |UP26000| replace:: UP\ :sup:`2` 6000
 

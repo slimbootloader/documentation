@@ -27,7 +27,7 @@ The generated HTML file is located in 'build'.
 `cd <documentation repo root folder>`
 For Python 2 do `python -m SimpleHTTPServer`, for Python 3 do `python -m http.server`
 
-2. Open your browser to load HTML page from http://localhost:8000/build
+2. Open your browser to load HTML page from http://localhost:8000/build/html
 
 
 ## Submit changes (for contributors)
