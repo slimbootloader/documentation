@@ -32,8 +32,9 @@ Payload    Load, verify and launch OS images; or perform firmware update
 
 .. graphviz:: /images/boot_flow.dot
 
-.. Note:: When verified boot is enabled, each current stage verifies the next stage before transferring control to the next. If verification fails, |SPN| halts the system boot.
-
+.. Note:: When verified boot is enabled, each current stage verifies the next stage before transferring control to the next.
+  If verification fails, one of two things occurs. If resiliency is enabled, the boot is swapped over to the alternate partition
+  to recover the broken partition (see :ref:`firmware-resiliency-and-recovery`). Otherwise, the boot is halted.
 
 .. _call-graph:
 
@@ -46,6 +47,8 @@ The function call graph in |SPN| code from reset vector to OS launch.
    :width: 600
    :alt: |SPN| Calling Graph
    :align: center
+
+.. Note:: This call graph changes if resiliency is enabled and recovery is attempted (see :ref:`firmware-resiliency-and-recovery`).
 
 
 

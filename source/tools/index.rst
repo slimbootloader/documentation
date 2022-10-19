@@ -11,3 +11,4 @@ Tools
    GenContainer
    ConfigTools
    GpioTool
+   UcodeUtility
