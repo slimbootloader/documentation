@@ -41,6 +41,8 @@
 
 .. |ADLP| replace:: ADL-P 
 
+.. |ICXD| replace:: ICX-D
+
 .. |UP26000| replace:: UP\ :sup:`2` 6000
 
 .. |CFGTOOL| replace:: Configuration Editor
