@@ -1,7 +1,7 @@
-Cook Book
-==========
+How-Tos
+=======
 
-A collection of recipes to make |SPN| to work for you.
+A collection of guides to make |SPN| to work for you.
 
 .. toctree::
    :maxdepth: 2

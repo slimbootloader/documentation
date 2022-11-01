@@ -1,360 +1,441 @@
 .. _boot-with-linux-payload:
-.. _LinuxBoot: https://www.linuxboot.org/
-.. _Linux.zip: https://github.com/slimbootloader/slimbootloader/files/4463548/QemuLinux.zip
 
 Boot Linux as a Payload
-------------------------------
+-----------------------
 
-|SPN| can boot Linux kernel as a payload from flash directly. It can also
-support LinuxBoot_.  |br|
-Currently, transitioning to LinuxBoot is only supported
-from |SPN| Stage2.
+SBL can boot the Linux Kernel as a payload from flash directly, which is similar to the LinuxBoot approach. 
 
+Linux payload is not intended to be a runtime production kernel; rather, it is meant to replace \
+specific boot firmware functionality using Linux kernel capabilities and then boot the actual \
+production kernel on the machine using kexec. This could be done by implementing PXE booting \
+in userspace, or finding a kernel on a mounted disk, etc. Please refer to the FAQ here - https://www.linuxboot.org/page/faq
 
-This page provides a step-by-step how to build SBL with Linux payload for QEMU and LeafHill platforms.
-The similar steps can be applied to other platforms.
-
-Prepare Linux images
-=========================================
-
-1. Create PayloadBins directory in PayloadPkg::
-
-    mkdir PayloadPkg\PayloadBins
-
-2. Copy linux kernel, initrd image and kernel command line file to PayloadBins directory.
-   For convenience, a pre-built customized small kernel image Linux.zip_ is used here.
-   Unzip the files into PayloadPkg\PayloadBins using 7-zip tool ::
-
-    7z x QemuLinux.zip -oPayloadPkg\PayloadBins
+When Linux payload kernel boots it needs a root file system that provides boot and startup utilities. \
+The initramfs is a root file system that is embedded within the firmware image itself. It is intended \
+to be placed in a flash device along with the Linux kernel as part of the firmware image. \
+The initramfs is essentially a set of directories bundled into a single cpio archive. \
+(please refer here - https://github.com/linuxboot/book/blob/master/components/README.md)
 
 
-Enable Linux Payload for LeafHill
-===========================================
+At boot time, SBL loads the Linux kernel bzImage and initramfs into memory and starts the kernel. The kernel checks \
+for the presence of the initramfs, unpacks it, mounts it as ``/`` and runs ``/init``.
 
-1. Adjust kernel boot command line file config.cfg to use UART2 for serial console output.
-   The file contents is as below::
+There are many ways of building initramfs. Two different approaches using Busybox and U-Root are provided below.
 
-    init=/init root=/dev/ram0 rw 3 console=ttyS2,115200
+**References:** `LinuxBoot <https://www.linuxboot.org>`_.
 
-2. Enable Linux payload support by adding following to Platform/ApollolakeBoardPkg/BoardConfig.py ::
+Below is a step-by-step guide on how to boot Linux as a payload with SBL.
 
-    self.ENABLE_LINUX_PAYLOAD = 1
+Building the Kernel
+===================
 
-4. Adjust flash layout to provide enough space for EPLD component to store linux kernel, initrd image and command line file.
-   It can be done by modifying specific component size definitions in Platform/ApollolakeBoardPkg/BoardConfig.py ::
+* The kernel should have the following properties:
+    * Should be small enough to fit in flash
+    * Should have compressed initramfs support
+        * initramfs is usually compressed using gzip or xz to reduce its size. So, the kernel \
+          should have support to unpack it during boot.
+        * e.g. - ``CONFIG_RD_GZIP`` for a gzip compressed initramfs.
 
-    self.EPAYLOAD_SIZE = 0x200000
-    self.PAYLAOD_SIZE  = 0
+* The kernel can be built from the standard Linux kernel source at \
+  `kernel.org <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git>`_.
 
-5. Change the default boot payload ID to Linux Payload in Platform/ApollolakeBoardPkg/CfgData/CfgData_Int_LeafHill.dlt ::
+Building the initramfs
+======================
 
-    GEN_CFG_DATA.PayloadId  |  'LINX'
+Busybox
+^^^^^^^
 
-6. Build Slim Bootloader with Linux Payload ::
+* `Busybox <https://busybox.net>`_ is a software suite that bundles together userspace Linux utilities. \
+  This can be used to create an initramfs.
+* A minimal Busybox configuration file can be obtained from Buildroot \
+  `here <https://github.com/buildroot/buildroot/blob/master/package/busybox/busybox-minimal.config>`_.
 
-    python BuildLoader.py build apl -p "config.cfg:OSLD;vmlinuz:LINX;config.cfg:CMDL;initrd:INRD"
+U-Root
+^^^^^^
 
-   Note::
+* `U-Root <https://github.com/u-root>`_ provides userspace Linux utilities implemented in the Go programming language.
+* U-Root requires the kernel to support features needed for the Go programming language. (futex and epoll support)
+* U-Root also provides a way to create an initramfs: `Instructions <https://github.com/u-root/u-root#usage>`_.
 
-    '-p' takes multiple components separated by ';'. The 1st component will be built into PLD and the remaining components will be built into EPLD.
-    In this example, since PLD is not used at all, a dummy file config.cfg is provided to satisfy build requirements.
+    .. note::
+        U-Root can be used to build an initramfs that can facilitate PXE boot. More details are covered in a later section.
 
-7. Stitch, flash and boot.  It should boot to Linux shell console on LeafHill board serial port UART2.
+.. note::
+
+    Both Busybox and U-Root can be configured to build smaller images. For more details, check their respective websites.
+
+Pre-built image
+===============
+
+For convenience, a pre-built image is provided with a Linux 6.1 Kernel and a Busybox based initramfs is \
+provided here: :download:`PrebuiltLinuxImage.zip <../binaries/linux-payload/PrebuiltLinuxImage.zip>`
+
+Kernel Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+* A minimal kernel config, used for the above kernel, is provided here: :download:`Kernel Config <../binaries/linux-payload/prebuilt_kernel_config>`
+* The pre-built kernel was built with the kernel source at the following commit ID: ``aae703b02f92bde9264366c545e87cec451de471``
+
+Enabling Linux Payload for SBL
+==============================
+
+#. Enable Linux payload support by adding following to ``Platform/<PlatformPkg>/BoardConfig.py``
+
+    .. code-block:: text
+
+        self.ENABLE_LINUX_PAYLOAD = 1
+
+#. Adjust flash layout to provide enough space for EPLD component to store linux kernel, initrd image and command line file.
+   It can be done by modifying specific component size definitions in ``Platform/<PlatformPkg>/BoardConfig.py``
+
+    .. code-block:: text
+
+        self.EPAYLOAD_SIZE = 0x004F0000
+
+    .. note::
+
+        ``EPAYLOAD_SIZE`` given here is for supplied pre-built kernel image. Actual size should be configured according to your kernel and initramfs sizes.
+
+        You will also have to adjust ``self.NON_REDUNDANT_SIZE`` and ``self.SLIMBOOTLOADER_SIZE`` to account for the larger EPLD component.
+
+#. Increase SBL reserved memory size so as to allow loading Linux kernel and initramfs (requires more memory).
+   This can be done by modifying the line below in ``Platform/<PlatformPkg>/BoardConfig.py``
+
+    .. code-block:: text
+
+        self.LOADER_RSVD_MEM_SIZE = 0x00900000
+
+#. Change the default boot payload ID to Linux Payload
+
+    .. code-block:: text
+
+        GEN_CFG_DATA.PayloadId  |  'LINX'
+
+#. Copy the Linux Kernel image, initramfs, and kernel command line files to ``PayloadPkg/PayloadBins/``.
+
+#. Build Slim Bootloader with Linux Payload
+
+    .. code-block:: text
+
+        python BuildLoader.py build <platform> -p "dummy.txt:OSLD;bzImage:LINX;cmdline.txt:CMDL;initramfs.cpio.gz:INRD"
+
+    .. note::
+
+        ``-p`` takes multiple components separated by a ``;``. The 1st component will be built into PLD and the remaining components will be built into EPLD.
+        In this example, since PLD is not used at all, a dummy file is provided to satisfy build requirements.
+
+#. Stitch, flash and boot.  It should boot to the Linux shell console on the serial port.
    Please follow :ref:`supported-hardware` to build a flashable image for the target platform.
 
+Serial Output with Linux shell prompt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-Enable Linux Payload for QEMU
-===========================================
-
-1. Change the default boot payload ID to Linux Payload in Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt by adding ::
-
-    GEN_CFG_DATA.PayloadId  |  'LINX'
-
-2. Increase SBL reserved memory size so as to allow loading Linux kernel and InitRd (Require more memory).
-   It can be done by adding the line below in Platform/QemuBoardPkg/BoardConfig.py ::
-
-    self.LOADER_RSVD_MEM_SIZE = 0x0078C000
-
-3. Build Slim Bootloader with Linux Payload using command ::
-
-    python BuildLoader.py build qemu -p "config.cfg:OSLD;vmlinuz:LINX;config.cfg:CMDL;initrd:INRD"
-
-4. Test Linux Payload boot on QEMU using command ::
-
-    qemu-system-x86_64 -cpu qemu64,+movbe -machine q35 -m 256 -serial mon:stdio -boot order=d -pflash Outputs/qemu/SlimBootloader.bin
-
-   The following boot log should be seen on console ::
+.. code-block:: text
 
     ============= Intel Slim Bootloader STAGE1A =============
     SBID: SB_QEMU
     ...
 
     ============= Intel Slim Bootloader STAGE1B =============
-    QEMU Flash: Attempting flash detection at FFC00000
+    Host Bridge Device ID:0x29C0
+    Board ID:0x1 - Loading QEMU!
+    QEMU Flash: Attempting flash detection at FF9AF000
     ...
 
     ============= Intel Slim Bootloader STAGE2 =============
     Unmapping Stage
     ...
+    Loading Payload ID LINX
+    Loading Component EPLD:LINX
+    Registering container EPLD
+    HASH verification for usage (0x00001000) with Hash Alg (0x2): Success
+    SignType (0x2) SignSize (0x180)  SignHashAlg (0x2)
+    RSA verification for usage (0x00001000): Success
+    HASH verification for usage (0x00000000) with Hash Alg (0x2): Success
+    Load Payload ID 0x584E494C @ 0x00800000
+    Found bzimage Signature
+    BzImage Format Payload
+    Loading Component EPLD:CMDL
+    HASH verification for usage (0x00000000) with Hash Alg (0x2): Success
+    Kernel command line:
+    root=/dev/ram0 rw 3 console=ttyS0,115200
 
+
+    Loading Component EPLD:INRD
+    HASH verification for usage (0x00000000) with Hash Alg (0x2): Success
+    InitRD is loaded at 0xEC2D000:0xC4761
+    Found bzimage Signature
+    MP Init (Done)
+    Call FspNotifyPhase(40) ... Success
+    Call FspNotifyPhase(F0) ... Success
+    HOB @ 0x0EEC0000
+    Created 4 OS boot options (Current: 31)
+    TPM Lib Private Data not found
+    Unable to get log area for TCG 2.0 format events !!
+    Stage2 stack: 0x40000 (stack used 0xA60, HOB used 0x1548, 0x3E058 free)
+    Stage2 heap: 0x8C0000 (0x2934D0 used, 0x62CB30 free, 0x3DA2A3 max used)
+    Payload entry: 0x0EE5EAEA
     Jump to payload
-    Switch to LongMode and jump to 64-bit kernel entrypoint ...
-    Linux version 5.5.2 (mxma@mxma-ubuntu) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~16.04~ppa1)) #7 SMP Sat Apr 4 11:27:23 PDT 2020
-    Command line: init=/init root=/dev/ram0 rw 3 console=ttyS0,115200
 
-    acpi_rsdp=0xEB04000
-    x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
-    x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
-    x86/fpu: Supporting XSAVE feature 0x008: 'MPX bounds registers'
-    x86/fpu: Supporting XSAVE feature 0x010: 'MPX CSR'
-    x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
-    x86/fpu: xstate_offset[3]:  960, xstate_sizes[3]:   64
-    x86/fpu: xstate_offset[4]: 1024, xstate_sizes[4]:   64
-    x86/fpu: xstate_offset[9]: 2688, xstate_sizes[9]:    8
-    x86/fpu: Enabled xstate features 0x21b, context size is 2696 bytes, using 'standard' format.
+    Switch to LongMode and jump to 64-bit kernel entrypoint ...
+    Linux version 6.1.0-rc1+ (atharva@alele-mobl1) (gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #12 SMP Fri Oct 21 15:58:13 PDT 2022
+    Command line: root=/dev/ram0 rw 3 console=ttyS0,115200
+
+
+    x86/fpu: x87 FPU will use FXSAVE
+    signal: max sigframe size: 1040
     BIOS-provided physical RAM map:
     BIOS-e820: [mem 0x0000000000000000-0x000000000009ffff] usable
     BIOS-e820: [mem 0x00000000000a0000-0x00000000000fffff] reserved
-    BIOS-e820: [mem 0x0000000000100000-0x000000000eafffff] usable
-    BIOS-e820: [mem 0x000000000eb00000-0x000000000eb03fff] reserved
-    BIOS-e820: [mem 0x000000000eb04000-0x000000000eb6bfff] ACPI data
-    BIOS-e820: [mem 0x000000000eb6c000-0x000000000eb73fff] ACPI NVS
-    BIOS-e820: [mem 0x000000000eb74000-0x000000000fffffff] reserved
-    BIOS-e820: [mem 0x00000000ffc00000-0x00000000ffffffff] reserved
+    BIOS-e820: [mem 0x0000000000100000-0x000000000e58bfff] usable
+    BIOS-e820: [mem 0x000000000e58c000-0x000000000e58ffff] reserved
+    BIOS-e820: [mem 0x000000000e590000-0x000000000e5f7fff] ACPI data
+    BIOS-e820: [mem 0x000000000e5f8000-0x000000000e5fffff] ACPI NVS
+    BIOS-e820: [mem 0x000000000e600000-0x000000000fffffff] reserved
+    BIOS-e820: [mem 0x00000000ff9af000-0x00000000ffffffff] reserved
     NX (Execute Disable) protection: active
-    SMBIOS 2.5 present.
-    DMI: Intel Corporation Unknown/Unknown, BIOS XXXX.XXX.XXX.XXX Unknown
     tsc: Fast TSC calibration using PIT
-    tsc: Detected 1896.001 MHz processor
-    last_pfn = 0xeb00 max_arch_pfn = 0x400000000
+    tsc: Detected 1804.804 MHz processor
+    last_pfn = 0xe58c max_arch_pfn = 0x400000000
     x86/PAT: Configuration [0-7]: WB  WT  UC- UC  WB  WT  UC- UC
-    Using GB pages for direct mapping
-    RAMDISK: [mem 0x0ece5000-0x0ed47fff]
-    Allocated new RAMDISK: [mem 0x0ea9d000-0x0eaff55f]
-    Move RAMDISK from [mem 0x0ece5000-0x0ed4755f] to [mem 0x0ea9d000-0x0eaff55f]
+    RAMDISK: [mem 0x0ec2d000-0x0ecf1fff]
+    Allocated new RAMDISK: [mem 0x0e4c7000-0x0e58b760]
+    Move RAMDISK from [mem 0x0ec2d000-0x0ecf1760] to [mem 0x0e4c7000-0x0e58b760]
     ACPI: Early table checksum verification disabled
-    ACPI: RSDP 0x00000000000FFF80 000024 (v02 OEMID )
-    ACPI: XSDT 0x000000000EB040E0 00004C (v01 OEMID  OEMTABLE 00000005 CREA 0100000D)
-    ACPI: FACP 0x000000000EB04210 00010C (v05 OEMID  OEMTABLE 00000005 CREA 0100000D)
-    ACPI: DSDT 0x000000000EB044E0 00109D (v02 OEMID  APL-SOC  00000000 INTL 20160422)
-    ACPI: FACS 0x000000000EB04320 000040
-    ACPI: FACS 0x000000000EB04320 000040
-    ACPI: HPET 0x000000000EB04360 000038 (v01 OEMID  OEMTABLE 00000005 CREA 0100000D)
-    ACPI: APIC 0x000000000EB043A0 00005A (v03                 00000000      00000000)
-    ACPI: MCFG 0x000000000EB04400 00003C (v01                 00000001      00000000)
-    ACPI: FPDT 0x000000000EB04440 000044 (v01 INTEL  OEMTABLE 00000005 CREA 0100000D)
+    ACPI: RSDP 0x000000000E590000 000024 (v02 OEMID )
+    ACPI: XSDT 0x000000000E5900E0 00005C (v01 OEMID  OEMTABLE 00000005 CREA 0100000D)
+    ACPI: FACP 0x000000000E590210 00010C (v05 OEMID  OEMTABLE 00000005 CREA 0100000D)
+    ACPI: DSDT 0x000000000E5904E0 001BD9 (v02 OEMID  APL-SOC  00000000 INTL 20220331)
+    ACPI: FACS 0x000000000E590320 000040
+    ACPI: FACS 0x000000000E590320 000040
+    ACPI: HPET 0x000000000E590360 000038 (v01 OEMID  OEMTABLE 00000005 CREA 0100000D)
+    ACPI: APIC 0x000000000E5903A0 00005A (v03                 00000000      00000000)
+    ACPI: MCFG 0x000000000E590400 00003C (v01                 00000001      00000000)
+    ACPI: FPDT 0x000000000E590440 000044 (v01 INTEL  OEMTABLE 00000005 CREA 0100000D)
+    ACPI: BGRT 0x000000000E5920C0 000038 (v01 OEMID  OEMTABLE 00000005 CREA 0100000D)
+    ACPI: TEST 0x000000000E592100 00002C (v01 OEMID  OEMTABLE 00000001 CREA 01000001)
+    ACPI: Reserving FACP table memory at [mem 0xe590210-0xe59031b]
+    ACPI: Reserving DSDT table memory at [mem 0xe5904e0-0xe5920b8]
+    ACPI: Reserving FACS table memory at [mem 0xe590320-0xe59035f]
+    ACPI: Reserving FACS table memory at [mem 0xe590320-0xe59035f]
+    ACPI: Reserving HPET table memory at [mem 0xe590360-0xe590397]
+    ACPI: Reserving APIC table memory at [mem 0xe5903a0-0xe5903f9]
+    ACPI: Reserving MCFG table memory at [mem 0xe590400-0xe59043b]
+    ACPI: Reserving FPDT table memory at [mem 0xe590440-0xe590483]
+    ACPI: Reserving BGRT table memory at [mem 0xe5920c0-0xe5920f7]
+    ACPI: Reserving TEST table memory at [mem 0xe592100-0xe59212b]
     Zone ranges:
-      DMA32    [mem 0x0000000000001000-0x000000000eafffff]
-      Normal   empty
+    DMA32    [mem 0x0000000000001000-0x000000000e58bfff]
+    Normal   empty
     Movable zone start for each node
     Early memory node ranges
-      node   0: [mem 0x0000000000001000-0x000000000009ffff]
-      node   0: [mem 0x0000000000100000-0x000000000eafffff]
-    Zeroed struct page in unavailable ranges: 97 pages
-    Initmem setup node 0 [mem 0x0000000000001000-0x000000000eafffff]
+    node   0: [mem 0x0000000000001000-0x000000000009ffff]
+    node   0: [mem 0x0000000000100000-0x000000000e58bfff]
+    Initmem setup node 0 [mem 0x0000000000001000-0x000000000e58bfff]
+    On node 0, zone DMA32: 1 pages in unavailable ranges
+    On node 0, zone DMA32: 96 pages in unavailable ranges
+    On node 0, zone DMA32: 6772 pages in unavailable ranges
     ACPI: PM-Timer IO Port: 0x408
     ACPI: LAPIC_NMI (acpi_id[0xff] high level lint[0x1])
     IOAPIC[0]: apic_id 1, version 32, address 0xfec00000, GSI 0-23
     ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
     ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 low level)
-    Using ACPI (MADT) for SMP configuration information
+    ACPI: Using ACPI (MADT) for SMP configuration information
     ACPI: HPET id: 0x0 base: 0xfed00000
     smpboot: Allowing 1 CPUs, 0 hotplug CPUs
-    [mem 0x10000000-0xffbfffff] available for PCI devices
+    [mem 0x10000000-0xff9aefff] available for PCI devices
     clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
-    setup_percpu: NR_CPUS:64 nr_cpumask_bits:64 nr_cpu_ids:1 nr_node_ids:1
-    percpu: Embedded 40 pages/cpu s132440 r0 d31400 u2097152
-    Built 1 zonelists, mobility grouping on.  Total pages: 59149
-    Kernel command line: init=/init root=/dev/ram0 rw 3 console=ttyS0,115200
-     acpi_rsdp=0xEB04000
-    Dentry cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
-    Inode-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
-    mem auto-init: stack:off, heap alloc:off, heap free:off
-    Memory: 222488K/240252K available (6146K kernel code, 289K rwdata, 676K rodata, 752K init, 992K bss, 17764K reserved, 0K cma-reserved)
-    rcu: Hierarchical RCU implementation.
-    rcu:    RCU restricting CPUs from NR_CPUS=64 to nr_cpu_ids=1.
-    rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
-    rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
-    NR_IRQS: 4352, nr_irqs: 256, preallocated irqs: 16
-    Console: colour dummy device 80x25
-    printk: console [ttyS0] enabled
-    ACPI: Core revision 20191018
-    clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604467 ns
-    APIC: Switch to symmetric I/O mode setup
-    ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
-    clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x36a8d4a2582, max_idle_ns: 881590642256 ns
-    Calibrating delay loop (skipped), value calculated using timer frequency.. 3792.00 BogoMIPS (lpj=7584004)
-    pid_max: default: 4096 minimum: 301
-    Mount-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
-    Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
-    Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
-    Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
-    Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
-    Spectre V2 : Mitigation: Full AMD retpoline
-    Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
-    Speculative Store Bypass: Vulnerable
-    Freeing SMP alternatives memory: 8K
-    smpboot: CPU0: AMD QEMU TCG CPU version 2.5+ (family: 0x6, model: 0x6, stepping: 0x3)
-    Performance Events: PMU not available due to virtualization, using software events only.
-    rcu: Hierarchical SRCU implementation.
-    smp: Bringing up secondary CPUs ...
-    smp: Brought up 1 node, 1 CPU
-    smpboot: Max logical packages: 1
-    smpboot: Total of 1 processors activated (3792.00 BogoMIPS)
-    devtmpfs: initialized
-    clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
-    thermal_sys: Registered thermal governor 'step_wise'
-    thermal_sys: Registered thermal governor 'user_space'
-    cpuidle: using governor ladder
-    ACPI: bus type PCI registered
-    PCI: MMCONFIG for domain 0000 [bus 00-ff] at [mem 0xe0000000-0xefffffff] (base 0xe0000000)
-    PCI: not using MMCONFIG
-    PCI: Using configuration type 1 for base access
-    ACPI: Added _OSI(Module Device)
-    ACPI: Added _OSI(Processor Device)
-    ACPI: Added _OSI(3.0 _SCP Extensions)
-    ACPI: Added _OSI(Processor Aggregator Device)
-    ACPI: Added _OSI(Linux-Dell-Video)
-    ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
-    ACPI: Added _OSI(Linux-HPI-Hybrid-Graphics)
-    ACPI: 1 ACPI AML tables successfully acquired and loaded
-    ACPI: Interpreter enabled
-    ACPI: (supports S0 S5)
-    ACPI: Using IOAPIC for interrupt routing
-    PCI: MMCONFIG for domain 0000 [bus 00-ff] at [mem 0xe0000000-0xefffffff] (base 0xe0000000)
-    [Firmware Info]: PCI: MMCONFIG at [mem 0xe0000000-0xefffffff] not reserved in ACPI motherboard resources
-    PCI: not using MMCONFIG
-    PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
-    ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
-    acpi PNP0A03:00: _OSC: OS supports [ASPM ClockPM Segments MSI HPX-Type3]
-    acpi PNP0A03:00: fail to add MMCONFIG information, can't access extended PCI configuration space under this bridge.
-    PCI host bridge to bus 0000:00
-    pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
-    pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
-    pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
-    pci_bus 0000:00: root bus resource [mem 0x80000000-0xdfffffff window]
-    pci_bus 0000:00: root bus resource [bus 00-ff]
-    pci 0000:00:00.0: [8086:29c0] type 00 class 0x060000
-    pci 0000:00:01.0: [1234:1111] type 00 class 0x030000
-    pci 0000:00:01.0: reg 0x10: [mem 0x90000000-0x90ffffff pref]
-    pci 0000:00:01.0: reg 0x18: [mem 0x80045000-0x80045fff]
-    pci 0000:00:01.0: reg 0x30: [mem 0x00000000-0x0000ffff pref]
-    pci 0000:00:01.0: BAR 0: assigned to efifb
-    pci 0000:00:02.0: [8086:10d3] type 00 class 0x020000
-    pci 0000:00:02.0: reg 0x10: [mem 0x80020000-0x8003ffff]
-    pci 0000:00:02.0: reg 0x14: [mem 0x80000000-0x8001ffff]
-    pci 0000:00:02.0: reg 0x18: [io  0x2060-0x207f]
-    pci 0000:00:02.0: reg 0x1c: [mem 0x80040000-0x80043fff]
-    pci 0000:00:02.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
-    pci 0000:00:1f.0: [8086:2918] type 00 class 0x060100
-    pci 0000:00:1f.0: quirk: [io  0x0400-0x047f] claimed by ICH6 ACPI/GPIO/TCO
-    pci 0000:00:1f.2: [8086:2922] type 00 class 0x010601
-    pci 0000:00:1f.2: reg 0x20: [io  0x2040-0x205f]
-    pci 0000:00:1f.2: reg 0x24: [mem 0x80044000-0x80044fff]
-    pci 0000:00:1f.3: [8086:2930] type 00 class 0x0c0500
-    pci 0000:00:1f.3: reg 0x20: [io  0x2000-0x203f]
-    ACPI: PCI Interrupt Link [LNKS] (IRQs *9)
-    ACPI: PCI Interrupt Link [LNKA] (IRQs 5 10 11) *0
-    ACPI: PCI Interrupt Link [LNKB] (IRQs 5 10 11) *0
-    ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 11) *0
-    ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 11) *0
-    SCSI subsystem initialized
-    ACPI: bus type USB registered
-    usbcore: registered new interface driver usbfs
-    usbcore: registered new interface driver hub
-    usbcore: registered new device driver usb
-    PCI: Using ACPI for IRQ routing
-    clocksource: Switched to clocksource tsc-early
-    ACPI: Failed to create genetlink family for ACPI event
-    pnp: PnP ACPI init
-    pnp 00:01: disabling [io  0x0440-0x044f] because it overlaps 0000:00:1f.0 BAR 7 [io  0x0400-0x047f]
-    system 00:01: [io  0x01e0-0x01ef] has been reserved
-    system 00:01: [io  0x0160-0x016f] has been reserved
-    system 00:01: [io  0x0278-0x027f] has been reserved
-    system 00:01: [io  0x0370-0x0371] has been reserved
-    system 00:01: [io  0x0378-0x037f] has been reserved
-    system 00:01: [io  0x0678-0x067f] has been reserved
-    system 00:01: [io  0x0778-0x077f] has been reserved
-    system 00:01: [io  0x0800] has been reserved
-    system 00:01: [io  0xafe0-0xafe3] has been reserved
-    system 00:01: [io  0xb000-0xb03f] has been reserved
-    system 00:01: [mem 0xfec00000-0xfec00fff] could not be reserved
-    system 00:01: [mem 0xfee00000-0xfeefffff] has been reserved
-    pnp: PnP ACPI: found 8 devices
-    clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
-    pci 0000:00:02.0: BAR 6: assigned [mem 0x80080000-0x800bffff pref]
-    pci 0000:00:01.0: BAR 6: assigned [mem 0x80050000-0x8005ffff pref]
-    pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
-    pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
-    pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
-    pci_bus 0000:00: resource 7 [mem 0x80000000-0xdfffffff window]
-    pci 0000:00:01.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
-    PCI: CLS 0 bytes, default 64
-    Trying to unpack rootfs image as initramfs...
-    Freeing initrd memory: 396K
-    workingset: timestamp_bits=62 max_order=16 bucket_order=0
-    io scheduler mq-deadline registered
-    io scheduler kyber registered
-    efifb: probing for efifb
-    efifb: framebuffer at 0x90000000, using 1876k, total 1875k
-    efifb: mode is 800x600x32, linelength=3200, pages=1
-    efifb: scrolling: redraw
-    efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
-    Console: switching to colour frame buffer device 100x37
-    fb0: EFI VGA frame buffer device
-    Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
-    00:04: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
-    brd: module loaded
-    loop: module loaded
-    ahci 0000:00:1f.2: can't derive routing for PCI INT A
-    ahci 0000:00:1f.2: PCI INT A: no GSI
-    ahci 0000:00:1f.2: AHCI 0001.0000 32 slots 6 ports 1.5 Gbps 0x3f impl SATA mode
-    ahci 0000:00:1f.2: flags: 64bit ncq only
-    scsi host0: ahci
-    scsi host1: ahci
-    scsi host2: ahci
-    scsi host3: ahci
-    scsi host4: ahci
-    scsi host5: ahci
-    ata1: SATA max UDMA/133 abar m4096@0x80044000 port 0x80044100 irq 24
-    ata2: SATA max UDMA/133 abar m4096@0x80044000 port 0x80044180 irq 24
-    ata3: SATA max UDMA/133 abar m4096@0x80044000 port 0x80044200 irq 24
-    ata4: SATA max UDMA/133 abar m4096@0x80044000 port 0x80044280 irq 24
-    ata5: SATA max UDMA/133 abar m4096@0x80044000 port 0x80044300 irq 24
-    ata6: SATA max UDMA/133 abar m4096@0x80044000 port 0x80044380 irq 24
-    usbcore: registered new interface driver usb-storage
-    sdhci: Secure Digital Host Controller Interface driver
-    sdhci: Copyright(c) Pierre Ossman
-    usbcore: registered new interface driver usbhid
-    usbhid: USB HID core driver
-    IPI shorthand broadcast: enabled
-    random: get_random_bytes called from 0xffffffff81030d09 with crng_init=0
-    sched_clock: Marking stable (1122889738, 290366226)->(1520783472, -107527508)
-    ata3: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
-    ata3.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100
-    ata3.00: applying bridge limits
-    ata3.00: configured for UDMA/100
-    ata6: SATA link down (SStatus 0 SControl 300)
-    ata5: SATA link down (SStatus 0 SControl 300)
-    ata1: SATA link down (SStatus 0 SControl 300)
-    ata4: SATA link down (SStatus 0 SControl 300)
-    ata2: SATA link down (SStatus 0 SControl 300)
-    scsi 2:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ PQ: 0 ANSI: 5
-    Freeing unused kernel image (initmem) memory: 752K
-    Write protecting the kernel read-only data: 10240k
-    Freeing unused kernel image (text/rodata gap) memory: 2044K
-    Freeing unused kernel image (rodata/data gap) memory: 1372K
-    Run /init as init process
-    tsc: Refined TSC clocksource calibration: 1895.971 MHz
-    clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x36a89bbdbb4, max_idle_ns: 881590521235 ns
+    setup_percpu: NR_CPUS:64 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+    percpu: Embedded 40 pages/cpu s131688 r0 d32152 u2097152
+    Built 1 zonelists, mobility grouping on.  Total pages: 57704
+    Kernel command line: root=/dev/ram0 rw 3 console=ttyS0,115200
+
+    ...
+
+    Please press Enter to activate this console. input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8042/serio1/input/input3
+    tsc: Refined TSC clocksource calibration: 1804.779 MHz
+    clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x1a03cc1362c, max_idle_ns: 440795245324 ns
     clocksource: Switched to clocksource tsc
 
-      #####################################
-      #                                   #
-      #    Welcome to "Minimal Linux"     #
-      #                                   #
-      #####################################
+    / #
+    / # uname -a
+    Linux (none) 6.1.0-rc1+ #12 SMP Fri Oct 21 15:58:13 PDT 2022 x86_64 GNU/Linux
+    / #
 
-    /$
 
+PXE Boot using Linux & U-Root
+=============================
+
+U-Root Build
+^^^^^^^^^^^^
+
+U-Root includes utilities that enable PXE Boot. The U-Root initramfs should be built with the following \
+command to include the PXE utilities. We compress the initramfs using xz to make it fit into flash.
+
+.. code-block:: text
+
+    $ ./u-root -o initramfs.cpio core ./cmds/boot/pxeboot
+
+    $ xz --check=crc32 -9 --lzma2=dict=1MiB \
+    --stdout initramfs.cpio \
+    | dd conv=sync bs=512 \
+    of=initramfs.cpio.xz
+
+Kernel Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+The Linux Kernel being used should have the following options enabled (in addition to the ones mentioned above). \
+Most of these should be enabled by default unless you ran ``make tinyconfig`` to configure the kernel.
+
+* Go language program support (``CONFIG_FUTEX`` and ``CONFIG_EPOLL``)
+* devtmpfs support (``CONFIG_DEVTMPFS``)
+* Kexec support (``CONFIG_KEXEC``)
+* Kexec file based system call (``CONFIG_KEXEC_FILE``)
+* EFI runtime service support (``CONFIG_EFI``)
+* EFI stub support (``CONFIG_EFI_STUB``)
+* Network driver for your machine's network interface
+
+PXE Booting
+^^^^^^^^^^^
+
+* You should have a TFTP server set up to serve the PXE boot files.
+
+* Commands to perform PXE Boot in U-Root:
+
+    .. code-block:: text
+
+        /# dhclient -ipv6=false
+
+        /# pxeboot -ipv6=false -file <pxe_config_filename> -server <server_ip_address>
+
+* After running the above commands, you should be able to see the operating system loading.
+
+* Shown below is a snippet from performing PXE Boot on the :ref:`Tiger Lake RVP Board <tiger-lake-rvp>`
+
+.. code-block:: text
+
+    
+    ============= Intel Slim Bootloader STAGE1A =============
+    SBID: SBL_TGL
+    ...
+
+    ============= Intel Slim Bootloader STAGE1B =============
+    ...
+    Loading Component FLMP:SG02
+    HASH verification for usage (0x00000002) with Hash Alg (0x2): Success
+    Loaded STAGE2 @ 0x47A03000
+
+    ============= Intel Slim Bootloader STAGE2 =============
+    ...
+    Loading Payload ID LINX
+    Loading Component EPLD:LINX
+    ...
+    Kernel command line:
+    console=ttyS0,115200 quiet
+
+
+    Loading Component EPLD:INRD
+    HASH verification for usage (0x00000000) with Hash Alg (0x2): Success
+    InitRD is loaded at 0x4770F000:0x2D2600
+    Found bzimage Signature
+    ...
+    Jump to payload
+
+    Switch to LongMode and jump to 64-bit kernel entrypoint ...
+    e1000e 0000:00:1f.6: The NVM Checksum Is Not Valid
+    1998/01/04 22:46:15 Welcome to u-root!
+                                _
+    _   _      _ __ ___   ___ | |_
+    | | | |____| '__/ _ \ / _ \| __|
+    | |_| |____| | | (_) | (_) | |_
+    \__,_|    |_|  \___/ \___/ \__|
+
+    init: 1998/01/04 22:46:15 no modules found matching '/lib/modules/*.ko'
+    /# dhclient -ipv6=false
+    1998/01/04 22:46:22 Bringing up interface eth0...
+    1998/01/04 22:46:24 Attempting to get DHCPv4 lease on eth0
+    1998/01/04 22:46:39 Got DHCPv4 lease on eth0: DHCPv4 Message
+    opcode: BootReply
+    hwtype: Ethernet
+    hopcount: 0
+    transaction ID: 0x8af9e5d6
+    num seconds: 0
+    flags: Unicast (0x00)
+    client IP: 0.0.0.0
+    your IP: 10.165.242.41
+    server IP: 0.0.0.0
+    gateway IP: 10.165.242.3
+    client MAC: 00:15:17:78:cd:50
+    server hostname:
+    bootfile name:
+    options:
+        Subnet Mask: fffffe00
+        Router: 10.165.242.1
+        Domain Name Server: 10.248.2.1, 10.22.224.196, 10.3.86.116
+        Domain Name: jf.intel.com
+        IP Addresses Lease Time: 96h0m0s
+        DHCP Message Type: ACK
+        Server Identifier: 10.22.224.196
+        Renew Time Value: [0 2 163 0]
+        Rebinding Time Value: [0 4 157 64]
+    1998/01/04 22:46:39 Configured eth0 with IPv4 DHCP Lease IP 10.165.242.41/23
+    1998/01/04 22:46:39 Finished trying to configure all interfaces.
+    /# pxeboot -ipv6=false -file default -server 10.165.242.94
+    1998/01/04 22:50:04 Skipping DHCP for manual target..
+    1998/01/04 22:50:04 Boot URI: tftp://10.165.242.94/default
+    1998/01/04 22:50:04 Parsing boot files as iPXE failed, trying other formats...: config file is not ipxe as it does not start with #!ipxe
+    1998/01/04 22:50:04 Trying to parse file as a non config Image...
+    1998/01/04 22:50:04 Parsing boot file as FIT image failed: invalid FDT magic, got 0x23204175, expected 0xd00dfeed
+    1998/01/04 22:50:04 failed to parse boot file as simple file: exhausted all supported simple file types
+    1998/01/04 22:50:05 Got config file tftp://10.165.242.94/pxelinux.cfg/default:
+    # Automatically created by OE
+    ALLOWOPTIONS 1
+    SERIAL 0 115200
+    DEFAULT Graphics console boot
+    TIMEOUT 50
+    PROMPT 0
+    ui vesamenu.c32
+    menu title Select kernel options and boot kernel
+    menu tabmsg Press [Tab] to edit, [Return] to select
+    LABEL Serial console boot 64
+    KERNEL /bzImage-qemu64
+    APPEND initrd=/initrd LABEL=boot root=/dev/ram0  console=ttyS0,115200
+
+
+
+    Welcome to LinuxBoot's Menu
+
+    Enter a number to boot a kernel:
+
+    01. Serial console boot 64
+
+    02. Reboot
+
+    03. Enter a LinuxBoot shell
+
+
+    Enter an option ('01' is the default, 'e' to edit kernel cmdline):
+    > 1
+    [    0.000000] Linux version 5.15.62-yocto-standard (oe-user@oe-host) (x86_64-poky-linux-gcc (GCC) 11.3.0, GNU ld (GNU Binutils) 2.38.20220708) #1 SMP PREEMPT Mon Aug 22 15:16:08 UTC 2022
+    [    0.000000] Command line: initrd=/initrd LABEL=boot root=/dev/ram0 console=ttyS0,115200
+    ...
+    [    0.000000] SMBIOS 3.3 present.
+    [    0.000000] DMI: Intel Corporation TigerLake Client Platform/TigerLake H DDR4 SODIMM RVP, BIOS SB_TGL.001.001.000.001.006.00011.D-505209D9C37F4A
+    ...
+    [    0.119842] BIOS vendor: Intel Corporation; Ver: SB_TGL.001.001.000.001.006.00011.D-505209D9C37F4AFE-dirty; Product Version: 0.1
+    ...
+    [    1.547048] smpboot: Estimated ratio of average max frequency by base frequency (times 1024): 1772
+    [    1.547048] smpboot: CPU0: 11th Gen Intel(R) Core(TM) i7-11850HE @ 2.60GHz (family: 0x6, model: 0x8d, stepping: 0x1)
+    [    1.547118] Performance Events: PEBS fmt4+-baseline,  AnyThread deprecated, Icelake events, 32-deep LBR, full-width counters, Intel PMU driver.
+    [    1.548048] ... version:                5
+    [    1.549048] ... bit width:              48
+    [    1.550048] ... generic registers:      8
+    [    1.551049] ... value mask:             0000ffffffffffff
+    [    1.552048] ... max period:             00007fffffffffff
+    [    1.553048] ... fixed-purpose events:   4
+    [    1.554048] ... event mask:             0001000f000000ff
+    [    1.555099] rcu: Hierarchical SRCU implementation.
+    [    1.556210] smp: Bringing up secondary CPUs ...
+    [    1.557081] x86: Booting SMP configuration:
+    [    1.558049] .... node  #0, CPUs:        #1  #2  #3  #4  #5  #6  #7  #8  #9 #10 #11 #12 #13 #14 #15
+    ...
