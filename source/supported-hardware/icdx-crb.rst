@@ -126,7 +126,7 @@ For more details on generating capsule image, please refer :ref:`generate-capsul
 Triggering Firmware Update
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| for |ICXD| uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
+|SPN| for |ICXD| uses BIOSSCRATCHPAD3_CFG (Bus 0x1E, Dev 0, Func 2, PCI_Config 0xAC) to trigger firmware update. When BIT0 is set, |SPN| will set the boot mode to FLASH_UPDATE.
 Please refer to :ref:`firmware-update` on how to trigger firmware update flow.
 Below is an example:
 
