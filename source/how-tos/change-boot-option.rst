@@ -136,42 +136,38 @@ If the boot option is already supported in |SPN| boot option list, you can chang
 
 For example, to switch boot options of index 0 and 3::
 
-    Press any key within 2 second(s) to enter the command shell
+      Press any key within 2 second(s) to enter the command shell
 
-    Shell>
+      Shell>
 
-    Shell> boot
-    Boot options (in HEX):
+      Shell> boot
+      Boot options (in HEX):
 
-    Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
-      0|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin *Current
-      1|      0|   MMC |    0 |   0 |    0 | AUTO |    1 | iasimage.bin
-      2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
-      3|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
-
-    SubCommand:
-      s   -- swap boot order by index
-      a   -- modify all boot options one by one
+      Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+      0|      0|    SD |    0 |   0 |    0 | AUTO |    0 | container.bin *Current
+      1|      0|  SATA |    0 |   0 |   FF | AUTO |    0 | container.bin
+      2|      0|  NVME |    0 |   0 |    0 | AUTO |    0 | container.bin
+      3|      0|   USB |    0 |   0 |    0 | AUTO |    0 | container.bin
+      SubCommand:
       q   -- quit boot option change
-      idx -- modify the boot option specified by idx (0 to 0x3)
-    s
-    Enter first index to swap (0x0 to 0x3)
-    0
-    Enter second index to swap (0x0 to 0x3)
-    3
-    Updated the Boot Option List
-    Boot options (in HEX):
+      s   -- swap boot order by index
+      c   -- set the boot index
+      idx -- modify the boot option specified by idx (0 to 3)
+      s
+      Enter first index to swap (0x0 to 0x3)
+      0
+      Enter second index to swap (0x0 to 0x3)
+      3
+      Updated the Boot Option List
+      Boot options (in HEX):
 
-    Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
-      0|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin *Current
-      1|      0|   MMC |    0 |   0 |    0 | AUTO |    1 | iasimage.bin
-      2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
-      3|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+      Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+      0|      0|   USB |    0 |   0 |    0 | AUTO |    0 | container.bin *Current
+      1|      0|  SATA |    0 |   0 |   FF | AUTO |    0 | container.bin
+      2|      0|  NVME |    0 |   0 |    0 | AUTO |    0 | container.bin
+      3|      0|    SD |    0 |   0 |    0 | AUTO |    0 | container.bin
 
+      Shell> exit
 
-    Shell> exit
-
-SBL shall boot from USB by attempting loading IAS
-image iasimage.bin from partition 0. If IAS image not found, it
-fallbacks to loading vmlinuz. If nothing is bootable, it returns to
-shell.
+SBL shall boot from USB by attempting loading the container image ``container.bin`` from partition 0. If container image is not found, \
+it fallbacks to loading vmlinuz. If nothing is bootable, it returns to shell.
