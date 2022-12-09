@@ -80,7 +80,7 @@ Build system builds debug |SPN| image by default. To build a release image::
 
   python BuildLoader.py build <target> -r
 
-.. note:: When verified boot is enabled, |SPN| release build requires IAS image format to boot OS.
+.. note:: When verified boot is enabled, |SPN| release build requires container image format to boot OS.
 
 
 .. _develop-on-windows:
