@@ -16,7 +16,6 @@ A collection of guides to make |SPN| to work for you.
    reduce-debug-message
    add-new-library
    add-new-payload
-   add-fastboot
    integrate-multiple-payloads
    create-container-boot-image
    create-ias-boot-image
