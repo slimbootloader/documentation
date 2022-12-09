@@ -8,6 +8,7 @@ Container Tool
 A container is an encapsulation of multiple components as depicted in the following image:
 
 .. image:: /images/Cont.PNG
+   :width: 1200px
    :alt: Container structure
 
 .. _container-formats:
