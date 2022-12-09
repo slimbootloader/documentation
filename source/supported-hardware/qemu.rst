@@ -69,7 +69,39 @@ Windows Users:: Use the method below
   |SPN| should load Yocto and allow you to login from graphics console with username 'root'.
 
 
+Boot to a Container Image on QEMU
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+A container image encapsulates the boot image and a cryptographic signature which is used to verify the integrity of the boot image for secure boot purposes.
 
+Below are the steps to create and boot a container image on QEMU:
 
+#. Create a container image of your boot image using the following guide: :ref:`Create Container Boot Image <create-container-boot-image>`
+
+    .. note::
+      Make sure you use the correct type of container. For details on which type to use, \
+      refer to the :ref:`Container Tool documentation <container-formats>`.
+
+#. Once you have the container image ``container.bin`` created, it needs to be copied to the disk image to be used with QEMU. For example, the disk \
+   image can be the Yocto disk image as mentioned in the above section.
+
+#. Copy the created ``container.bin`` to the mounted disk image.
+
+#. Now, we need to set which boot file to use using the Config Editor tool.
+
+#. Open the config editor and set your boot options as shown in the image below. Note that \
+   the ``container.bin`` is the path to the container on the disk. In this example, the file \
+   is placed in the root directory of the disk.
+   Refer to the :ref:`Change Boot Options <change-boot-options>` guide for detailed instructions.
+
+    .. image:: /images/boot_to_container_qemu_cfgedit.png
+      :width: 800px
+
+#. Build SBL for QEMU
+
+#. Start QEMU. The ``-hda`` option will connect the virtual disk image as a SATA drive to QEMU.
+
+    .. code-block:: text
+
+      qemu-system-x86_64 -m 1G -machine q35 -serial mon:stdio -nographic -pflash Outputs/qemu/SlimBootloader.bin -hda <path/to/disk_image>
 
