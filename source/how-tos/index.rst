@@ -25,7 +25,6 @@ A collection of guides to make |SPN| to work for you.
    boot-ubuntu
    boot-vxworks
    boot-zephyr
-   boot-acrn
    boot-micropython
    boot-with-linux-payload
    boot-with-u-boot-payload
