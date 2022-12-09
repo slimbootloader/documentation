@@ -10,6 +10,48 @@ A container is an encapsulation of multiple components as depicted in the follow
 .. image:: /images/Cont.PNG
    :alt: Container structure
 
+.. _container-formats:
+
+Image Types
+===========
+
+Normal
+^^^^^^
+
+This type of container contains a single image in it. Image format can be ELF, Multiboot, Multiboot-2, UEFI-PI FV, or PE32.
+
+Classic
+^^^^^^^
+
+This image type is used to boot a typical Linux image. This image format combines a kernel command line and the kernel image.
+Optionally more files like an initrd, ACPI tables, firmware files could be added. 
+
+The kernel command line, kernel image, and the optional initrd are in a **fixed order**.
+  * Dummy files need to be provided if one of the component is not in use. 
+  * For example, if initrd is not used, a dummy file needs to be provided in place of the initrd.
+
+**File Order:** cmdline.txt, bzImage (kernel), initrd, acpi, firmware1, firmware2, ...
+
+The classic container's format is laid out below.
+
+  .. image:: /images/sbl_classic_container.png
+      :width: 600px
+
+Multiboot ELF
+^^^^^^^^^^^^^
+
+This type of container stores Multiboot compliant ELF images and their corresponding command lines in pairs. The first ELF image \
+in the Multiboot image is assumed to be the one used for booting. If an image does not use a command line, a dummy file needs to be \
+provided in place of the command line file.
+
+**Files:** cmdline1, elf1, cmdline2, elf2, ...
+
+.. note::
+    The default container type is Classic.
+
+Tool Usage
+==========
+
 Following operations are supported::
 
     usage: GenContainer.py [-h] {view,create,extract,replace,sign} ...
