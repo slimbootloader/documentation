@@ -186,11 +186,16 @@ Intel® TCC RTCM setting
 
 As described in :ref:`tcc_overview`, SBL supports OsLoader payload and UEFI payload. Both payload doesn't need load and run real-time configuration manager (RTCM) when booting hypervisor image since hypervisor image is expected to have a built-in RTCM.
 When UEFI payload is used, there is no special module for RTCM load. User could manually load and run RTCM before normal OS, or using a startup script to load and run RTCM before normal OS, or using other methods.
-When OsLoaer payload is used, SBL boot option need be configured correctly so that SBL OsLoader could load and run RTCM before a normal OS.
-Just like changing Intel® TCC detail settings, user could directly update boot option configuration data file CfgData_BootOption.yaml, or using ConfigEditor.py tool to update it.
+When OsLoader payload is used, SBL boot option need be configured correctly so that SBL OsLoader could load and run RTCM before a normal OS.
+After building an RTCM container, user could either directly update boot option configuration data file CfgData_BootOption.yaml, or using ConfigEditor.py tool to update it.
 
 Below are the steps on how to update the SBL boot option to enable RTCM for OsLoader Payload using the ConfigEditor.py tool.
 
+**Container build command:**
+
+.. code-block:: text
+
+    python BootloaderCorePkg\Tools\GenContainer.py create -cl RTCM:<path/to/rtcm> -t NORMAL -k <path/to/key>
 
 Step 1: Select boot flag
 ^^^^^^^^^^^^^^^^^^^^^^^^
