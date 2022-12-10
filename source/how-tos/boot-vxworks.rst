@@ -26,7 +26,7 @@ This page provides instructions for creating a bootable VxWorks image in contain
 
 Run::
 
-  GenContainer.py create -cl VXWK:<VxWorks kernel> -k SblKeys\OS1_TestKey_Pub_RSA2048_priv.pem -o container.bin
+  GenContainer.py create -t NORMAL -cl VXWK:<VxWorks kernel> -k SblKeys\OS1_TestKey_Pub_RSA2048_priv.pem -o container.bin
 
 .. note:: SblKeys\\OS1_TestKey_Pub_RSA2048_priv.pem is given as an example key used for signing |SPN| OS container binaries.
 

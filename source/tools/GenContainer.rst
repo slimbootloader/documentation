@@ -8,6 +8,7 @@ Container Tool
 A container is an encapsulation of multiple components as depicted in the following image:
 
 .. image:: /images/Cont.PNG
+   :width: 1200px
    :alt: Container structure
 
 .. _container-formats:
@@ -47,7 +48,7 @@ provided in place of the command line file.
 **Files:** cmdline1, elf1, cmdline2, elf2, ...
 
 .. note::
-    The default container type is Classic.
+    **The default container type is Classic.**
 
 Tool Usage
 ==========
