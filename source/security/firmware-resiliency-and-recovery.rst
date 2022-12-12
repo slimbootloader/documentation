@@ -3,7 +3,7 @@
 Firmware Resiliency and Recovery
 --------------------------------
 
-|SPN| implements a resiliency and recovery mechanism for boot-critical firmware. This along with :ref:`firmware-update` make |SPN| compliant with NIST SP 800-193.
+|SPN| implements a resiliency and recovery mechanism for boot-critical firmware.
 
 If, at any point in the boot flow, a critical failure is detected, |SPN| will try to recover from such a failure.
 
@@ -74,7 +74,7 @@ is illustrated in the flash map below::
             +----------+------------------------+------------+-----------------------+
 
 Whenever a failure is detected on one partition, a boot is tried from the other partition. If successful, the failing partition is overwritten with the working partition. Then,
-a normal boot to OS in executed, cancelling out a firmware update if one in flight. Thus, this can occur during a normal boot, or a update-related boot. So, the primary partition
+a normal boot to OS is executed, cancelling out a firmware update if one is in flight. Thus, this can occur during a normal boot, or a update-related boot. So, the primary partition
 can be copied over to the backup partition and vice versa.
 
 The diagram below shows the boot flow when a boot failure occurs on the primary boot partition.
