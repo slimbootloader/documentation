@@ -109,15 +109,20 @@ Following operations are supported::
       -s  SVN               Security version number for Component for  no -cl option
 
 
- - example::
+ - Example 1 - using component list (``-cl``)::
 
     python GenContainer.py create -cl CMDL:cmdline.txt:$svn KRNL:vmlinuz:$svn INRD:initrd:$svn -o Out
 
-    $svn is optional
+  Notes:
+     - When using a component list, the container header's component name will be ``BOOT``.
+     - $svn is optional
 
-    or
+ - Example 2 - using component layout file (``-l``)::
 
     python GenContainer.py create -l layout.txt -o Out
+
+  Note:
+     - Name of the container header component will be the name specified in the ``layout.txt`` file.
 
 .. note::
 
