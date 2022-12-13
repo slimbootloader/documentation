@@ -109,15 +109,20 @@ Following operations are supported::
       -s  SVN               Security version number for Component for  no -cl option
 
 
- - example::
+ - Example 1 - using component list (``-cl``)::
 
     python GenContainer.py create -cl CMDL:cmdline.txt:$svn KRNL:vmlinuz:$svn INRD:initrd:$svn -o Out
 
-    $svn is optional
+  Notes:
+     - When using a component list, the container header's component name will be ``BOOT``.
+     - $svn is optional
 
-    or
+ - Example 2 - using component layout file (``-l``)::
 
     python GenContainer.py create -l layout.txt -o Out
+
+  Note:
+     - Name of the container header component will be the name specified in the ``layout.txt`` file.
 
 .. note::
 
@@ -125,12 +130,12 @@ Following operations are supported::
 
       # Container Layout File
       #
-      #    Name ,  ImageFile      ,CompAlg  ,  AuthType,       KeyFile                 , Alignment,  Size,     Svn
-      # ============================================================================================================
-        ( 'BOOT', 'Out'           , ''      , 'RSA2048_PSS_SHA2_256', 'CONTAINER_KEY_ID'        ,  0,     0,    0),  <--- Container Hdr
-        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0,    0),  <--- Component Entry 1
-        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0,    0),  <--- Component Entry 2
-        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'CONTAINER_COMP_KEY_ID'   ,  0,     0,    0),  <--- Component Entry 3
+      #    Name ,  ImageFile      ,CompAlg  ,  AuthType,                KeyFile                     , Alignment,  Size,     Svn
+      # ============================================================================================================================
+        ( 'BOOT', 'Out'           , ''      , 'RSA2048_PSS_SHA2_256', 'KEY_ID_CONTAINER_RSA3072'        ,  0,     0,    0),  <--- Container Hdr
+        ( 'CMDL', 'cmdline.txt'   , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'KEY_ID_CONTAINER_COMP_RSA3072'   ,  0,     0,    0),  <--- Component Entry 1
+        ( 'KRNL', 'vmlinuz'       , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'KEY_ID_CONTAINER_COMP_RSA3072'   ,  0,     0,    0),  <--- Component Entry 2
+        ( 'INRD', 'initrd'        , 'Lz4'   , 'RSA2048_PSS_SHA2_256', 'KEY_ID_CONTAINER_COMP_RSA3072'   ,  0,     0,    0),  <--- Component Entry 3
 
     If you provide the full path or a file/dir name to output or key, in both layout.txt and command line,
     command line options will always overwrite the values in layout.txt.
