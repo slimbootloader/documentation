@@ -9,7 +9,7 @@ Payloads
 ^^^^^^^^^^^^^^^^^^^
 
 Os Loader (Built-in)
-  A versatile linux loader implementation that boots Linux, hypervsior, Android, and ELF or PE executables. It also supports launching OSes compliant with the MultiBoot specification.
+  A versatile linux loader implementation that boots Linux, ELF, UEFI-PI FV, or PE executables. It also supports launching OSes compliant with the MultiBoot specification.
 
   When built as an FV formatted payload OS Loader permits the inclusion and launching of a pre-OS payload binary that will hand-off control to an OS after the pre-OS payload finishes execution.
 
@@ -28,11 +28,23 @@ Custom Payload
 Payload Types
 ^^^^^^^^^^^^^^^^
 
-Tightly Coupled
-  Implementation depends on |SPN| source code to build. It requires platform specific libraries.
+A payload can be **Tightly Coupled** or **Loosely Coupled** with Slim Bootloader depending on if the payload has **code/data dependency** or **data-only dependency** on the bootloader. \
 
-Loosely Coupled
-  Implementation can either be self-contained or depends on libraries in ``BootloaderCommonPkg`` and ``PayloadPkg``. The platform abstraction is provided through Hand-off-Blocks (HOB) data structures. These payloads are platform agnostic.
+* **Tightly Coupled**
+
+  * Implementation depends on |SPN| source code to build. It requires platform specific libraries.
+  * Can leverage code interfaces and libraries provided by the bootloader.
+  * |SPN| provides a set of helper libraries like file system support, serial port debug message support, etc. to simplify the development of the payload.
+  
+  Examples: OsLoader, FirmwareUpdate
+
+* **Loosely Coupled**
+
+  * A loosely coupled payload on the other hand, depends on platform initialization information passed by the bootloader to continue their initialization and boot process.
+  * The platform abstraction is provided through Hand-off-Blocks (HOB) data structures.
+  * These payloads are platform agnostic.
+
+  Examples: UEFI Payload
 
 
 Multiple Payload Support
