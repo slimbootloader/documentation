@@ -20,6 +20,7 @@ Developer's Guide
    memory-map
    configuration
    payload
+   osloader
    bootimage
    boot-options
    flash-boot
