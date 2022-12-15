@@ -22,5 +22,5 @@ OsLoader Boot Flow
 
 The flowchart below explains the boot flow when launching an OS using OsLoader.
 
-.. image:: /images/osldr_flow.PNG
+.. image:: /images/osldr_flow.png
    :width: 750px
