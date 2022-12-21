@@ -8,23 +8,27 @@ Alder Lake Platforms
 Supported Boards
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports various platforms corresponding to |ADL|-S and |ADL|-P Processors.
+|SPN| supports various platforms corresponding to |ADL|-S, |ADL|-P and |ADL|-PS Processors.
 
 Each |ADL| board is assigned with a unique platform ID.
 
-  +----------------------+---------------+----------------+---------------+---------------+
-  |        Board         |  Platform ID  | SPI Programmer |     UART      |     PLAT      |
-  +----------------------+---------------+----------------+---------------+---------------+
-  |      |ADLS| DDR4     |     0x0017    |      J1G2      |     U6J1      |     adls      |
-  +----------------------+---------------+----------------+---------------+---------------+
-  |      |ADLS| DDR5     |     0x001B    |      J1G2      |     U6J1      |     adls      |
-  +----------------------+---------------+----------------+---------------+---------------+
-  |      |ADLP| DDR5     |     0x0012    |      J1C1      |     J9J3      |     adlp      |
-  +----------------------+---------------+----------------+---------------+---------------+
-  |      |ADLP| LPDDR5   |     0x0013    |      J1C1      |     J9J3      |     adlp      |
-  +----------------------+---------------+----------------+---------------+---------------+
-  |      |ADLP| LPDDR4   |     0x0010    |      J1C1      |     J9J3      |     adlp      |
-  +----------------------+---------------+----------------+---------------+---------------+
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |        Board            |  Platform ID  | SPI Programmer |     UART      |     PLAT      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLS| DDR4        |     0x0017    |      J1G2      |     U6J1      |     adls      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLS| DDR5        |     0x001B    |      J1G2      |     U6J1      |     adls      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLP| DDR5        |     0x0012    |      J1C1      |     J9J3      |     adlp      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLP| LPDDR5      |     0x0013    |      J1C1      |     J9J3      |     adlp      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLP| LPDDR4      |     0x0010    |      J1C1      |     J9J3      |     adlp      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLPS| DDR5 RVP   |     0x000B    |      J25       |     J109      |     adlps     |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLPS| DDR5 CRB   |     0x000D    |      J31       |     J34       |     adlps     |
+  +-------------------------+---------------+----------------+---------------+---------------+
 
 Debug UART
 ^^^^^^^^^^^
@@ -40,7 +44,7 @@ To build |SPN| for any |ADL| platform::
 
     python BuildLoader.py build <PLAT>
     
-    <PLAT> = adlp, adls
+    <PLAT> = adlp, adls, adlps
 
   
 The output images are generated under ``Outputs`` directory.
@@ -75,7 +79,7 @@ For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFW
 Flashing
 ^^^^^^^^^
 
-Flash the generated ``sbl_adls_ifwi.bin`` to the target board using a DediProg SF100 or SF600 programmer.
+Flash the generated ``sbl_adlx_ifwi.bin`` to the target board using a DediProg SF100 or SF600 programmer.
 
 .. note:: Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:
 
@@ -91,9 +95,9 @@ Capsule image for |ADL|
 The Slimbootloader.bin image generated from the build steps above can be used to create a capsule image.
 Please refer to :ref:`build-tool` on generating |SPN| image.
 
-For |ADLS| platform, the below command can be used::
+For all |ADL| platforms, the below command can be used::
 
-    python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS Outputs/adls/SlimBootloader.bin -k <Keys> -o FwuImage.bin
+    python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS Outputs/<plat>/SlimBootloader.bin -k <Keys> -o FwuImage.bin
 
 For more details on generating capsule image, please refer :ref:`generate-capsule`.
 

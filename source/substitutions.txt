@@ -39,7 +39,9 @@
 
 .. |ADLS| replace:: ADL-S
 
-.. |ADLP| replace:: ADL-P 
+.. |ADLP| replace:: ADL-P
+
+.. |ADLPS| replace:: ADL-PS
 
 .. |ICXD| replace:: ICX-D
 
