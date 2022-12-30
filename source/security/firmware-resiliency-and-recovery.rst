@@ -77,6 +77,14 @@ Whenever a failure is detected on one partition, a boot is tried from the other 
 a normal boot to OS is executed, cancelling out a firmware update if one is in flight. Thus, this can occur during a normal boot, or a update-related boot. So, the primary partition
 can be copied over to the backup partition and vice versa.
 
+The diagram below shows how the SBL region in SPI flash changes when a boot failure occurs on the primary boot partition. This scenario occurs on boot to OS.
+
+.. image:: /images/primary_block_diagram_for_resiliency.png
+
+The diagram below shows how the SBL region in SPI flash changes when a boot failure occurs on the backup boot partition. This scenario occurs on firmware update boot.
+
+.. image:: /images/backup_block_diagram_for_resiliency.png
+
 The diagram below shows the boot flow when a boot failure occurs on the primary boot partition.
 
 .. image:: /images/primary_boot_flow_for_resiliency.png
