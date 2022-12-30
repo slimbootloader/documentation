@@ -5,11 +5,11 @@ Firmware Update
 
 |SPN| implements a secure and fail-safe firmware update mechanism.
 
-  * |SPN| authenticates an update image before proceeding with a firmware update.
-
-  * |SPN| records update progress in non-volatile storage to protect against power failures in all regions/components.
-
-  * |SPN| updates and boots a backup boot partition before updating a primary partition to protect against boot failures in critical regions/components.
+* The firmware update code is implemented as an |SPN| payload.
+* |SPN| launches the firmware update payload when it detects a firmware update signal.
+* The firmware update code authenticates a capsule before writing to the relevant region.
+* The firmware update code maintains a state machine in non-volatile storage to keep track of update progress. This allows the update to continue where it left off in case of interruption.
+* The |SPN| image contains redundant boot components and depends on hardware assisted switch to toggle between them. This allows a working update mechanism to be maintained in case of failure.
 
 |SPN| supports the update of the following items, either by themselves or together:
 
@@ -363,7 +363,7 @@ Trigger Update From Shell
 
 During development, one can use shell command to manually test firmware update without relying on support in OS.
 
-1. Copy ``FwuImage.bin`` into device/directory identified by CAPSULE_INFO_CFG_DATA
+1. Copy ``FwuImage.bin`` into the /boot/efi/ directory of the device identified by CAPSULE_INFO_CFG_DATA (default is first USB flash drive)
 
 2. Boot and press any key to enter |SPN| shell
 

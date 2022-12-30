@@ -17,7 +17,7 @@ Examples of critical failures include:
 
 Firmware resiliency and recovery is accomplished by duplicating boot-critical firmware across a primary and backup partition. This backup partition has
 a role in :ref:`firmware-update` as well. Top Swap B is an exact duplicate of Top Swap A and Redundant B is an exact duplicate of Redundant A. This duplication
-is illustrated in the flash map below::
+is illustrated in the sample flash map below::
 
     Flash Map Information:
             +------------------------------------------------------------------------+
@@ -73,6 +73,8 @@ is illustrated in the flash map below::
             |   EMTY   |  0x000000(0xFF200000)  |  0x071000  |  Uncompressed,  NV    |
             +----------+------------------------+------------+-----------------------+
 
+The |SPN| components covered by firmware resiliency and recovery are all the regions in the Top Swap and Redundant regions.
+
 Whenever a failure is detected on one partition, a boot is tried from the other partition. If successful, the failing partition is overwritten with the working partition. Then,
 a normal boot to OS is executed, cancelling out a firmware update if one is in flight. Thus, this can occur during a normal boot, or a update-related boot. So, the primary partition
 can be copied over to the backup partition and vice versa.
@@ -85,15 +87,13 @@ The diagram below shows how the SBL region in SPI flash changes when a boot fail
 
 .. image:: /images/backup_block_diagram_for_resiliency.png
 
-The diagram below shows the boot flow when a boot failure occurs on the primary boot partition.
+The diagram below shows the boot flow when a boot failure occurs on the primary boot partition. This scenario occurs on boot to OS.
 
 .. image:: /images/primary_boot_flow_for_resiliency.png
 
-The diagram below shows the boot flow when a boot failure occurs on the backup boot partition.
+The diagram below shows the boot flow when a boot failure occurs on the backup boot partition. This scenario occurs on firmware update boot.
 
 .. image:: /images/backup_boot_flow_for_resiliency.png
-
-The |SPN| components covered by firmware resiliency and recovery are all the regions in the Top Swap and Redundant regions.
 
 In order to turn on the firmware resiliency and recovery feature, the following items must be in place pre-build and pre-stitch:
 
