@@ -103,13 +103,15 @@ After gathering required firmware binaries, capsule image can be generated using
                             Output file for signed image
       -q, --quiet           without output messages or temp files
 
-  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``::
+  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``::
 
-    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
     Successfully signed Bootloader image!
     $
 
   SBL_KEY_DIR is path to SblKeys directory used on |SPN|.
+
+  .. Note:: The capsule tool will *not* allow building of a capsule image which contains overlapping firmware components (e.g. BIOS and TMAC:IPFW).
 
 Component ID String
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
