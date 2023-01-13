@@ -42,6 +42,9 @@ This tool is useful for testing the firmware resiliency and recovery feature
 This tool is part of the OS loader shell (not the UEFI shell). To get it to show up, set PcdCmdCorruptShellAppEnabled
 to TRUE in BootloaderCommonPkg.dec and then build and stich SBL.
 
+This tool should *not* be enabled in production builds as its use can prevent the system from booting in certain
+circumstances.
+
 Command Syntax::
 
     Usage: corruptcomp <boot partition> <component>
