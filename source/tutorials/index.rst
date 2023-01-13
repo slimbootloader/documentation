@@ -15,3 +15,4 @@ SBL provides the development exercises to practice building, stitching and confi
    ex_feature_custom_verified_boot
    ex_feature_custom_boot_order
    ex_uefi_payload
+   ex_corrupt_sbl_component

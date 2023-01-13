@@ -3,55 +3,71 @@
 Firmware Update
 ------------------
 
-|SPN| implements a secure and power fail-safe firmware update mechanism.
+|SPN| implements a secure and fail-safe firmware update mechanism.
 
-  * |SPN| image is designed to contain redundant boot components and depends on hardware assisted boot partition switch to support fail-safe update.
+* The firmware update code is implemented as an |SPN| payload.
+* |SPN| launches the firmware update payload when it detects a firmware update signal.
+* The firmware update code authenticates a capsule before writing to the relevant region.
+* The firmware update code maintains a state machine in non-volatile storage to keep track of update progress. This allows the update to continue where it left off in case of interruption.
+* The |SPN| image contains redundant boot components and depends on hardware assisted switch to toggle between them. This allows a working update mechanism to be maintained in case of failure.
 
-  * Firmware update code is implemented as |SPN| payload.
+|SPN| supports the update of the following items, either by themselves or together:
 
-  * |SPN| detects firmware update signal and launches firmware udpate payload.
+  * BIOS region
 
-  * Firmware update code will authenticate the capsule image before proceeding with firmware update.
+  * CSME region
 
-  * Firmware update code maintains a state machine to keep track of the update progress. State machine is persistent across power cycles.
+  * Config data component (of BIOS region)
 
-  * |SPN| uses redundant boot partitions to recover and complete firmware update incase of a power failure.
+  * uCode component (of BIOS region)
 
-|SPN| supports independent update of BIOS and CSME regions of IFWI. Update of external configuration data is also supported.
+  * ACM component (of BIOS region)
 
-An overview of high level flow is provided below
+  * Full container (in BIOS region)
 
-  **Step 1:**  Firmware Update capsule will be copied to designated location. This location is configurable through |SPN| configuration options.
+  * Component within a container (in BIOS region)
 
-  **Step 2:**  Firmware update is triggered from |SPN| shell or from Operating system and followed by system reset.
+The following flow occurs during a firmware update:
+
+  **Step 1:**  The firmware update capsule is copied to the location specified in |SPN| configuration options.
+
+  **Step 2:**  The firmware update is triggered from |SPN| shell or from operating system and is followed by system reset.
 
   **Step 3:**  |SPN| detects firmware update signal and sets platform into firmware update mode.
 
-  **Step 4:**  Stage 2 code identifies firmware update mode and loads firmware update payload to start update flow.
+  **Step 4:**  After all hardware initializations are complete, |SPN| sees that it is in firmware update mode and loads firmware update payload to start update flow.
 
-  **Step 5:**  Firmware Update payload gathers capsule image from selected media and verifies capsule data. If successful, continues with firmware update
+  **Step 5:**  The firmware update payload gathers capsule image from selected media and verifies it.
 
-  **Step 6:**  Firmware update payload initializes state machine and identifies the update images in the capsule.
+  **Step 6:**  The firmware update payload initializes state machine and identifies the update images in the capsule.
 
-  **Step 7:**  Loop through and update each firwmare identified in the capsule image.
+  **Step 7:**  The firmware update payload loops through and updates each firmware identified in the capsule image. Specifically:
 
-     #. Record update status after each firmware update.
-     #. If the firmware is requesting reset after update, reset the system to continue updating other firmwares in the capsule.
-     #. Slimbootloader firmware update involves the following steps
-          #. Update partition B
-          #. Set partition B as 'active'
-          #. Reboot
-          #. Boot from partition B
-          #. Set partition A as 'active'
-          #. Reboot
+    * It records update status after each firmware update.
+    * It resets the system after the firmware update if a region/component requires it.
 
-    In case of a power failure, firmware update payload will use the state machine to continue from the interrupted state.
+    * If updating any redundant regions/components (e.g. BIOS, uCode, etc.), it:
 
-  **Step 8:**  Once all the firmwares in the capsule are updated.
+      #. Updates the regions/components on backup partition
+      #. Sets backup parition as 'active'
+      #. Reboots
+      #. Boots from backup partition
+      #. Updates the regions/components on primary partition
+      #. Sets primary partition as 'active'
+      #. Reboots
 
-         #. Set state machine to init state, which indicates firmware update is completed.
-         #. Terminate firmware update
-         #. Reset system to continue booting to operating system.
+    * If only updating non-redundant regions/components in BIOS region (e.g. CSME, IPFW, etc.), it:
+
+      #. Updates the regions/components
+      #. Reboots
+
+    * In case of a power failure, it will use its state machine to continue from where it left off.
+
+  **Step 8:**  The firmware update payload marks the end of the update and returns |SPN| back to normal execution. Specifically:
+
+    #. It sets state machine to done state, which indicates firmware update is completed.
+    #. It terminates firmware update.
+    #. It resets system to boot to operating system.
 
 .. _generate-capsule:
 
@@ -60,17 +76,25 @@ Generating capsule
 
 After gathering required firmware binaries, capsule image can be generated using capsule generation tool. Please refer to :ref:`generate-binaries-for-capsule` for details about generating component binaries for capsule.
 
-  Capsule tool (``GenCapsuleFirmware.py``) creates a capsule image that can be processed by |SPN| in firmware update flow.
+  The capsule tool (``GenCapsuleFirmware.py``) creates a capsule image that can be processed by |SPN| in firmware update flow.
 
-  Capsule tool is capable of incorporating multiple firmware images into single capsule binary. Each firmware is identified and included in the capsule image using a 4 byte string. While using the tool for capsule generation, Unique string identifier and associated binary should be provided as input to the tool.
+  The capsule tool is capable of incorporating multiple firmware images into single capsule binary.
 
-  For components inside the container region <4 byte id for component inside container : 4 byte id container id> along with associated component binary should be provided as input to the tool. This format is required for components inside container region because there can be multiple container inside BIOS region
+  Each firmware is identified and included in the capsule image using a string. These strings are constructed as follows:
+
+  * For non-container components, simply use its 4 character string identifier <4 byte comp id>.
+
+  * For container components, use its 4 character container identifier along with its 4 character component identifier <4 byte id for component inside container : 4 byte id container id>.
+
+  These firmware identifier strings should be followed by the assoicated binary path.
+
+  Command Syntax::
 
     usage: GenCapsuleFirmware.py [-h] -p <4 byte comp id> < FW IMAGE BINARY > -p <4 byte container component string id:4 byte comp id> <FW IMAGE BINARY> -p <4 byte comp id> <FW IMAGE BINARY n> -k PRIVKEY -o NEWIMAGE [-q]
 
     optional arguments:
       -h, --help            show this help message and exit
-      -p  <4 byte string> <Payload Image>, 
+      -p  <4 byte string> <Payload Image>,
                             Payload image that goes into firmware update capsule
       -k PRIVKEY, --priv_key PRIVKEY
                             KEY_ID or RSA 2048/3072 private key path in PEM format to sign image.
@@ -79,13 +103,23 @@ After gathering required firmware binaries, capsule image can be generated using
                             Output file for signed image
       -q, --quiet           without output messages or temp files
 
-  For example, the following command generates a capsule image (``FwuImage.bin``) containing an IFWI image (``sbl.bios.bin``), CSME image (``csme.bin``), CSME Firmware Update Driver (``csme_fw_update_driver.bin``) and container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``::
+  The following command generates a capsule image (``FwuImage.bin``) containing an SBL image (``sbl.bios.bin``), CSME image (``csme.bin``), and CSME firmware 
+  update driver (``csme_fw_update_driver.bin``) signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``.::
 
-    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p TMAC:IPFW tsnmacaddr.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
     Successfully signed Bootloader image!
     $
 
-  SBL_KEY_DIR is path to SblKeys directory used on |SPN|.
+  The following command generates a capsule image (``FwuImage.bin``) containing a container component TSN MAC address inside container IPFW (``tsnmacaddr.bin``) 
+  signed by key ``FirmwareUpdateTestKey_Priv_RSA2048.pem``.::
+
+    $ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p TMAC:IPFW tsnmacaddr.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
+    Successfully signed Bootloader image!
+    $
+
+  .. Note:: The capsule tool will *not* allow building of a capsule image which contains overlapping firmware components (e.g. BIOS and TMAC:IPFW).
+  .. Note:: The SBL_KEY_DIR is the path to SblKeys directory used on |SPN|.
+
 
 Component ID String
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -94,7 +128,7 @@ This section explains how to determine 4 byte string identifier for each of upda
 
 If the updatable component is part of flash map, 4 byte string identifying the component should be the component id from flash map. During the runtime, firmware update payload will look for this 4 byte string in the flash map, if found, it will update the component.
 
-As an example, following is a sample flash map
+As an example, the following is a sample flash map:
 
   +----------+------------------------+------------+-----------------------+
   |   SG1B   |  0x4e5000(0xFFCE5000)  |  0x0db000  |  Uncompressed, R_B    |
@@ -110,9 +144,9 @@ As an example, following is a sample flash map
   |   UCOD   |  0x3c0000(0xFFBC0000)  |  0x080000  |  Uncompressed, R_B    |
   +----------+------------------------+------------+-----------------------+
 
-if Configuration data component to be updated, 4 byte string "CNFG" should be passed to capsule generation tool along with configuration data binary.
+If configuration data component to be updated, 4 byte string "CNFG" should be passed to capsule generation tool along with configuration data binary.
 
-BIOS, CSME binaries and CSME update driver are assigned 4 byte pre-defined string identifier and can be found in the table below.
+BIOS binary, CSME binary, and CSME update driver are assigned 4 byte pre-defined string identifier and can be found in the table below.
 
         +-----------------------------+------------------------------------+
         |       **String ID**         |         **Firmware**               |
@@ -133,11 +167,21 @@ Generating SBL binary for capsule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   Please refer to **Slimbootloader binary for capsule image** section of desired board page in **Supported Hardware** to understand how to generate Slimbootloader binary for capsule.
 
-Generating Configuration data binary for capsule
+Generating configuration data binary for capsule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   Components inside the BIOS region are often padded to certain alignment and size.
 
   Configuration Data region inside SBL is padded and so for generating capsule image to update configuration data region, please use CFGDATA.pad file available after building Slim Bootloader. After building Slim Bootloader, CFGDATA.pad file is available at Build/BootloaderCorePkg/DEBUG_VS2015x86/FV/CFGDATA.pad
+
+Generating microcode binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  There are 2 ways to generate a microcode binary for capsule:
+
+  #. Build SBL
+      SBL builds generate a microcode region that gets integrated into SBL. This can be used for microcode updates as well. It is located at Build/BootloaderCorePkg/DEBUG_VS2019/FV/UCODE.pad.
+
+  #. Run uCode Utility
+      uCode Utility generates a microcode region based on the slot size and microcode patches specified (see :ref:`ucode-utility`). This is solely meant for microcode updates.
 
 Generating Container Component binary for capsule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -329,7 +373,7 @@ Trigger Update From Shell
 
 During development, one can use shell command to manually test firmware update without relying on support in OS.
 
-1. Copy ``FwuImage.bin`` into root directory on FAT partition of a USB key
+1. Copy ``FwuImage.bin`` into the /boot/efi/ directory of the device identified by CAPSULE_INFO_CFG_DATA (default is first USB flash drive)
 
 2. Boot and press any key to enter |SPN| shell
 

@@ -110,3 +110,5 @@ An flash layout from QEMU build is shown below::
         +------------------------------------------------------------------------+
         |   RSVD   |  0x000000(0xFFE00000)  |  0x001000  |  Uncompressed,  NV    |
         +----------+------------------------+------------+-----------------------+
+
+.. note:: The flash map changes when firmware resiliency and recovery is enabled (see :ref:`firmware-resiliency-and-recovery`).

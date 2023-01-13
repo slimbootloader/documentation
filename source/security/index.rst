@@ -18,3 +18,4 @@ Security is a built-in feature in |SPN| to ensure the boot integrity.
    measured-boot
    firmware-update
    container-security
+   firmware-resiliency-and-recovery
