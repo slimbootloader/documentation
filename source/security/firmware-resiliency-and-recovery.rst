@@ -15,6 +15,10 @@ Examples of critical failures include:
 
 * Corruption
 
+.. Note:: This feature is only available on select platforms. If a platform supports resiliency and
+    recovery, its associated board and stitch configurations will provide options to turn it on. See
+    :ref:`enabling-firmware-resiliency-and-recovery` for more details.
+
 Firmware resiliency and recovery is accomplished by duplicating boot-critical firmware across a primary and backup partition. This backup partition has
 a role in :ref:`firmware-update` as well. Top Swap B is an exact duplicate of Top Swap A and Redundant B is an exact duplicate of Redundant A. This duplication
 is illustrated in the sample flash map below::
@@ -94,6 +98,11 @@ The diagram below shows the boot flow when a boot failure occurs on the primary 
 The diagram below shows the boot flow when a boot failure occurs on the backup boot partition. This scenario occurs on firmware update boot.
 
 .. image:: /images/backup_boot_flow_for_resiliency.png
+
+.. _enabling-firmware-resiliency-and-recovery:
+
+Enabling Firmware Resiliency and Recovery
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to turn on the firmware resiliency and recovery feature, the following items must be in place pre-build and pre-stitch:
 
