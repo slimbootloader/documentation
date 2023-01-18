@@ -110,6 +110,8 @@ In order to turn on the firmware resiliency and recovery feature, the following 
 
 * In StitchIfwiConfig*.py BiosRedAssistance must be set to Enabled.
 
+* FSP debugging must be turned off.
+
 * The Boot Guard profile must be set to fvme.
 
 In order to test the firmware resiliency and recovery feature, please see :ref:`ExerciseCorruptSblComponent`.
