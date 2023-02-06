@@ -3,9 +3,9 @@
 Container Tool
 --------------
 
-``GenContainer.py`` is a tool used to generate the container images in a binary file format.
+``GenContainer.py`` is a tool used to generate the Slim Bootloader container images in a binary file format.
 
-A container is an encapsulation of multiple components as depicted in the following image:
+An SBL container is an encapsulation of multiple components as depicted in the following image:
 
 .. image:: /images/Cont.PNG
    :width: 1200px
@@ -16,39 +16,96 @@ A container is an encapsulation of multiple components as depicted in the follow
 Image Types
 ===========
 
-Normal
-^^^^^^
+1. Normal
+^^^^^^^^^
 
-This type of container contains a single image in it. Image format can be ELF, Multiboot, Multiboot-2, UEFI-PI FV, or PE32.
+This type of container contains a single component in it. The Component may be an ELF file, an UEFI-PI FV binary,
+or a PE32 file.
 
-Classic
-^^^^^^^
+ - example command::
 
-This image type is used to boot a typical Linux image. This image format combines a kernel command line and the kernel image.
-Optionally more files like an initrd, ACPI tables, firmware files could be added. 
+    python GenContainer.py create -t NORMAL -cl UEFI:UefiPld.fd
 
-The kernel command line, kernel image, and the optional initrd are in a **fixed order**.
+2. Classic Linux
+^^^^^^^^^^^^^^^^
+
+This container type is used to boot a typical Linux operating system. This container is made up of atleast two
+components - the kernel command line, and kernel image.
+
+**SBL expects the components inside the container in the following order: kernel command line, kernel image,
+and an optional initrd.**
+
   * Dummy files need to be provided if one of the component is not in use. 
   * For example, if initrd is not used, a dummy file needs to be provided in place of the initrd.
 
+Additionally, more optional components like ACPI tables, and firmware blobs can be added to the container.
+
+Some device drivers may require binary blobs for initialization. These are typically loaded from the filesytem.
+In some use cases like fast boot, having access to these blobs before the filesystem is mounted may be desirable.
+Packaging blobs within the container provides these drivers a way to get the blobs without waiting for the filesystem
+to be mounted. When these additional blobs are packaged in the container, SBL can load them to memory and pass
+the memory address to the operating system through the kernel command line. For this, SBL expects a placeholder
+in the command line to put the address into. For example, if the blob's component name when creating the container
+was specified as ``BLOB``, SBL will look for the string ``SBL.BLOB=0x0000000000000000`` in the cmdline. The zeroes
+will be patched with the actual memory address at which the blob was loaded.
+
 **File Order:** cmdline.txt, bzImage (kernel), initrd, acpi, firmware1, firmware2, ...
 
-The classic container's format is laid out below.
+The Classic Linux container's format is laid out below.
 
   .. image:: /images/sbl_classic_container.png
       :width: 600px
 
-Multiboot ELF
-^^^^^^^^^^^^^
+ - example command::
 
-This type of container stores Multiboot compliant ELF images and their corresponding command lines in pairs. The first ELF image \
-in the Multiboot image is assumed to be the one used for booting. If an image does not use a command line, a dummy file needs to be \
+    python GenContainer.py create -t CLASSIC -cl CMDL:cmdline.txt KRNL:bzImage INRD:initrd SBL.BLOB=0x0000000000000000
+
+3. Multiboot ELF
+^^^^^^^^^^^^^^^^
+
+This type of container stores Multiboot / Multiboot-2 compliant ELF binaries and their corresponding command line files in pairs. The first ELF binary \
+in the Multiboot container is assumed to be the one used for booting. If a binary does not use a command line, a dummy file needs to be \
 provided in place of the command line file.
 
 **Files:** cmdline1, elf1, cmdline2, elf2, ...
 
+ - example command::
+
+    python GenContainer.py create -t MULTIBOOT -cl CMD1:cmdline1 ELF1:mb.elf CMD2:cmdline2 ELF2:mb2.elf
+
 .. note::
-    **The default container type is Classic.**
+    **The default container type is Classic Linux.**
+
+ACPI Table Update
+=================
+
+All the three container types support ACPI table update by packaging the ACPI blobs with
+the container. The method is slightly different for the MULTIBOOT container due to the
+nature of the files being present in pairs.
+
+* **For NORMAL / CLASSIC LINUX containers:**
+
+  ACPI blobs can be packaged into the container using the component name ``ACPI``. SBL will
+  detect this component as a special case and update the ACPI tables.
+
+ - example command::
+
+    python GenContainer.py create -t NORMAL -cl UEFI:UefiPld.fd ACPI:Dsdt.aml
+
+* **For MULTIBOOT containers:**
+
+  Since Multiboot files are in pairs (cmdline / boot file), a command line file containing a special
+  signature is used to indicate that the corresponding boot file is actually an ACPI blob. The command
+  used to create this file is:
+
+  - Linux command to create signature file::
+
+      $ echo -n -e '\x86\x00\xb1\xac' > acpi_cmd
+
+ - example command to create container::
+
+    python GenContainer.py create -t MULTIBOOT -cl CMD1:cmdline1 ELF1:mb.elf CMD2:cmdline2 ELF2:mb2.elf DUMY:acpi_cmd DSDT:Dsdt.aml
+
 
 Tool Usage
 ==========
