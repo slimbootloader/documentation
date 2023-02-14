@@ -7,7 +7,7 @@ Temporary Memory Layout
 |SPN| Stage 1 temporary memory layout::
 
           Temporary Memory
-  +------------------------------+  Top of Low MEM
+  +------------------------------+  Top of 4GB
   |     Memory Mapped Flash      |
   +------------------------------+  Memory-Mapped Flash Base
   |     FSP-T Reserved Data      |
