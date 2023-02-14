@@ -1,6 +1,29 @@
 Memory Map
 ------------
 
+Temporary Memory Layout
+^^^^^^^^^^^^^^^^^^^^^^^
+
+|SPN| Stage 1 temporary memory layout::
+
+          Temporary Memory
+  +------------------------------+  Top of 4GB
+  |     Memory Mapped Flash      |
+  +------------------------------+  Memory-Mapped Flash Base
+  |     FSP-T Reserved Data      |
+  +------------------------------+  Top of Usable Temporary Memory
+  |         Available*           |
+  +------------------------------+  End of Stage 1 Data
+  |        Stage 1 Data          |
+  +------------------------------+  Stage 1 Stack Top/Stage 1 Data Base
+  |        Stage 1 Stack         |
+  +------------------------------+  Usable CAR Base/Stage 1 Stack Base
+
+.. [*] FSP-M Stack Region is typically chosen from Available Temporary Memory.
+
+Permanent Memory Map
+^^^^^^^^^^^^^^^^^^^^
+
 |SPN| internal memory map layout (``BootloaderCoreLib.h``)::
 
           Reserved MEM
