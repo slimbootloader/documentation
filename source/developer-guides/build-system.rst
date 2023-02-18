@@ -59,6 +59,36 @@ Final |SPN| image(s) should be generated under ``Outputs/<platform_name>`` direc
 
 See :ref:`build-tool` for more details.
 
+Build Details per Stage
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Slim Bootloader is built in stages and more information on each stage is given below.
+
+* **Stage 1A**:
+
+  * **Packaged As**: FD containing Stage1A FV, and FSP-T binary as a FILE
+  * **Stage 1A FV**:
+
+    * Contains ``ResetVector``, ``VerInfo``, ``FlashMap``, ``FitTable``, ``HashStore``, ``PEIPcdDataBase``, and Stage1A PEIM
+    * Stage 1A contains a module called VTF (Volume Top File) which is placed at the top within the Stage 1A FV.
+      The VTF contains the reset vector code and hence the VTF needs to be placed at an appropriate
+      address so that the reset vector code in the the Vtf0 file (Identified by the GUID ``1BA0062E-C779-4582-8566-336AE8F78F09``)
+      aligns with the reset vector of Intel x86 architecture.
+
+      The entry point for the Stage1A module within the Stage1A FV (``_ModuleEntryPoint``) is placed as
+      the first DWORD of the built FV. The reset vector code from the Vtf0 jumps to this address and continues
+      from the ``_ModuleEntryPoint`` defined in ``SecEntry.nasm``.
+
+
+* **Stage 1B**:
+
+  * **Packaged As**: FD containing Stage1B FV, and FSP-M binary as a FILE
+  * **Stage 1B FV**: Contains ``CfgDataInt.bin``, and Stage1B PEIM
+
+* **Stage 2**:
+
+  * **Packaged As**: FD containing Stage2 FV, and FSP-S binary as a FILE
+  * **Stage 2 FV**: Contains ACPI Table, Vbt, Logo, and Stage2 PEIM
 
 
 .. _post-build:
