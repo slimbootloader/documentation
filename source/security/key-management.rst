@@ -4,7 +4,7 @@ SBL build process uses a signing interface. This signing method can access requi
 A sample implementation of signing service is provided by *SingleSign.py* and is invoked during SBL build process.
 Customers may use different signing infrastructure including use of secure signing servers, etc. and the SingleSign.py can be updated/replaced with customer’s signing infrastructure.
 
-
+.. _key-management:
 Key Management
 ---------------
 
