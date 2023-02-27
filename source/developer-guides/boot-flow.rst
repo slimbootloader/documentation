@@ -1,19 +1,3 @@
-.. _build-process:
-
-Build Process
---------------
-
-|SPN| build process is implemented in top level build script ``BuildLoader.py``. The following diagram illustrates main steps:
-
-.. graphviz:: /images/build_steps.dot
-
-The generated files are located in ``Build/`` directory.
-
-The |SPN| image, configuration data, and (generated) helper scripts, are located in ``Outputs/`` directory.
-
-.. Note:: To assist debugging, the build process also generates ``SlimBootloader.txt`` file which contains flash layout details for each component in |SPN| image.
-
-
 .. _boot-flow:
 
 Boot Flow

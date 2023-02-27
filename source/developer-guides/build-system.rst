@@ -1,7 +1,7 @@
 .. _build-system:
 
 Build System
--------------------------
+------------
 
 |SPN| chooses EDK II build system to compile and build |SPN| image. EDK II build infrastructure provides a flexible framework supporting different platforms and extensive configuration capabilities.
 
@@ -11,6 +11,20 @@ This choice also comes with two benefits:
 
 * EDK II build tool is familiar to many UEFI/BIOS developers
 * Open source EDK II libraries can be ported with smaller effort
+
+Build Process
+--------------
+
+|SPN| build process is implemented in top level build script ``BuildLoader.py``. The following diagram illustrates main steps:
+
+.. graphviz:: /images/build_steps.dot
+
+The generated files are located in ``Build/`` directory.
+
+The |SPN| image, configuration data, and (generated) helper scripts, are located in ``Outputs/`` directory.
+
+.. Note:: To assist debugging, the build process also generates ``SlimBootloader.txt`` file which contains flash layout details for each component in |SPN| image.
+
 
 
 .. _pre-build:
