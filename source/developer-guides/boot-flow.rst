@@ -112,8 +112,17 @@ Stage 2 performs the following initialization steps:
 * ACPI initlization
 * Prepares HOBs required by the payload
 * Calls FSP-S provided ``FspNotifyPhase`` APIs - ``ReadyToBoot``, ``EndOfFirmware``
-* Loads and jumps to the payload
+* Loads and jumps to the payload. Stage 2 passes the HOB List pointer, and the Payload executable base to the payload.
 
+  .. code-block:: C
+
+    // Payload Entry Point
+    VOID
+    EFIAPI
+    SecStartup (
+      IN VOID                   *HobListPtr,
+      IN VOID                   *PldBase
+      )
 
 LdrGlobal - Loader Global Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
