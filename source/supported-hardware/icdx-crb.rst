@@ -99,13 +99,13 @@ Flash the generated ``sbl_idv_ifwi.bin`` to the target board using a DediProg SF
     #. The programmer is set to update the flash from offset 0x0.
 
 SPI header on Brightoncity Board (R1K5)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. image:: /images/lcc_spi.png
    :width: 600
    :alt: |ICXD| SPI Header on Brightoncity board (R1K5)
 
 SPI header on Morocity Board (J2G6)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. image:: /images/hcc_spi.png
    :width: 600
    :alt: |ICXD| SPI Header on Morocity board (J2G6)

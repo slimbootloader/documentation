@@ -35,13 +35,15 @@ For |UP2|, open ``CfgData_Ext_Up2.dlt`` and customize values that match the actu
 
 Optionally, you can use |CFGTOOL| to graphically view and modify configurations. See https://slimbootloader.github.io/developer-guides/configuration.html for details.
 
-.. note:: If FSP UPD implementation supports hardcoded SPD table, simply replacing the SPD binary file under ``<platform>\CfgData``. The file name of a SPD binary can be found in ``<platform>\CfgData\CfgData_MemSpd.yaml``. If a platform supports more than one type of memory configuration, the ``MEMORY_CFG_DATA.SpdDataSel`` must be carefully set. Take Tiger Lake as an example: Spd_Ddrlp4.bin and Spd_Ddrlp5.bin are for LPDDR4 and LPDDR5 respectivly. The index of Spd_Ddrlp4.bin is 1, and it is 2 for Spd_Ddrlp5.bin. In a board dlt file::
+.. note:: If FSP UPD implementation supports hardcoded SPD table, simply replacing the SPD binary file under ``<platform>\CfgData``. The file name of a SPD binary can be found in ``<platform>\CfgData\CfgData_MemSpd.yaml``. If a platform supports more than one type of memory configuration, the ``MEMORY_CFG_DATA.SpdDataSel`` must be carefully set. Take Tiger Lake as an example: Spd_Ddrlp4.bin and Spd_Ddrlp5.bin are for LPDDR4 and LPDDR5 respectivly. The index of Spd_Ddrlp4.bin is 1, and it is 2 for Spd_Ddrlp5.bin.
+  
+    In a board dlt file::
 
-  MEMORY_CFG_DATA.SpdAddressTable  | {..., 0, ... } <-- when 0, FSP will use hardcoded SPD for the memory slot (mem controller X, channel Y, Dimm Z). Otherwise, FSP reads its SPD from the smbus address.
+      MEMORY_CFG_DATA.SpdAddressTable  | {..., 0, ... } <-- when 0, FSP will use hardcoded SPD for the memory slot (mem controller X, channel Y, Dimm Z). Otherwise, FSP reads its SPD from the smbus address.
 
-  MEMORY_CFG_DATA.SpdDataSelXYZ    | 1  <-- using LPDDR4 hardcoded SPD for memory slot XYZ. Or
+      MEMORY_CFG_DATA.SpdDataSelXYZ    | 1  <-- using LPDDR4 hardcoded SPD for memory slot XYZ. Or
 
-  MEMORY_CFG_DATA.SpdDataSelXYZ    | 2  <-- using LPDDR5
+      MEMORY_CFG_DATA.SpdDataSelXYZ    | 2  <-- using LPDDR5
 
 Step 3 - Build, stitch and test
 
