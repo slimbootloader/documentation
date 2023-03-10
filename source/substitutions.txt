@@ -43,6 +43,8 @@
 
 .. |ADLPS| replace:: ADL-PS
 
+.. |ADLN| replace:: ADL-N
+
 .. |ICXD| replace:: ICX-D
 
 .. |UP26000| replace:: UP\ :sup:`2` 6000
