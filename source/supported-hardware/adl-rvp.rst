@@ -8,7 +8,7 @@ Alder Lake Platforms
 Supported Boards
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports various platforms corresponding to |ADL|-S, |ADL|-P and |ADL|-PS Processors.
+|SPN| supports various platforms corresponding to |ADL|-S, |ADL|-P, |ADL|-PS and |ADL|-N Processors.
 
 Each |ADL| board is assigned with a unique platform ID.
 
@@ -29,6 +29,8 @@ Each |ADL| board is assigned with a unique platform ID.
   +-------------------------+---------------+----------------+---------------+---------------+
   |      |ADLPS| DDR5 CRB   |     0x000D    |      J31       |     J34       |     adlps     |
   +-------------------------+---------------+----------------+---------------+---------------+
+  |      |ADLN| DDR5 CRB    |     0x000A    |      J2E2      |     J9A1      |     adln      |
+  +-------------------------+---------------+----------------+---------------+---------------+
 
 Debug UART
 ^^^^^^^^^^^
@@ -44,7 +46,7 @@ To build |SPN| for any |ADL| platform::
 
     python BuildLoader.py build <PLAT>
     
-    <PLAT> = adlp, adls, adlps
+    <PLAT> = adlp, adls, adlps, adln
 
   
 The output images are generated under ``Outputs`` directory.
