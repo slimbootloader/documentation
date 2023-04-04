@@ -3,6 +3,9 @@
 Build Tool
 -----------
 
+Introduction
+^^^^^^^^^^^^
+
 ``BuildLoader.py`` compiles source code with all the *magics* to generate output image(s). It provides two subcommands: build and clean.
 
 
@@ -13,6 +16,9 @@ You can build |SPN| with the following options:
 * Use debug image of FSP
 * Change your payload files
 * Attach a version data structure of your own
+
+Usage
+^^^^^
 
 Command Syntax::
 
@@ -48,4 +54,61 @@ If build is successful, ``Outputs`` folder will contain the build binaries. One 
 
 |SPN| supports a single image supporting up to 32 board configurations for the same type of board or platform. To add multi-board support, see :ref:`configuration-feature`.
 
+Working
+^^^^^^^
 
+The overall flow of the build process is shown below:
+
+* Environment initialization
+* Early build initialization
+
+  * Toolchains and dependencies are verified
+  * BaseTools are compiled
+
+* Board build hook: ``pre-build: before``
+
+  * Create build directory
+  * Generate dlt file from CfgData
+
+* Pre-build:
+
+  * Make sure SBL signing keys exist
+  * Build or grab FSP
+  * Create Firmware Interface Table (FIT)
+  * Create Bootloader Version Info file
+  * Create VBT
+  * Create DSC file for build
+  * Rebase FSP
+  * Create config data
+  * Build reset vector // Note - clarify
+
+* Board build hook: ``pre-build:after``
+
+  * User can specify if any processing needs to be done at this point and can add relevant functionality to this build hook
+
+* Call EDK-II's ``build`` command
+
+* Board build hook: ``post-build: before``
+
+  * User can specify if any processing needs to be done at this point and can add relevant functionality to this build hook
+
+* Post-build:
+
+  * Generate binaries for:
+
+    * UEFI Variable Storage
+    * ACM and Diagnostic ACM
+    * MRC Training Data
+    * Bootloader Variable storage
+    * Microcode
+    * Payload and EPayload
+    * FW Update
+
+  * Generate container images
+  * Patch stages
+  * Create redundant components
+  * Stitch
+
+* Board build hook: ``post-build: after``
+
+  * User can specify if any processing needs to be done at this point and can add relevant functionality to this build hook

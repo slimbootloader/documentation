@@ -109,7 +109,7 @@ Stage 2 performs the following initialization steps:
       )
 
 LdrGlobal - Loader Global Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 
 The Loader Global Data structure is used to store important information throughout the different
 execution phases of the bootloader. It consists of information like available memory start and

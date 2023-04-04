@@ -93,20 +93,27 @@ Slim Bootloader is built in stages and more information on each stage is given b
       the first DWORD of the built FV. The reset vector code from the Vtf0 jumps to this address and continues
       from the ``_ModuleEntryPoint`` defined in ``SecEntry.nasm``.
 
+  | 
 
 * **Stage 1B**:
 
   * **Packaged As**: FD containing Stage1B FV, and FSP-M binary as a FILE
   * **Stage 1B FV**: Contains ``CfgDataInt.bin``, and Stage1B PEIM
 
+  | 
+
 * **Stage 2**:
 
   * **Packaged As**: FD containing Stage2 FV, and FSP-S binary as a FILE
   * **Stage 2 FV**: Contains ACPI Table, Vbt, Logo, and Stage2 PEIM
 
+  | 
+
 * **OsLoader**:
 
   * **Packaged As**: FD containing OsLoader FV
+
+  | 
 
 * **FwUpdate**:
 
@@ -183,11 +190,15 @@ are pre-loaded into the SBL binary at pre-defined locations.
 
   * Address of HashStore is patched onto  ``PcdHashStoreBase`` PCD
 
+  | 
+
 * **Stage 1B:**
 
   * Stage 1B entry point address is patched into the Stage 1B ``__ModuleEntryPoint`` symbol address
   * Stage 1B module based is patched onto entry point + 4
   * Address of Internal CfgDataBase (GUID: ``016E6CD0-4834-4C7E-BCFE-41DFB88A6A6D``) is patched onto ``PcdCfgDataIntBase`` PCD
+
+  | 
 
 * **Stage 2:**
 

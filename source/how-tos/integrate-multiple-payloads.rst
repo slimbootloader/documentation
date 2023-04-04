@@ -17,7 +17,11 @@ You can integrate more than one payload files using |SPN| build tool::
                                This parameter is optional, and default is 'Dummy' if not specified.
 
 If only one payload is specified, this payload will be built into normal payload compoment (PYLD) in the SBL flash map.
+
+
 If more then one payloads are specified, the first payload will be built into PLD and the remaining will be built into extended payload container (EPLD) in the SBL flash map.
+
+  .. note:: EPAYLOAD is built as an SBL Container (Refer :ref:`gen-container-tool`) and then put into the EPLD region.
 
 The following procedure shows you how to integrate ``UefiPld.fd`` into |SPN| image. Adding other custom payloads is similar.
 

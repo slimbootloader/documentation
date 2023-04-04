@@ -60,7 +60,7 @@ Command Example::
 After one or more corruptions, a reset should be run to exercise SBL with the corruptions.
 
 Behavior when SBL component is corrupted
-*************************************
+****************************************
 
 If SBL resiliency is enabled and an SBL component is corrupted, the system halts for some
 time after hash verification of the corrupted component fails. If an IBB corruption is present (i.e. a

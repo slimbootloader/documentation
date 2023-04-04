@@ -52,6 +52,8 @@ Permanent Memory Map
   +------------------------------+  StackTop
   |       LDR Stack (Down)       |
   |                              |
+  |                              |
+  |                              |
   |         LDR HOB (Up)         |
   +------------------------------+  MemPoolEnd (Fixed)
   |    Global Data structures    |      |
