@@ -23,7 +23,7 @@ Prerequisites
 
 .. |Model N3350| raw:: html
 
-   <a href="https://up-shop.org/home/270-up-squared.html" target="_blank">Model N3350</a>
+   <a href="https://up-shop.org/up-squared-series.html" target="_blank">Model N3350</a>
 
 .. |instructions| raw:: html
 
@@ -31,7 +31,7 @@ Prerequisites
 
 .. |USB 2.0 pin header cable| raw:: html
 
-   <a href="https://up-shop.org/up-peripherals/110-usb-20-pin-header-cable.html" target="_blank">USB 2.0 pin header cable</a>
+   <a href="https://up-shop.org/usb-2-0-pin-header-cable.html" target="_blank">USB 2.0 pin header cable</a>
 
 
 Board Setup
