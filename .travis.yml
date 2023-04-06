@@ -1,5 +1,7 @@
 sudo: required
 
+dist: jammy
+
 services:
   - docker
 
@@ -8,9 +10,10 @@ before_install:
   - mkdir -p build publish
   - chmod 777 build publish
   - touch publish/.nojekyll
+  - export GIT_SAFE_DIR_CMD="git config --global --add safe.directory /docs" # Fix error caused by CVE-2022-24765 Git update
 
 script:
-  - docker run --rm -v ${PWD}:/docs -w /docs sbl_docs make publish BUILDDIR=/docs/build PUBLISHDIR=/docs/publish
+  - docker run --rm -v ${PWD}:/docs -w /docs sbl_docs /bin/bash -c "${GIT_SAFE_DIR_CMD} && make publish BUILDDIR=/docs/build PUBLISHDIR=/docs/publish"
 
 deploy:
   provider: pages
