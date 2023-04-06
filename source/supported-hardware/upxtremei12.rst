@@ -79,7 +79,7 @@ Stitching
 
 Stitch |SPN| images with factory BIOS image using the stitch tool::
 
-    python Platform/AlderlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/tgl/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME> -p 0xAA000104
+    python Platform/AlderlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/adlp/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME> -p 0xAA000104
 
     <BIOS_IMAGE>     : Input file. Factory BIOS extracted from UP Xtreme i12 board.
     <SBL_IFWI_IMAGE> : Output file. New IFWI image with SBL in BIOS region.
