@@ -57,6 +57,7 @@ EMTY       Empty
 UNKN       Unknown
 ========= =========================
 
+.. _flash-layout:
 
 Flash Layout
 ^^^^^^^^^^^^^^^^^
