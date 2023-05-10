@@ -90,6 +90,54 @@ Stitch |SPN| images with factory BIOS image using the stitch tool::
 
 See :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 
+Slimbootloader binary for capsule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A capsule image could ecapsulate a Slimbootloader image to be used in firmware update mechanism. More information is described in :ref:`firmware-update`.
+
+For the process running properly, an IFWI image programmed on board with TOP SWAP size configuration is required.
+
+.. note:: Enabling TOP SWAP size configuration requires additional firmware components and tools.
+
+Creating Slimbootloader binary for capsule image requires the following steps:
+
+Build |SPN| for |UPX12|::
+
+  python BuildLoader.py build adlp
+
+Edit the 4-byte platform data in Slimbootloader image by *Hexedit* or equivalent hexdecimal editor.
+
+Go to top of TOP SWAP A at address 0xCFFFF4, edit ``04 01 00 AA`` as below
+::
+   00CFFFF0   90 90 EB B9  04 01 00 AA  A4 F0 FE FF  00 F0 FE FF  ................
+
+Go to top of TOP SWAP B at address 0xC7FFF4, edit ``04 01 00 AA`` as below
+::
+   00C7FFF0   90 90 EB B9  04 01 00 AA  A4 F0 FE FF  00 F0 FE FF  ................
+
+For more details on TOP SWAP regions, please refer :ref:`flash-layout`
+
+Generate capsule update image ``FwuImage.bin``::
+
+  python BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS Outputs/adlp/SlimBootloader.bin -k KEY_ID_FIRMWAREUPDATE_RSA3072 -o FwuImage.bin
+
+For more details on generating capsule image, please refer :ref:`generate-capsule`.
+
+Triggering Firmware Update
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Please refer to :ref:`firmware-update` on how to trigger firmware update flow.
+Below is an example:
+
+To trigger firmware update in |SPN| shell:
+
+1. Copy ``FwuImage.bin`` into root directory on FAT partition of a USB key
+
+2. Boot and press any key to enter |SPN| shell
+
+3. Type command ``fwupdate`` from shell
+
+   Observe |SPN| resets the platform and performs update flow. It resets *multiple* times to complete the update process.
+
 Flashing
 ^^^^^^^^^
 
