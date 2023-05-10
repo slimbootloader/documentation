@@ -1,7 +1,14 @@
 .. _change-gpio-options:
 
-GPIO
-^^^^^^^^
+GPIO / CFIO
+^^^^^^^^^^^
+
+Modern chipsets pack multiple functions and are often constrained by the package 
+size and limited number of pins. These Configurable IO (CFIO) pins need to be configured 
+at boot time to connect them to selected functionality based on platform designs.
+
+The selected functionality could be a General Purpose IO (GPIO) or some other dedicated function (SPI, I2C, etc.)
+
 General Purpose IO (GPIO) is a digital signal pin and can be configured 
 to be either an input or an output signal. GPIO pins offer flexibility 
 to platform designers and can be used for a variety of purposes. For 
@@ -11,14 +18,26 @@ of a GPIO is to drive a status LED on the chassis.
 A very good primer on GPIO can be found here - 
 https://www.kernel.org/doc/html/latest/driver-api/gpio/intro.html#what-is-a-gpio.
 
-Modern chipsets pack multiple functions and are often constrained by the package 
-size and limited number of pins. These Configurable IO pins need to be configured 
-at boot time to connect them to selected functionality based on platform designs.
 
-SBL provides a user friendly interface to ease configuration of GPIO/CFIO through 
+GPIO Configurability
+--------------------
+
+SBL provides an user friendly interface to ease configuration of GPIO/CFIO through 
 its configuration infrastructure and this section provides an overview of the 
 configuration steps.
 
+Slim Bootloader provides configurability for all CFIO available on an SoC. Pins that are to be
+used as dedicated functions will have a flag (GPIO Skip) to indicate that particular pin is not used as a GPIO.
+Slim Bootloader reference implementation for a particular platform will provide default configuration for all GPIO/CFIO pins
+based on the RVP board.
+
+* Pins that are exposed as GPIO pins will have the "GPIO Skip" configuration disabled.
+* Pins that are exposed as dedicated functions (non-GPIO) will have "GPIO Skip" enabled,
+  and initialization will be done by the Silicon code.
+
+Users should customize the GPIO/CFIO configuration to match their hardware designs.
+
+A step-by-step guide to do this is provided below. 
 
 GPIO config data
 ----------------
