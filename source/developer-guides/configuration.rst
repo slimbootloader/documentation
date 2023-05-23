@@ -295,8 +295,8 @@ override entries in the base configuration is also provided through delta GPIO t
 To optimize for space, a design approach of not duplicating the entire GPIO table for 
 each board was adopted. Instead of duplicating the entire GPIO table for each delta 
 configuration, the :ref:`CfgDataTool` tool will optimize the configuration binary blob 
-to only have a base GPIO table that includes configuration for all pins present on the 
-SoC **plus** delta tables that override entries from the base table.
+to only have a **base GPIO table** that includes configuration for all pins present on the 
+SoC **plus delta tables** that override entries from the base table.
 
 Each GPIO table will include a GPIO table bitmask that will indicate if the GPIO entry from
 the base table will be used for configuration or if it will be skipped. A GPIO Configuration
@@ -306,6 +306,7 @@ and will be  configured from the delta table. The GPIO table bitmask will be upd
 CfgDataTool.
 
 Users should customize the GPIO/CFIO configuration to match their hardware designs.
+Refer to :ref:`change-gpio-options` for a step-by-step guide.
 
 Processing of GPIO configurations
 """""""""""""""""""""""""""""""""
@@ -326,13 +327,15 @@ YAML and delta files.
     ``GpioBaseTableId`` in ``CfgData_Gpio.yaml`` (for platform ID 0) should be set to ``0xFF`` and will be 
     processed by the tool (see below).
   
-* The delta files will contain configurations for GPIO pins that are to be configured differently
+* The **delta YAML** files will contain configurations for GPIO pins that are to be configured differently
   than the base table. Or if desired, it is also fine to provide a full GPIO pin configurations. 
 
 * The configuration for each pin is described using 2 DWORDS. The explanation for fields within the
   DWORDS can be found in the platform's GPIO configuration template.
 
-* Processing of base GPIO table (``CfgData_Gpio.yaml``):
+|br|
+
+* Processing of **base GPIO table** (``CfgData_Gpio.yaml``):
 
    * The tool creates a Base GPIO table with ``GPIO_CFG_HDR`` followed by a number of GPIO 
      configuration entries.
@@ -342,9 +345,7 @@ YAML and delta files.
 
    * The entire base GPIO table will be present in the final configuration binary
 
-|br|
-
-* Processing of the delta table (dlt files):
+* Processing of the **delta table** (dlt files):
 
    * The tool creates a delta GPIO table for a specific platform ID. The delta table will
      have ``GPIO_CFG_HDR`` followed by the configuration for GPIO pins that are to be configured 
