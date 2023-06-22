@@ -3,10 +3,12 @@
 Exercise \\- \ Corrupt |SPN| Component
 --------------------------------------
 
+.. _CorruptComponentUtility:
+
 CorruptComponentUtility (static corruption tool)
 ************************************************
 
-``CorruptComponentUtility.py`` corrupts an SBL component (e.g. an item from its flash map) in either
+The ``CorruptComponentUtility`` tool corrupts an SBL component (e.g. an item from its flash map) in either
 an IFWI or standalone SBL image. This tool is useful for testing the firmware resiliency and recovery feature
 (see :ref:`firmware-resiliency-and-recovery`).
 
@@ -27,24 +29,110 @@ Command Example::
 
     python CorruptComponentUtility.py -i sbl_ifwi.bin -o sbl_ifwi_corrupt.bin -p IFWI/BIOS/TS0/SG1B
 
-If the input/output is an IFWI, the output can be flashed directly to the board and booted to exercise SBL
-with the corruptions.
+If the input/output is an IFWI, the output can be flashed directly to the board and booted. This will exercise SBL corruption
+handling (e.g. recovery or halt).
 
 If the input/output is an SBL image, the output can be integrated into a FW update capsule and a FW update can be run on
-the board to consume the FW update capsule (see :ref:`firmware-update`). This will exercise SBL with the corruptions.
+the board to consume the FW update capsule (see :ref:`firmware-update`). This will exercise SBL corruption handing (e.g. recovery or halt).
+
+.. _corruptcomp:
 
 corruptcomp (runtime corruption tool)
 *************************************
 
-``corruptcomp`` corrupts an SBL component (e.g. an item from its flash map) in the SPI flash.
-This tool is useful for testing the firmware resiliency and recovery feature
-(see :ref:`firmware-resiliency-and-recovery`).
+The ``corruptcomp`` tool corrupts an SBL component (e.g. an item from its flash map) in the SPI flash.
+This tool is useful for testing the firmware resiliency and recovery feature (see :ref:`firmware-resiliency-and-recovery`).
 
-This tool is part of the OS loader shell (not the UEFI shell). To get it to show up, set PcdCmdCorruptShellAppEnabled
-to TRUE in BootloaderCommonPkg.dec and then build and stich SBL.
+The ``corruptcomp`` tool can be added into OSL shell. To get it to show up, include ``ShellCommandRegister (Shell, &ShellCommandCorruptComp);`` 
+in the ``LoadShellCommands`` function of ShellCmds.c. Also, to ensure BIOS region is writable by the tool, set 
+``FspsConfig->PchWriteProtectionEnable[PrIndex] = FALSE;`` for each existing ``PrIndex`` in the ``UpdateFspConfig`` function of the platform's 
+FspsUpdUpdateLib.c.
 
-This tool should *not* be enabled in production builds as its use can prevent the system from booting in certain
-circumstances.
+For example, in C:\\SblPlatform\\SblOpen\\BootloaderCommonPkg\\Library\\ShellLib\\ShellCmds.c, the following addition
+should be made:
+
+    .. code-block:: C
+        :emphasize-lines: 32
+
+        // Basic Shell commands
+        ShellCommandRegister (Shell, &ShellCommandExit);
+        ShellCommandRegister (Shell, &ShellCommandHelp);
+        ShellCommandRegister (Shell, &ShellCommandMm);
+        ShellCommandRegister (Shell, &ShellCommandCpuid);
+        ShellCommandRegister (Shell, &ShellCommandMsr);
+        ShellCommandRegister (Shell, &ShellCommandMtrr);
+        ShellCommandRegister (Shell, &ShellCommandUcode);
+        ShellCommandRegister (Shell, &ShellCommandCls);
+
+        if (!FeaturePcdGet (PcdMiniShellEnabled)) {
+            // More Shell commands
+            ShellCommandRegister (Shell, &ShellCommandPci);
+            ShellCommandRegister (Shell, &ShellCommandHob);
+            ShellCommandRegister (Shell, &ShellCommandMmap);
+            ShellCommandRegister (Shell, &ShellCommandPerf);
+            ShellCommandRegister (Shell, &ShellCommandBoot);
+            ShellCommandRegister (Shell, &ShellCommandMmcDll);
+            ShellCommandRegister (Shell, &ShellCommandCdata);
+            ShellCommandRegister (Shell, &ShellCommandDmesg);
+            ShellCommandRegister (Shell, &ShellCommandReset);
+            ShellCommandRegister (Shell, &ShellCommandFs);
+            ShellCommandRegister (Shell, &ShellCommandUsbDev);
+
+            // Load Platform specific shell commands
+            ShellExtensionCmds = GetShellExtensionCmds ();
+            for (Iter = ShellExtensionCmds; *Iter != NULL; Iter++) {
+            ShellCommandRegister (Shell, *Iter);
+            }
+        }
+
+        ShellCommandRegister (Shell, &ShellCommandCorruptComp); // Added
+
+And in SblOpen\\Platform\\AlderlakeBoardPkg\\Library\\FspsUpdUpdateLib\\FspsUpdUpdateLib.c, the following
+changes should be made:
+
+    .. code-block:: C
+        :emphasize-lines: 14,20,29
+
+        if (GetBootMode () != BOOT_ON_FLASH_UPDATE) {
+            BiosProtected = FALSE;
+            PrIndex = 0;
+            Status = SpiGetRegionAddress (FlashRegionBios, &BaseAddress, &TotalSize);
+            if (!EFI_ERROR (Status)) {
+                BiosProtected = TRUE;
+                Status = GetComponentInfo (FLASH_MAP_SIG_UEFIVARIABLE, &Address, &VarSize);
+                if (!EFI_ERROR (Status)) {
+                    //
+                    // Protect the BIOS region except for the UEFI variable region
+                    //
+                    Address -= ((UINT32)(~TotalSize) + 1);
+
+                    FspsConfig->PchWriteProtectionEnable[PrIndex] = FALSE; // Changed from TRUE
+                    FspsConfig->PchReadProtectionEnable[PrIndex]  = FALSE;
+                    FspsConfig->PchProtectedRangeBase[PrIndex]    = (UINT16) (BaseAddress >> 12);
+                    FspsConfig->PchProtectedRangeLimit[PrIndex]   = (UINT16) ((BaseAddress + Address - 1) >> 12);
+                    PrIndex++;
+
+                    FspsConfig->PchWriteProtectionEnable[PrIndex] = FALSE; // Changed from TRUE
+                    FspsConfig->PchReadProtectionEnable[PrIndex]  = FALSE;
+                    FspsConfig->PchProtectedRangeBase[PrIndex]    = (UINT16) ((BaseAddress + Address + VarSize) >> 12);
+                    FspsConfig->PchProtectedRangeLimit[PrIndex]   = (UINT16) ((BaseAddress + TotalSize - 1) >> 12);
+                    PrIndex++;
+                } else {
+                    //
+                    // Protect the whole BIOS region
+                    //
+                    FspsConfig->PchWriteProtectionEnable[PrIndex] = FALSE; // Changed from TRUE
+                    FspsConfig->PchReadProtectionEnable[PrIndex]  = FALSE;
+                    FspsConfig->PchProtectedRangeBase[PrIndex]    = (UINT16) (BaseAddress >> 12);
+                    FspsConfig->PchProtectedRangeLimit[PrIndex]   = (UINT16) ((BaseAddress + TotalSize - 1) >> 12);
+                    PrIndex++;
+                }
+            }
+            DEBUG (((BiosProtected) ? DEBUG_INFO : DEBUG_WARN, "BIOS SPI region will %a protected\n", (BiosProtected) ? "be" : "NOT BE"));
+        }
+
+.. Note:: This tool should *not* be enabled in production builds as its use can prevent the system from booting in certain circumstances.
+.. Note:: If SBL is corrupted by this tool and unable to boot, reflashing SBL to SPI is necessary. 
 
 Command Syntax::
 
@@ -75,7 +163,20 @@ In the case of a failure on normal boot, the backup partition is copied to the p
 the case of a failure on update boot, the primary partition is copied to the backup partition. After
 both cases, a normal boot occurs from the primary partition.
 
-The following example shows the logs for when Stage 2 fails during a normal boot and resiliency is enabled::
+OBB Corruption Example
+**********************
+
+To test recovery from OBB corruption, first build an IFWI with resiliency (see :ref:`firmware-resiliency-and-recovery`)
+and ``corruptcomp`` tool (see :ref:`corruptcomp`) enabled. Then, flash the IFWI to board.
+
+Next, boot to OSL shell and run the following commands:
+
+.. code-block:: bash
+
+  corruptcomp 0 SG02
+  reset
+
+The following logs should be output::
 
     ============= Intel Slim Bootloader STAGE1A =============
     ...
@@ -154,7 +255,22 @@ The following example shows the logs for when Stage 2 fails during a normal boot
     Starting Kernel ...
     ...
 
-The following example shows when Stage 1A fails during an update boot and resiliency is enabled::
+IBB Corruption Example
+**********************
+
+To test recovery from IBB corruption, first build an IFWI with resiliency enabled 
+(see :ref:`firmware-resiliency-and-recovery`). Then, flash the IFWI to board.
+
+Next, corrupt the SBL image using the following command:
+
+.. code-block:: bash
+
+    python CorruptComponentUtility.py -i sbl.bin -o sbl_corrupt.bin -p IFWI/BIOS/TS1/SG1B
+
+Next, embed the corrupted SBL image into a FW update capsule and transfer it to 
+board. Then, boot to OSL shell and launch a firmware update (see :ref:`firmware-update`).
+
+The following logs should be output::
 
     ============= Intel Slim Bootloader STAGE1A =============
     ...
