@@ -47,6 +47,12 @@
 
 .. |ICXD| replace:: ICX-D
 
+.. |MTL| replace:: Meteor Lake
+
+.. |MTLP| replace:: MTL-P
+
+.. |MTLPS| replace:: MTL-PS
+
 .. |UPX12| replace:: UP Xtreme i12
 
 .. |UP26000| replace:: UP\ :sup:`2` 6000
