@@ -45,6 +45,10 @@
 
 .. |ADLN| replace:: ADL-N
 
+.. |SAZB| replace:: AZB
+
+.. |LAZB| replace:: Arizona Beach
+
 .. |ICXD| replace:: ICX-D
 
 .. |UPX12| replace:: UP Xtreme i12
