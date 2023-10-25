@@ -45,6 +45,10 @@
 
 .. |ADLN| replace:: ADL-N
 
+.. |RPL| replace:: Raptor Lake
+
+.. |RPLS| replace:: RPL-S
+
 .. |SAZB| replace:: AZB
 
 .. |LAZB| replace:: Arizona Beach
