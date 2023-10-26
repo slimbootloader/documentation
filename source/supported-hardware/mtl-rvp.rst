@@ -1,66 +1,58 @@
-.. alder-lake-rvp:
+.. meteor-lake-rvp:
 
-Alder Lake Platforms
+Meteor Lake Platforms
 -----------------------
 
-.. note:: 12th Generation Intel\ |reg| Core\ |trade| Processor, formally known as |ADL| family.
+.. note:: 14th Generation Intel\ |reg| Core\ |trade| Processor, formally known as |MTL| family.
 
 Supported Boards
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports various platforms corresponding to |ADL|-S, |ADL|-P, |ADL|-PS, |ADL|-N and |LAZB| (|SAZB|) Processors.
+|SPN| supports various platforms corresponding to |MTL|-P and |MTL|-PS.
 
-Each |ADL| board is assigned with a unique platform ID.
+Each |MTL| board is assigned with a unique platform ID.
 
   +-------------------------+---------------+----------------+---------------+---------------+
   |        Board            |  Platform ID  | SPI Programmer |     UART      |     PLAT      |
   +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLS| DDR4        |     0x0017    |      J1G2      |     U6J1      |     adls      |
+  |      |MTLP| DDR5 RVP    |     0x0012    |      J1G2      |     J9B2      |     mtlp      |
   +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLS| DDR5        |     0x001B    |      J1G2      |     U6J1      |     adls      |
+  |      |MTLP| DDR5 CRB    |     0x0013    |      J1C1      |     J1        |     mtlp      |
   +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLP| DDR5        |     0x0012    |      J1C1      |     J9J3      |     adlp      |
+  |      |MTLP| LPDDR5      |     0x0010    |      J1G2      |     J9B2      |     mtlp      |
   +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLP| LPDDR5      |     0x0013    |      J1C1      |     J9J3      |     adlp      |
+  |      |MTLPS| DDR5 RVP   |     0x000B    |      J1C1      |     J9W1      |     mtlps     |
   +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLP| LPDDR4      |     0x0010    |      J1C1      |     J9J3      |     adlp      |
-  +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLPS| DDR5 RVP   |     0x000B    |      J25       |     J109      |     adlps     |
-  +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLPS| DDR5 CRB   |     0x000D    |      J31       |     J34       |     adlps     |
-  +-------------------------+---------------+----------------+---------------+---------------+
-  |      |ADLN| DDR5 CRB    |     0x000A    |      J2E2      |     J9A1      |     adln      |
-  +-------------------------+---------------+----------------+---------------+---------------+
-  |      |SAZB| LPDDR5 CRB  |     0x0009    |      J30       |     J32       |     azb       |
+  |      |MTLPS| DDR5 CRB   |     0x000D    |      J2B1      |     J9V1      |     mtlps     |
   +-------------------------+---------------+----------------+---------------+---------------+
 
 Debug UART
 ^^^^^^^^^^^
 
-For |ADL| platforms, serial port connector location can be found from the above table for each supported target board.
+For |MTL| platforms, serial port connector location can be found from the above table for each supported target board.
 
 .. note:: Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.
 
 Building
 ^^^^^^^^^^
 
-To build |SPN| for any |ADL| platform::
+To build |SPN| for any |MTL| platform::
 
     python BuildLoader.py build <PLAT>
     
-    <PLAT> = adlp, adls, adlps, adln, azb
+    <PLAT> = mtl
 
-  
+Note: Only one SBL image can support for all sku (eg. mtlp and mtlps)
 The output images are generated under ``Outputs`` directory.
 
 
 Stitching
 ^^^^^^^^^^
 
-1. Gather |ADL| IFWI firmware image
+1. Gather |MTL| IFWI firmware image
 
   Users can either download the full IFWI image if the IFWI image release is available or read the existing IFWI image on the board using SPI programmer.
-  This image contains additional firmware ingredients that are required boot on |ADL|.
+  This image contains additional firmware ingredients that are required boot on |MTL|.
 
 .. note::
   ``StitchLoader.py`` currently does not support stitching with boot guard feature **enabled**.
@@ -69,13 +61,13 @@ Stitching
 
 2. Stitch |SPN| images into downloaded BIOS image::
 
-    python Platform/AlderlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/<plat>/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME>
+    python Platform/MeteorlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/<plat>/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME>
 
-  where -i = Input file, -o = Output file, plat = adls/adlp
+  where -i = Input file, -o = Output file, plat = mtl
 
-For example, to stitch |SPN| IFWI image ``sbl_adls_ifwi.bin`` from |ADLS| downloaded firmware images::
+For example, to stitch |SPN| IFWI image ``sbl_mtl_ifwi.bin`` from |MTLP| downloaded firmware images::
 
-    python Platform/AlderlakeBoardPkg/Script/StitchLoader.py -i xxxx.bin -s Outputs/adls/SlimBootloader.bin -o sbl_adls_ifwi.bin
+    python Platform/MeteorlakeBoardPkg/Script/StitchLoader.py -i xxxx.bin -s Outputs/mtl/SlimBootloader.bin -o sbl_mtlp_ifwi.bin
 
 For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 
@@ -83,7 +75,7 @@ For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFW
 Flashing
 ^^^^^^^^^
 
-Flash the generated ``sbl_adlx_ifwi.bin`` to the target board using a DediProg SF100 or SF600 programmer.
+Flash the generated ``sbl_mtl_ifwi.bin`` to the target board using a DediProg SF100 or SF600 programmer.
 
 .. note:: Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:
 
@@ -93,13 +85,13 @@ Flash the generated ``sbl_adlx_ifwi.bin`` to the target board using a DediProg S
     #. The programmer is set to update the flash from offset 0x0.
 
 
-Capsule image for |ADL|
+Capsule image for |MTL|
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Slimbootloader.bin image generated from the build steps above can be used to create a capsule image.
 Please refer to :ref:`build-tool` on generating |SPN| image.
 
-For all |ADL| platforms, the below command can be used::
+For all |MTL| platforms, the below command can be used::
 
     python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS Outputs/<plat>/SlimBootloader.bin -k <Keys> -o FwuImage.bin
 
@@ -109,7 +101,7 @@ For more details on generating capsule image, please refer :ref:`generate-capsul
 Triggering Firmware Update
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| for |ADL| uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
+|SPN| for |MTL| uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
 Please refer to :ref:`firmware-update` on how to trigger firmware update flow.
 Below is an example:
 

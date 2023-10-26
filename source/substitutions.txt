@@ -45,7 +45,17 @@
 
 .. |ADLN| replace:: ADL-N
 
+.. |SAZB| replace:: AZB
+
+.. |LAZB| replace:: Arizona Beach
+
 .. |ICXD| replace:: ICX-D
+
+.. |MTL| replace:: Meteor Lake
+
+.. |MTLP| replace:: MTL-P
+
+.. |MTLPS| replace:: MTL-PS
 
 .. |UPX12| replace:: UP Xtreme i12
 
