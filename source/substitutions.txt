@@ -63,6 +63,8 @@
 
 .. |UPX12| replace:: UP Xtreme i12
 
+.. |UPX7000| replace:: UP Squared Pro 7000 Edge
+
 .. |UP26000| replace:: UP\ :sup:`2` 6000
 
 .. |CFGTOOL| replace:: Configuration Editor
