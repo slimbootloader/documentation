@@ -15,12 +15,14 @@ Supported environment: **Ubuntu Linux 18.04 LTS**
 
 Install the following software:
 
-* GCC 7.3 or above
-* Python 3.6 or above
-* NASM 2.12.02 or above
-* IASL 20190509
+* GCC 9.4.0 or above
+* Python 3.8.10 or above
+* NASM 2.16.01 or above
+* IASL 20190509LLVM
+* LLVM (needed for UEFI payload build)
 * OpenSSL
 * Git
+
 
 
 Build Tools Download - Ubuntu
@@ -28,7 +30,7 @@ Build Tools Download - Ubuntu
 
 Install required packages on Ubuntu::
 
-  $ sudo apt-get install -y build-essential iasl python uuid-dev nasm openssl gcc-multilib qemu git
+  $ sudo apt-get install -y build-essential python uuid-dev openssl gcc-multilib qemu git
 
 
 Build using Dockers (Optional)
@@ -48,11 +50,13 @@ Please ensure to install **Dekstop Development with C++** along with Microsoft V
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
-* Python 3.6 - **C:\\Python36**
-* NASM 2.12.02 - **C:\\Nasm**
+* Python 3.8.10 - **C:\\Python38**
+* NASM 2.16.01 - **C:\\Nasm**
 * IASL 20190509 - **C:\\ASL**
+* LLVM (needed for UEFI payload build) - **C:\\LLVM**
 * OpenSSL - **C:\\openssl**
 * Git (ex. GitBash)
+
 
 .. _sbl-keys:
 
@@ -80,7 +84,7 @@ Set environment variable for SBL Key directory::
 Build Tools Download - Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Python 3.6.x 64 bit version.
+Python 3.8.x 64 bit version.
 
 |https://www.python.org/downloads/windows/|
 
@@ -91,8 +95,19 @@ Python 3.6.x 64 bit version.
 .. note::
   Add Python to the PATH
 
-  Python version 3.6.6 is the tested version.
+  Python version 3.8.10 is the tested version.
 
+
+
+Nasm 2.16.01
+
+|https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/|
+
+.. |https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/| raw:: html
+
+   <a href="https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/" target="_blank">https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/</a>
+
+**Require:** Install to C:\\Nasm
 
 
 IASL 20190509-64
@@ -108,15 +123,15 @@ unzip then copy files to C:\\asl
 **Require:** Install to C:\\Asl
 
 
-Nasm 2.12.02
+LLVM 15.0.7
 
-|https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/|
+|https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7/|
 
-.. |https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/| raw:: html
+.. |https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7/| raw:: html
 
-   <a href="https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/" target="_blank">https://www.nasm.us/pub/nasm/releasebuilds/2.12.02/</a>
+   <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7/" target="_blank">https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7/</a>
 
-**Require:** Install to C:\\Nasm
+**Require:** Install to C:\\LLVM
 
 
 Openssl (latest)
@@ -163,3 +178,7 @@ Make sure **"Checkout as-is, commit as-is"** is selected.
 
 .. image:: /images/gitbash_line_ending.png
    :alt: Make sure "Checkout as-is, commit as-is" is selected
+
+
+
+
