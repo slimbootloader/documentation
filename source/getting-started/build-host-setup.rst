@@ -18,7 +18,7 @@ Install the following software:
 * GCC 9.4.0 or above
 * Python 3.8.10 or above
 * NASM 2.16.01 or above
-* IASL 20190509LLVM
+* IASL 20190509
 * LLVM (needed for UEFI payload build)
 * OpenSSL
 * Git
