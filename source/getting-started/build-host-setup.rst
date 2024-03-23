@@ -30,7 +30,7 @@ Build Tools Download - Ubuntu
 
 Install required packages on Ubuntu::
 
-  $ sudo apt-get install -y build-essential python uuid-dev openssl gcc-multilib qemu git
+  $ sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib qemu-system git iasl nasm
 
 
 Build using Dockers (Optional)
