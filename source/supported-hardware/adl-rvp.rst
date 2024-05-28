@@ -8,7 +8,7 @@ Alder Lake Platforms
 Supported Boards
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports various platforms corresponding to |ADL|-S, |ADL|-P, |ADL|-PS, |ADL|-N and |LAZB| (|SAZB|) Processors.
+|SPN| supports various platforms corresponding to |ADL|-S, |ADL|-P, |ADL|-PS, |ADL|-N, |LAZB| (|SAZB|) and |ASL| Processors.
 
 Each |ADL| board is assigned with a unique platform ID.
 
@@ -33,6 +33,8 @@ Each |ADL| board is assigned with a unique platform ID.
   +-------------------------+---------------+----------------+---------------+---------------+
   |      |SAZB| LPDDR5 CRB  |     0x0009    |      J30       |     J32       |     azb       |
   +-------------------------+---------------+----------------+---------------+---------------+
+  |      ASL DDR5 CRB       |     0x000A    |      J2E2      |     J9A1      |     adln      |
+  +-------------------------+---------------+----------------+---------------+---------------+
 
 Debug UART
 ^^^^^^^^^^^
@@ -50,7 +52,8 @@ To build |SPN| for any |ADL| platform::
     
     <PLAT> = adlp, adls, adlps, adln, azb
 
-  
+.. note:: adln platform option supports both ADL-N and ASL platforms.
+
 The output images are generated under ``Outputs`` directory.
 
 
