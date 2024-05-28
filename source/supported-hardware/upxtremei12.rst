@@ -108,11 +108,13 @@ Edit the 4-byte platform data in Slimbootloader image by *Hexedit* or equivalent
 
 Go to top of TOP SWAP A at address 0xCFFFF4, edit ``04 01 00 AA`` as below
 ::
-   00CFFFF0   90 90 EB B9  04 01 00 AA  A4 F0 FE FF  00 F0 FE FF  ................
+
+  00CFFFF0   90 90 EB B9  04 01 00 AA  A4 F0 FE FF  00 F0 FE FF  ................
 
 Go to top of TOP SWAP B at address 0xC7FFF4, edit ``04 01 00 AA`` as below
 ::
-   00C7FFF0   90 90 EB B9  04 01 00 AA  A4 F0 FE FF  00 F0 FE FF  ................
+
+  00C7FFF0   90 90 EB B9  04 01 00 AA  A4 F0 FE FF  00 F0 FE FF  ................
 
 For more details on TOP SWAP regions, please refer :ref:`flash-layout`
 
