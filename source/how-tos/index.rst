@@ -31,4 +31,5 @@ A collection of guides to make |SPN| to work for you.
    configure-memory-down
    collect-time-logs
    configure_gpio
-
+   add-fastboot
+   boot-acrn
