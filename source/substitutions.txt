@@ -45,6 +45,8 @@
 
 .. |ADLN| replace:: ADL-N
 
+.. |ASL| replace:: Amston Lake
+
 .. |RPL| replace:: Raptor Lake
 
 .. |RPLS| replace:: RPL-S
