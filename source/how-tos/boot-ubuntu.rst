@@ -155,7 +155,7 @@ Continue with the installation until reaching the `Installation Complete` window
 
 Setup |SPN| OS Container Boot
 -----------------------------
-.. note:: At this point the remaining steps are considered optional for OS container booting (which is required for release mode booting of |SPN|). If you will be testing Ubuntu in debug mode you may stop here and reboot the system. To boot your installation your settings should match the below aside from the DevType and DevNum which may be different in your case; the value of File/Lbaoffset does not matter in this case. If earlier you skipped adding the FAT32 partition your SwPart value should be set to 0 instead.
+.. note:: At this point the remaining steps are considered optional for OS container booting. To boot your installation your settings should match the below aside from the DevType and DevNum which may be different in your case; the value of File/Lbaoffset does not matter in this case. If earlier you skipped adding the FAT32 partition your SwPart value should be set to 0 instead.
 
 ::
 
