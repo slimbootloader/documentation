@@ -69,6 +69,10 @@
 
 .. |UP26000| replace:: UP\ :sup:`2` 6000
 
+.. |RPLP| replace:: Raptor Lake-P
+
+.. |UPX12RPLP| replace:: UP Xtreme i12 13th
+
 .. |CFGTOOL| replace:: Configuration Editor
 
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
