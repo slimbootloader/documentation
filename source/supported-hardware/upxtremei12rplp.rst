@@ -42,7 +42,7 @@ Board Setup
 Before You Start
 ^^^^^^^^^^^^^^^^^
 
-.. warning:: As you plan to reprogram the SPI flash, it's a good idea to backup the pre-installed BIOS image first.
+.. warning:: As you plan to reprogram the SPI flash, it's a good idea to backup the pre-installed BIOS image second.
 
 
 Boot the board and enter BIOS setup menu to get familiar with the board features and settings.
