@@ -133,6 +133,8 @@ LLVM 15.0.7
 
 **Require:** Install to C:\\LLVM
 
+.. note::
+  Add an environment variable: CLANG_BIN=C:\LLVM\bin\
 
 Openssl (latest)
 
