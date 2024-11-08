@@ -22,4 +22,5 @@ deploy:
   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   repo: slimbootloader/slimbootloader.github.io
   target-branch: master
+  dpl_version: 1.10.16
 
