@@ -15,6 +15,11 @@ before_install:
 script:
   - docker run --rm -v ${PWD}:/docs -w /docs sbl_docs /bin/bash -c "${GIT_SAFE_DIR_CMD} && make publish BUILDDIR=/docs/build PUBLISHDIR=/docs/publish"
 
+before_deploy:
+  - git remote -v            # Check the remote URL configuration
+  - git status               # View the state of the repository
+  - git log -3               # Show the last 3 commits to ensure the correct commit is being pushed
+
 deploy:
   provider: pages
   local-dir: publish
