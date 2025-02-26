@@ -15,12 +15,6 @@ jobs:
       with:
         persist-credentials: false
 
-    - name: Debug Docs Directory
-      run: |
-        pwd
-        ls -l
-        ls -l source || echo "source/ directory not found"
-
     - name: Install Dependencies
       run: |
         sudo apt-get update && sudo apt-get install -y git
