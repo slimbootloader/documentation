@@ -1,0 +1,5 @@
+breathe==4.9.1
+sphinx==6.0
+docutils==0.18
+sphinx_rtd_theme
+sphinxcontrib-plantuml
