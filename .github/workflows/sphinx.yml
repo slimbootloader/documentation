@@ -1,0 +1,45 @@
+name: Sphinx build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+
+    - name: Debug Docs Directory
+      run: |
+        pwd
+        ls -l
+        ls -l source || echo "source/ directory not found"
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update && sudo apt-get install -y git
+        python -m pip install --upgrade pip
+        pip install --upgrade sphinx sphinx_rtd_theme docutils
+
+    - name: Build HTML
+      uses: ammaraskar/sphinx-action@master
+      with:
+        docs-folder: ./
+        pre-build-command: "pip install --upgrade sphinx sphinx_rtd_theme docutils"
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: html-docs
+        path: ./build/html/
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build/html
