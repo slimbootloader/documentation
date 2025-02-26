@@ -55,7 +55,7 @@ What is |PN| (|SPN|)?
     |PN| is an open-source boot firmware, built from the ground up to be small, secure and optimized running on Intel x86 architecture.
 
 What platforms are supported by |SPN|?
-    Initially, |SPN| supports the following |APL|: |UP2| board, Intel Leaf Hill CRBs and QEMU virtual machine. More upcoming platforms will be supported in the future.
+    Initially, |SPN| supports the following |APL|: |UP2| board, Intel Leaf Hill CRBs and QEMU virtual machine. More platforms supported information can be found here, (See :ref:`supported-hardware`). 
 
 What license does |SPN| use?
     |SPN| is released under BSD plus Patents |License|.
@@ -81,9 +81,9 @@ Does it support RTOS?
     |SPN| features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See :ref:`boot-zephyr`).
 
 What tool chains are supported to compile |SPN|?
-    |SPN| supports Microsoft Visual Studio 2015/2017 and GNU GCC toolchains (gcc 7 or newer). Additional tools including Python (3.6), nasm, and IASL are required to build |SPN|.
+    |SPN| supports Microsoft Visual Studio 2015/2017/2019 and GNU GCC toolchains (gcc 9 or newer). Additional tools including Python (3.8), nasm, and IASL are required to build |SPN|.
 
-    The current version of BaseTools is UDK2018 from EDKII open source project.
+    The current version of BaseTools is stable/202011 from EDKII open source project.
 
 Does |SPN| support verified boot and measured boot?
     Yes. |SPN| supports both from software point of view. In order to enable hardware root-of-trust in |SPN|, the Intel stitching software kit is required. For measured boot, |SPN| supports TPM (Trusted Platform Module) 2.0.
