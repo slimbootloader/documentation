@@ -77,16 +77,6 @@
 
 .. |CFGTOOL| replace:: Configuration Editor
 
-.. |ARL| replace:: Arrow Lake
-
-.. |ARLH| replace:: ARL-H
-
-.. |ARLU| replace:: ARL-U
-
-.. |ARLS| replace:: ARL-S
-
-.. |ARLHU| replace:: ARL-H/U
-
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
 
 .. _documentation repo: https://github.intel.com/Intel-Slim-Bootloader/documentation
