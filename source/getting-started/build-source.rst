@@ -17,8 +17,9 @@ Source code is available on GitHub::
 
   git clone https://github.com/slimbootloader/slimbootloader.git
   cd slimbootloader
+  git submodule update --init --recursive
 
-
+  
 Build |SPN|
 ------------
 
