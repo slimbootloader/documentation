@@ -73,6 +73,8 @@
 
 .. |RPLP| replace:: Raptor Lake-P
 
+.. |RPLP-RKI| replace:: Rock Island
+
 .. |UPX12RPLP| replace:: UP Xtreme i12 13th
 
 .. |CFGTOOL| replace:: Configuration Editor
