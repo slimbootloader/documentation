@@ -89,6 +89,8 @@
 
 .. |ARLHU| replace:: ARL-H/U
 
+.. |ARLH-ARI| replace:: Arrow Island
+
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
 
 .. _documentation repo: https://github.intel.com/Intel-Slim-Bootloader/documentation
