@@ -11,7 +11,7 @@ Build Environment
 Building on Linux
 ^^^^^^^^^^^^^^^^^^^^
 
-Supported environment: **Ubuntu Linux 18.04 LTS**
+Supported environment: **Ubuntu Linux 22.04 LTS**
 
 Install the following software:
 
@@ -45,7 +45,7 @@ You can also consider Dockers containers to build |SPN|. See :ref:`misc_setup_do
 Building on Windows
 ^^^^^^^^^^^^^^^^^^^^^
 
-Supported environment: **Microsoft Visual Studio 2015 or Microsoft Visual Studio 2017 Community**
+Supported environment: **Microsoft Visual Studio 2019 or Microsoft Visual Studio 2022 Community**
 Please ensure to install **Dekstop Development with C++** along with Microsoft Visual Studio installation.
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
