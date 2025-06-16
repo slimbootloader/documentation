@@ -10,11 +10,9 @@ Prepare SBL QEMU image
 
 By default, SBL uses compile optimization for binary size and code speed.
 The compile optimization sometime makes source level debugging hard to use.
-To demonstrate better source level debugging, let's lower the compile optimization level for this tutorial session.
-'--noopt' will generate less optimized image, but still link time optimization is done to avoid very big size image. ::
 
 $ cd /path/to/slimbootloader/
-$ python BuildLoader.py build qemu --noopt
+$ python BuildLoader.py build qemu
 
 Launch QEMU target
 ^^^^^^^^^^^^^^^^^^

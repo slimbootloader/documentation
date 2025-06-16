@@ -15,7 +15,7 @@ Download |SPN|
 
 Source code is available on GitHub::
 
-  git clone https://github.com/slimbootloader/slimbootloader.git
+  git clone https://github.com/slimbootloader/slimbootloader.git slimbootloader
   cd slimbootloader
   git submodule update --init --recursive
 
@@ -34,7 +34,7 @@ Build |SPN|
   Example: python BuildLoader.py build qemu
 
 
-For more details on the build tool, see :ref:`build-tool`.
+For more details on the build options & tool, see :ref:`build-tool`.
 
 
 Build Outputs

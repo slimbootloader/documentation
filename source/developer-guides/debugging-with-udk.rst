@@ -22,11 +22,15 @@ Prerequisite
    <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">Intel UDK Debugger</a>
 
   
-* The Intel |copy| UDK Debugger can be downloaded |here| for Windows and Linux, install Intel UDK Debugger with default configuration values.  
+* The Intel |copy| UDK Debugger can be downloaded |here| for Windows and |this| for Linux, install Intel UDK Debugger with default configuration values.  
 
 .. |here| raw:: html
 
-   <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">here</a>  
+   <a href="https://www.intel.com/content/dam/develop/external/us/en/documents/udk-debugger-tool-v1-5-win.zip" target="_blank">here</a> 
+
+.. |this| raw:: html
+
+   <a href="https://www.intel.com/content/dam/develop/external/us/en/documents/udk-debugger-tool-v1-5-1-linux.zip" target="_blank">this</a> 
   
 * Install |Windows Debug Tool(WinDbg)| with default configuration values.  
 

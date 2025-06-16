@@ -81,9 +81,9 @@ Does it support RTOS?
     |SPN| features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See :ref:`boot-zephyr`).
 
 What tool chains are supported to compile |SPN|?
-    |SPN| supports Microsoft Visual Studio 2015/2017 and GNU GCC toolchains (gcc 7 or newer). Additional tools including Python (3.6), nasm, and IASL are required to build |SPN|.
+    |SPN| supports Microsoft Visual Studio 2015-2022 and GNU GCC toolchains (gcc 7 or newer). Additional tools including Python (3.10), nasm, and IASL are required to build |SPN|.
 
-    The current version of BaseTools is UDK2018 from EDKII open source project.
+    The current version of BaseTools is UDK2023 from EDKII open source project.
 
 Does |SPN| support verified boot and measured boot?
     Yes. |SPN| supports both from software point of view. In order to enable hardware root-of-trust in |SPN|, the Intel stitching software kit is required. For measured boot, |SPN| supports TPM (Trusted Platform Module) 2.0.
