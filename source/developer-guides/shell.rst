@@ -34,5 +34,9 @@ Built-in shell commands::
 
 Use '-h' to get help message for a command.
 
+Apart from the above commands, developers may also implement platform specific shell commands within ``Platform/<*BoardPkg>/Library/ShellExtensionLib/``.
+An example being shell command ``gpio`` for Alder Lake platform (refer ``Platform/AlderlakeBoardPkg/Library/ShellExtensionLib/CmdGpio.c``) to read and write the required GPIO pin.
+
 .. note:: For small image footprint or security reasons, one can exclude shell module from |SPN| in release builds.
+   The OsLoader shell can be enabled/disabled for release builds through ``Config Editor tool -> OS Boot Options -> Boot to OsLoader Shell``.
 
