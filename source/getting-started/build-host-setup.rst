@@ -13,6 +13,8 @@ Building on Linux
 
 Supported environment: **Ubuntu Linux 22.04 LTS**
 
+Community supported: **Fedora 42** (Experimental)
+
 Install the following software:
 
 * GCC 9.4.0 or above
@@ -24,13 +26,30 @@ Install the following software:
 * Git
 
 
-
 Build Tools Download - Ubuntu
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Install required packages on Ubuntu::
 
   $ sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib qemu-system git iasl nasm
+
+Build Tools Download - Fedora
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Install required packages on Fedora::
+
+  $ sudo dnf group install -y development-tools
+  $ sudo dnf install -y python3.12 libuuid-devel openssl openssl-devel \
+  openssl-devel-engine glibc-devel.i686 libstdc++-devel.i686 qemu git \
+  acpica-tools nasm
+
+Create and load python environment with required packages::
+
+  $ mkdir -p $HOME/Workspace/Environments
+  $ python3.12 -m venv $HOME/Workspace/Environments/SBL
+  $ source $HOME/Workspace/Environments/SBL/bin/activate
+  $ pip install --upgrade pip
+  $ pip install edk2-pytool-library setuptools
 
 
 Build using Dockers (Optional)
