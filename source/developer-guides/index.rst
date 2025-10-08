@@ -30,7 +30,7 @@ Developer's Guide
    debugging-with-cca
    debugging-with-udk
    logging
-   slimtrace
+   sbltrace
    contributions
    ingredients-update
 
