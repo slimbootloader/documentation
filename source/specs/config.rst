@@ -496,12 +496,11 @@ The file content to be included must match the content type of the current
 section definition, contain complete sections, or combination of both.
 
 Statements in *!include* files must not break the integrity of the Yaml
-file, the included file is read by parsing tools in the exact position
-of the file, and is functionally equivalent to copying contents of the
+file, the included file is read by parsing tools at the exact position
+in the file, and is functionally equivalent to copying contents of the
 included file and pasting them into Yaml. The indentation of the included
 file will be adjusted automatically so that the top-level indentation in
 the included file has the same level as the *!include* statement line.
-line.
 
 Format::
 
