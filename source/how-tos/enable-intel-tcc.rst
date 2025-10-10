@@ -44,7 +44,7 @@ Intel® TCC subregion
 --------------------
 
 Subregion support in BIOS region is a generic SBL feature. Each subregion could define its own subregion size and authentication method for the component inside the subregion.
-SBL defined several subregion for Intel® TCC binaries.
+SBL defined several subregions for Intel® TCC binaries.
 
 **Cache Configurator**
 
@@ -52,7 +52,7 @@ SBL doesn’t have knowledge on the content of Cache subregion. It is loaded as 
 
 **Streams Configurator**
 
-When Data Streams Optimizer (DSO) is enabled, SBL would uses the BIOS settings from this subregion to update SBL setting and FSP settings. For the other information from this subregion, the Intel® Firmware Support Package (Intel® FSP) is expected to process it.
+When Data Streams Optimizer (DSO) is enabled, SBL would use the BIOS settings from this subregion to update SBL setting and FSP settings. For other information from this subregion, the Intel® Firmware Support Package (Intel® FSP) is expected to process it.
 
 **Cache Reservation Library**
 
@@ -74,11 +74,11 @@ SBL defines these regions in SBL platform build config file BoardConfig.py. Take
     ('TCCM',  '',             'Lz4',        container_list_auth_type,   'KEY_ID_CONTAINER_COMP'+'_'+self._RSA_SIGN_TYPE,    0,         self.TCC_CRL_SIZE,      0),   # TCC Cache Reservation Library
     ('TCCT',  '',             'Lz4',        container_list_auth_type,   'KEY_ID_CONTAINER_COMP'+'_'+self._RSA_SIGN_TYPE,    0,         self.TCC_STREAM_SIZE,   0),   # TCC Stream Config
 
-In the build configuration file, user could set ``self.ENABLE_TCC`` to 1 to enable Intel® TCC subregion and adjust TCC subregion size. All Intel® TCC subregion are in container name “IPFW” by default.
-In each subregion, it has a unique region name identified by 4 characters. SBL would use it when loading component from subregion and update it via firmware update.
-One of the options to put Intel® TCC binaries (Cache config, stream config and CRL) into these subregion as part of IFWI is to specify the Image file name in this build config file, and copy
+In the build configuration file, user could set ``self.ENABLE_TCC`` to 1 to enable Intel® TCC subregions and adjust TCC subregion size. All Intel® TCC subregions are in a container named “IPFW” by default.
+In each subregion, it has a unique region name identified by 4 characters. SBL would use it when loading component from subregions and update it via firmware update.
+One of the options to put Intel® TCC binaries (Cache config, stream config and CRL) into these subregions as part of IFWI is to specify the Image file name in this build config file, and copy
 the corresponding binaries into Platform\<Platform>BoardPkg\Binaries folder in SBL source code before building SBL. And user could also specify different compression and authentication method for
-the component inside this subregion.
+the component inside these subregions.
 
 
 
