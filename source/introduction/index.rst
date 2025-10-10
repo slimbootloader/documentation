@@ -52,7 +52,7 @@ Frequently Asked Questions
 ---------------------------
 
 What is |PN| (|SPN|)?
-    |PN| is an open-source boot firmware, built from the ground up to be small, secure and optimized running on Intel x86 architecture.
+    |PN| is an open-source boot firmware, built from the ground up to be small, secure and optimized for running on Intel x86 architecture.
 
 What platforms are supported by |SPN|?
     Initially, |SPN| supports the following |APL|: |UP2| board, Intel Leaf Hill CRBs and QEMU virtual machine. More upcoming platforms will be supported in the future.
@@ -75,7 +75,7 @@ What are options to debug |SPN|?
     |SPN| supports source level debugging using Intel UEFI Development Kit (UDK) debug tool (via UART). Depending on the board configuration, developers can also debug |SPN| with Intel trace hub, secure debug token (if enabled) or memory buffers.
 
 Is Embedded Controller (EC) supported?
-    No. Different boards may have different EC or SuperIO. Developers need implement the code for the target board.
+    No. Different boards may have different EC or SuperIO. Developers need to implement the code for the target board.
 
 Does it support RTOS?
     |SPN| features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See :ref:`boot-zephyr`).
@@ -115,11 +115,11 @@ I need help...
    <a href="https://groups.io/g/slimbootloader/topics" target="_blank">Archives</a>
 
 It doesn't work for me...
-    Email us via our mailing list or direclty submit an issue on |ISSUES|.
+    Email us via our mailing list or directly submit an issue on |ISSUES|.
 
 .. |ISSUES| raw:: html
 
    <a href="https://github.com/slimbootloader/slimbootloader/issues" target="_blank">GitHub</a>
 
 I want to contribute...
-    You are welcome to contribute our project in different ways including code, documentation or ideas. We'd be happy to review your contributions!
+    You are welcome to contribute to our project in different ways including code, documentation or ideas. We'd be happy to review your contributions!

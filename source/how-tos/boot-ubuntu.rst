@@ -15,7 +15,7 @@ The following steps have been verified with Ubuntu Linux 20.04 LTS (64-bit).
 
 .. note:: The BoardConfig.py option **self.ENABLE_GRUB_CONFIG = 1** should be set when building |SPN|.
 
-.. note:: If you encounter any error loading the vmlinuz or initrd files due to space allocation issues you may need to increase the value of your **self.PLD_HEAP_SIZE** set in your board's BoardConfig.py and re-build |SPN| and flash as a new IFWI. Consider the following formula for your value: PLD_HEAP_SIZE = initrd size + kernel size + 32MB
+.. note:: If you encounter any error loading the vmlinuz or initrd files due to space allocation issues you may need to increase the value of **self.PLD_HEAP_SIZE** set in your board's BoardConfig.py and re-build |SPN| and flash as a new IFWI. Consider the following formula for your value: PLD_HEAP_SIZE = initrd size + kernel size + 32MB
 
 **STEP 2:** Flash IFWI image to the board
 

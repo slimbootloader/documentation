@@ -5,7 +5,7 @@ Terminology and Acronyms
 
 **UDK** UEFI Development Kit
 
-**TPM** Trsuted Platform Module
+**TPM** Trusted Platform Module
 
 **ASL** ACPI Source Language
 
