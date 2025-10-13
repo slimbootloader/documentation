@@ -55,7 +55,7 @@ What is |PN| (|SPN|)?
     |PN| is an open-source boot firmware, built from the ground up to be small, secure and optimized for running on Intel x86 architecture.
 
 What platforms are supported by |SPN|?
-    Initially, |SPN| supports the following |APL|: |UP2| board, Intel Leaf Hill CRBs and QEMU virtual machine. More upcoming platforms will be supported in the future.
+    See :ref:`supported-hardware` for the complete list of supported platforms.
 
 What license does |SPN| use?
     |SPN| is released under BSD plus Patents |License|.
