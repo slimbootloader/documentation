@@ -33,3 +33,4 @@ A collection of guides to make |SPN| to work for you.
    configure_gpio
    add-fastboot
    boot-acrn
+   customize-smbios-production-data
