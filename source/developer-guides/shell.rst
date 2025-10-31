@@ -10,12 +10,14 @@ To enter shell interface, press any key after reboot and before OS is launched.
 Built-in shell commands::
 
   Shell> help
+  acpi     - Display ACPI table data
   boot     - Print or modify the OS boot option list
   cdata    - Display configuration data.
   cls      - Clear console
   cpuid    - Read CPU specific information
   dmesg    - Print messages stored in boot log buffer
   exit     - Exit the shell
+  flashmap - Display flash memory map
   fs       - filesystem access command
   fwupdate - Initiate Firmware Update
   help     - List supported commands
