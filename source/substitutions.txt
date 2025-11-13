@@ -71,6 +71,8 @@
 
 .. |UP26000| replace:: UP\ :sup:`2` 6000
 
+.. |ODROID-H4| replace:: Hardkernel ODROID H4
+
 .. |RPLP| replace:: Raptor Lake-P
 
 .. |RPLP-RKI| replace:: Rock Island
