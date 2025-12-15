@@ -3,12 +3,12 @@
 Raptor Lake Platforms
 -----------------------
 
-.. note:: 13th Generation Intel\ |reg| Core\ |trade| Processor, formally known as |RPL| family. [RPL]-S Refresh is also supported.
+.. note:: 13th Generation Intel\ |reg| Core\ |trade| Processor, formally known as |RPL| family. |RPL|-S Refresh is also supported.
 
 Supported Boards
 ^^^^^^^^^^^^^^^^^^^^^
 
-|SPN| supports various platforms corresponding to |RPL|-S Processors.
+|SPN| supports various platforms corresponding to Raptor Lake-S, Raptor Lake-P and Raptor Lake-PS.
 
 Each |RPL| board is assigned with a unique platform ID.
 
@@ -19,6 +19,17 @@ Each |RPL| board is assigned with a unique platform ID.
   +-------------------------+---------------+----------------+---------------+---------------+
   | |RPLS| DDR5 (SODIMM S17)|     0x0011    |      J1G2      |     R6J1      |     rpls      |
   +-------------------------+---------------+----------------+---------------+---------------+
+  | |RPLP| DDR5 CRB         |     0x0008    |      J6B1      |     J7A1      |     rplp      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  | |RPLP| DDR5 RVP         |     0x0012    |      J1C1      |     J1E1      |     rplp      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  | |RPLP| LPDDR5 RVP       |     0x013     |      J1C1      |     J1E1      |     rplp      |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  | |RPLPS| DDR5 CRB        |     0x000D    |      J31       |     J34       |     rplps     |
+  +-------------------------+---------------+----------------+---------------+---------------+
+  | |RPLPS| DDR5 RVP        |     0x000B    |      J41       |     J109      |     rplps     |  
+  +-------------------------+---------------+----------------+---------------+---------------+
+
 
 Debug UART
 ^^^^^^^^^^^
@@ -34,7 +45,7 @@ To build |SPN| for any |RPL| platform::
 
     python BuildLoader.py build <PLAT>
 
-    <PLAT> = rpls
+    <PLAT> = rpls / rplp / rplps
 
 The output images are generated under ``Outputs`` directory.
 
@@ -56,11 +67,11 @@ Stitching
 
     python Platform/RaptorlakeBoardPkg/Script/StitchLoader.py -i <BIOS_IMAGE_NAME> -s Outputs/<plat>/SlimBootloader.bin -o <SBL_IFWI_IMAGE_NAME>
 
-  where -i = Input file, -o = Output file, plat = rpls
+  where -i = Input file, -o = Output file, plat = rpls, rplp or rplps
 
 For example, to stitch |SPN| IFWI image ``sbl_rpls_ifwi.bin`` from |RPLS| downloaded firmware images::
 
-    python Platform/RaptorlakeBoardPkg/Script/StitchLoader.py -i xxxx.bin -s Outputs/rpls/SlimBootloader.bin -o sbl_rpls_ifwi.bin
+    python Platform/RaptorlakeBoardPkg/Script/StitchLoader.py -i xxxx.bin -s Outputs/<plat>/SlimBootloader.bin -o sbl_rpls_ifwi.bin
 
 For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFWI image with |SPN|.
 
@@ -68,9 +79,11 @@ For more details on stitch tool, see :ref:`stitch-tool` on how to stitch the IFW
 Flashing
 ^^^^^^^^^
 
-Flash the generated ``sbl_rpls_ifwi.bin`` to the target board using a DediProg SF100 or SF600 programmer.
+Flash the generated ``sbl_<plat>_ifwi.bin`` to the target board using a DediProg SF100 or SF600 programmer.
 
 .. note:: Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:
+
+
     #. The alignment/polarity when connecting Dediprog to the board. 
     #. The power to the board is turned **off** while the programmer is connected (even when not in use).
     #. The programmer is set to update the flash from offset 0x0.

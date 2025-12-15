@@ -51,6 +51,10 @@
 
 .. |RPLS| replace:: RPL-S
 
+.. |RPLP| replace:: RPL-P
+
+.. |RPLPS| replace:: RPL-PS
+
 .. |SAZB| replace:: AZB
 
 .. |LAZB| replace:: Arizona Beach
@@ -70,8 +74,6 @@
 .. |UPX7000| replace:: UP Squared Pro 7000 Edge
 
 .. |UP26000| replace:: UP\ :sup:`2` 6000
-
-.. |RPLP| replace:: Raptor Lake-P
 
 .. |RPLP-RKI| replace:: Rock Island
 
