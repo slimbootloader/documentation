@@ -73,6 +73,10 @@
 
 .. |UPX7000| replace:: UP Squared Pro 7000 Edge
 
+.. |UP2TWL| replace:: UP Squared Pro TWL
+
+.. |TWL| replace:: Twin Lake
+
 .. |UP26000| replace:: UP\ :sup:`2` 6000
 
 .. |RPLP-RKI| replace:: Rock Island
