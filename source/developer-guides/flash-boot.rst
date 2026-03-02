@@ -22,15 +22,16 @@ Place the image in platform folder
 
 2. Copy Container binary image into SpiContainerBin folder.
 
-.. note:: Container image should be named as SPI_CONTAINER1.bin for 1st Container region and SPI_CONTAINER2.bin for second Container region.
+.. note:: Container image should be named as containerimage1.bin  for 1st Container region and containerimage2.bin for second Container region.
 
 
 Adding Container to BIOS region
 ==================================
 
-**Step 1:** Add SPI_CONTAINER1.bin to non-redundant region of BIOS region.::
+**Step 1:** Add containerimage1.bin to non-redundant region of BIOS region.::
 
 	('SPI_CONTAINER1.bin' , '' , self.SPI_CONTAINER1_SIZE, STITCH_OPS.MODE_FILE_PAD | container1_flag, STITCH_OPS.MODE_POS_TAIL)
+
 
 **Step 2:** Define size of the container image::
 
@@ -58,7 +59,7 @@ Boot options for Boot from BIOS region
 See :ref:`boot-options` for more details.
 
 **Step 1:** Get LBA address from flash map during build. For example refer
-below image, 0x3f8000 is the LBA offset of Container image.
+below image, 0x622f90 is the LBA offset of Container image.
 
 .. image:: /images/Flashmap.png
    :width: 5.92361in
@@ -88,10 +89,10 @@ Using Stitching method.
 **Step 1:** To place the image in PDR region, add the below changes to StitchIfwiConfig.py in function get_xml_change_list().::
 
 	('./FlashLayout/Regions/PdrRegion/Length', '0x700000'),
-	('./FlashLayout/Regions/PdrRegion/InputFile', '$SourceDir\SPI_CONTAINER1.bin'),
+	('./FlashLayout/Regions/PdrRegion/InputFile', '$SourceDir\containerimage1.bin'),
 	('./FlashLayout/Regions/PdrRegion/Enabled', 'Enabled'),
 
-**Step 2:** Copy SPI_CONTAINER1.bin to 'Input/SPI_CONTAINER1.bin'
+**Step 2:** Copy containerimage1.bin to 'Input/containerimage1.bin'
 
 **Step 3:** Stitch the final image.
 
