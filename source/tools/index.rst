@@ -12,3 +12,4 @@ Tools
    ConfigTools
    GpioTool
    UcodeUtility
+   SblBuilderGui
