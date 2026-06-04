@@ -97,6 +97,10 @@
 
 .. |ARLH-ARI| replace:: Arrow Island
 
+.. |GNRD| replace:: Granite Rapids-D
+
+.. |KSV| replace:: Kaseyville
+
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
 
 .. _documentation repo: https://github.intel.com/Intel-Slim-Bootloader/documentation
