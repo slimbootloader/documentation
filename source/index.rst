@@ -18,6 +18,7 @@ Welcome to |LPN| (version |version|) documentation!
    :glob:
 
    introduction/index
+   releases/index
    getting-started/index
    supported-hardware/index
    developer-guides/index
