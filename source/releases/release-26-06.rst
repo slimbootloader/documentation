@@ -9,10 +9,6 @@ Releases will happen each **June** and **December**, giving the project a
 more predictable cadence for platform enablement, common library development,
 tooling, and payload support.
 
-|PN| is also changing its release versioning from the previous major/minor
-format to a **Year.Month** format. The 26.06 release represents the
-June 2026 release.
-
 
 Release Highlights
 ------------------
