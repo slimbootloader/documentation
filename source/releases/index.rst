@@ -5,7 +5,7 @@ Releases
 
 This section contains release notes for each |PN| release. Starting with
 the 26.06 release, |PN| follows a semi-annual release schedule (June and
-December), with version numbers in **Year.Month** format.
+December), with version numbers in **Year(YY).Month(MM)** format.
 
 .. toctree::
    :maxdepth: 1
