@@ -1,16 +1,6 @@
 .. _release-26-06:
 
-Slim Bootloader 26.06 Release Notes
-=====================================
-
-We are pleased to announce the **Slim Bootloader 26.06** release. With this
-release, |PN| is moving to a new planned semi-annual release schedule.
-Releases will happen each **June** and **December**, giving the project a
-more predictable cadence for platform enablement, common library development,
-tooling, and payload support.
-
-
-Release Highlights
+Release 26.06 Highlights
 ------------------
 
 Slim Bootloader 26.06 includes new common libraries, firmware update
@@ -44,10 +34,10 @@ and new platform support.
 
 
 What's New
-----------
+~~~~~~~~~~
 
 Common Library Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This release adds common ACPI library support for MADT, DMAR, and MCFG,
 along with new shared PsdLib, AMT, TopSwap, and I2C libraries. The common
@@ -55,30 +45,30 @@ HECI library has also been cleaned up to improve shared code reuse across
 platforms.
 
 Firmware Update Enhancements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Firmware update support now includes enhancements to skip specific fields
 and regions, giving platforms finer control over update behavior.
 
 Payload Updates
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 Slim Bootloader 26.06 adds TXT support for RPL through the UEFI payload.
 It also adds OsLoader flags for extra image support and shell build support.
 
 UI and Tooling
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 The release introduces the SBL GUI Builder Tool and Simple UI setup support,
 making |PN| configuration and setup workflows easier to use.
 
 Crypto Library Update
-~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^
 
 IppCryptoLib has been migrated to version 2.0 for x64 builds.
 
 New Platform Support
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 Slim Bootloader 26.06 adds support for the following platforms and boards:
 
