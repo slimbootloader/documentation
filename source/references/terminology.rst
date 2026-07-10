@@ -3,8 +3,6 @@ Terminology and Acronyms
 
 **SBL** Slim Bootloader
 
-**UDK** UEFI Development Kit
-
 **TPM** Trusted Platform Module
 
 **ASL** ACPI Source Language
