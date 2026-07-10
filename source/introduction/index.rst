@@ -72,7 +72,7 @@ Who are the maintainers of |SPN|?
    <a href="https://github.com/slimbootloader/slimbootloader" target="_blank">GitHub</a>
 
 What are options to debug |SPN|?
-    |SPN| supports source level debugging using Intel UEFI Development Kit (UDK) debug tool (via UART). Depending on the board configuration, developers can also debug |SPN| with Intel trace hub, secure debug token (if enabled) or memory buffers.
+    Depending on the board configuration, developers can also debug |SPN| with Intel Trace Hub, secure debug token (if enabled) or memory buffers. SblTrace is a Slim Bootloader Automated Debug and Triage Tool that simplifies firmware debugging by automatically injecting debug print statements into the bootloader code.
 
 Is Embedded Controller (EC) supported?
     No. Different boards may have different EC or SuperIO. Developers need to implement the code for the target board.

@@ -28,7 +28,6 @@ Developer's Guide
    boot-performance
    shell
    debugging-with-cca
-   debugging-with-udk
    logging
    sbltrace
    contributions
