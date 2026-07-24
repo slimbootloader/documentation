@@ -1,7 +1,7 @@
 .. _release-26-06:
 
 Release 26.06 Highlights
-------------------
+------------------------
 
 Slim Bootloader 26.06 includes new common libraries, firmware update
 enhancements, UI tooling, payload improvements, crypto library updates,

@@ -12,4 +12,5 @@ Tools
    ConfigTools
    GpioTool
    UcodeUtility
+   ResignSlimBootloader
    SblBuilderGui
