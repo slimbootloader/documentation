@@ -55,7 +55,7 @@ This generated SlimBootloader.bin will boot into HelloWorld payload on QEMU plat
 To add HelloWorld payload as additional paylaod, build |SPN| with the following command::
 
   copy Build\PayloadPkg\DEBUG_VS2019\IA32\HelloWorld.efi PayloadPkg\PayloadBins /y
-  python BuildLoader.py build qemu -p OsLoader.efi:LLDR:Lz4;HelloWorld.efi:HLWD:Lz4
+  python BuildLoader.py build qemu -p "OsLoader.efi:LLDR:Lz4;HelloWorld.efi:HLWD:Lz4"
 
 The generated SlimBootloader.bin will boot into OsLoader or HelloWorld payload on QEMU platform depends
 on the GEN_CFG_DATA.PayloadId value at build time and runtime.
