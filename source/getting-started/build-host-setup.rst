@@ -20,7 +20,7 @@ Install the following software:
 * GCC 9.4.0 or above
 * Python 3.8.10 or above
 * NASM 2.16.01 or above
-* IASL 20190509
+* IASL 20251212
 * LLVM (needed for UEFI payload build)
 * OpenSSL
 * Git
@@ -71,7 +71,7 @@ Install the **exact** versions (if specified) of the following tools to the desi
 
 * Python 3.8.10 - **C:\\Python38**
 * NASM 2.16.01 - **C:\\Nasm**
-* IASL 20190509 - **C:\\ASL**
+* IASL 20251212 - **C:\\ASL**
 * LLVM (needed for UEFI payload build) - **C:\\LLVM**
 * OpenSSL - **C:\\openssl**
 * Git (ex. GitBash)
@@ -129,17 +129,21 @@ Nasm 2.16.01
 **Require:** Install to C:\\Nasm
 
 
-IASL 20190509-64
+IASL 20251212-64
 
-|https://acpica.org/sites/acpica/files/iasl-win-20190509.zip|
+Download IASL 20251212 for Windows from the `Intel ACPI Component Architecture downloads page`_:
 
-.. |https://acpica.org/sites/acpica/files/iasl-win-20190509.zip| raw:: html
+|https://downloadmirror.intel.com/917048/iasl-win-20251212.zip|
 
-   <a href="https://acpica.org/sites/acpica/files/iasl-win-20190509.zip" target="_blank">https://acpica.org/sites/acpica/files/iasl-win-20190509.zip</a>
+.. _Intel ACPI Component Architecture downloads page: https://www.intel.com/content/www/us/en/download/775127/acpi-component-architecture-downloads-previous-releases.html
 
-unzip then copy files to C:\\asl
+.. |https://downloadmirror.intel.com/917048/iasl-win-20251212.zip| raw:: html
 
-**Require:** Install to C:\\Asl
+   <a href="https://downloadmirror.intel.com/917048/iasl-win-20251212.zip" target="_blank">https://downloadmirror.intel.com/917048/iasl-win-20251212.zip</a>
+
+Extract the ZIP archive, then copy the files to C:\\ASL
+
+**Require:** Install to C:\\ASL
 
 
 LLVM 15.0.7
@@ -199,7 +203,4 @@ Make sure **"Checkout as-is, commit as-is"** is selected.
 
 .. image:: /images/gitbash_line_ending.png
    :alt: Make sure "Checkout as-is, commit as-is" is selected
-
-
-
 
