@@ -103,6 +103,8 @@
 
 .. |PTL| replace:: Panther Lake
 
+.. |WCL| replace:: Wildcat Lake
+
 .. _project repo: https://github.intel.com/Intel-Slim-Bootloader/slimbootloader
 
 .. _documentation repo: https://github.intel.com/Intel-Slim-Bootloader/documentation
