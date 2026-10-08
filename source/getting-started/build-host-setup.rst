@@ -65,7 +65,7 @@ Building on Windows
 ^^^^^^^^^^^^^^^^^^^^^
 
 Supported environment: **Microsoft Visual Studio 2019 or Microsoft Visual Studio 2022 Community**
-Please ensure to install **Dekstop Development with C++** along with Microsoft Visual Studio installation.
+Please ensure to install **Desktop Development with C++** along with Microsoft Visual Studio installation.
 
 Install the **exact** versions (if specified) of the following tools to the designated directories:
 
