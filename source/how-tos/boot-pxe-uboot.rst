@@ -15,7 +15,7 @@ Steps:
 * U-Boot can be built as a payload for Slim Bootloader. Please refer to `this <https://slimbootloader.github.io/how-tos/boot-with-u-boot-payload.html>`_ \
   page for generic build Instructions.
 
-U-Boot Confiugration to enable PXE Boot Support
+U-Boot Configuration to enable PXE Boot Support
 ===============================================
 
 #. Below are steps for enabling PXE Boot support in U-Boot

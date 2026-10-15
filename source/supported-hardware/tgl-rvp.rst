@@ -26,7 +26,7 @@ Stitching
 
 1. Gather |TGL| IFWI firmware image
 
-  Users can either download the full IFWI image if the IFWI image release is available, or read the exising IFWI image on the board using SPI programmer.
+  Users can either download the full IFWI image if the IFWI image release is available, or read the existing IFWI image on the board using SPI programmer.
   This image contains additional firmware ingredients that are required to boot on |TGL|.
 
 .. note::

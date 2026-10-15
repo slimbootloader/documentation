@@ -85,7 +85,7 @@ Generate capsule update image ``FwuImage.bin``::
 Triggering Firmware Update
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sample implementation of trigerring firmware update is explained below
+Sample implementation of triggering firmware update is explained below
 
 |SPN| for |APL| uses BIT16 of PMC I/O register (Scratchpad for sharing data between BIOS and PMC Firmware (BIOS_SCRATCHPAD) - Offset 1090h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
 

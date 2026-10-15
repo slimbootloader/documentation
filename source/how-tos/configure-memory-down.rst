@@ -35,7 +35,7 @@ For |UP2|, open ``CfgData_Ext_Up2.dlt`` and customize values that match the actu
 
 Optionally, you can use |CFGTOOL| to graphically view and modify configurations. See https://slimbootloader.github.io/developer-guides/configuration.html for details.
 
-.. note:: If FSP UPD implementation supports hardcoded SPD table, simply replacing the SPD binary file under ``<platform>\CfgData``. The file name of a SPD binary can be found in ``<platform>\CfgData\CfgData_MemSpd.yaml``. If a platform supports more than one type of memory configuration, the ``MEMORY_CFG_DATA.SpdDataSel`` must be carefully set. Take Tiger Lake as an example: Spd_Ddrlp4.bin and Spd_Ddrlp5.bin are for LPDDR4 and LPDDR5 respectivly. The index of Spd_Ddrlp4.bin is 1, and it is 2 for Spd_Ddrlp5.bin.
+.. note:: If FSP UPD implementation supports hardcoded SPD table, simply replacing the SPD binary file under ``<platform>\CfgData``. The file name of a SPD binary can be found in ``<platform>\CfgData\CfgData_MemSpd.yaml``. If a platform supports more than one type of memory configuration, the ``MEMORY_CFG_DATA.SpdDataSel`` must be carefully set. Take Tiger Lake as an example: Spd_Ddrlp4.bin and Spd_Ddrlp5.bin are for LPDDR4 and LPDDR5 respectively. The index of Spd_Ddrlp4.bin is 1, and it is 2 for Spd_Ddrlp5.bin.
   
     In a board dlt file::
 

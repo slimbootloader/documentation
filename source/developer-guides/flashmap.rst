@@ -70,7 +70,7 @@ Flash Layout
 .. note:: On |APL|, flash map is determined in the stitching process instead of build process.
 
 
-An flash layout from QEMU build is shown below::
+A flash layout from QEMU build is shown below::
 
   Flash Map Information:
         +------------------------------------------------------------------------+

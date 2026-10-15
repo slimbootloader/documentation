@@ -279,12 +279,12 @@ its configuration infrastructure. The goal of Slim Bootloader's configuration me
 is to customize a given reference implementation to another board with as minimal code 
 changes as possible. 
 
-This requires a reference implementaion to expose **all** GPIO as configurable options. This
+This requires a reference implementation to expose **all** GPIO as configurable options. This
 includes not just those CFIO pads used for GPIO functionality, but also those used by other 
 controllers like SPI, I2C, etc.. This provides maximum flexibility in terms of which GPIOs are 
 used for board designs. When a specific CFIO is not used as GPIO, initialization of that pad 
 by the GPIO initialization module may not be needed and a mechanism to skip that is needed.
-Slim Bootloader configuration provides this mechanism throuh the SKIP flag as part of 
+Slim Bootloader configuration provides this mechanism through the SKIP flag as part of 
 a GPIO configuration. When the SKIP flag is set, the configurability for that GPIO may also be 
 hidden by the GUI tool using the SKIP flag as a conditional variable.
 
@@ -360,7 +360,7 @@ YAML and delta files.
 * Slim Bootloader GPIO initialization module will first locate the GPIO table for that particular 
   platform (identified by the Platform ID) and then use the ``GpioBaseTableId`` in its ``GPIO_CFG_HDR``
   to locate the Base GPIO Table. The GPIO table for that specific platform is created by copying
-  entries from the Base GPIO table filetered by ``BaseTableBitMask`` and entries from the delta table
+  entries from the Base GPIO table filtered by ``BaseTableBitMask`` and entries from the delta table
   appended at the end. 
 
 * For more information on GPIO configuration processing, you can refer to the CfgDataTool function
@@ -400,7 +400,7 @@ Example configuration:
 
   |br|
 
-  * The delta table for Platform ID 31 sets the skip flag for GPP_A1 and GPP_A6, and overrides configuation
+  * The delta table for Platform ID 31 sets the skip flag for GPP_A1 and GPP_A6, and overrides configuration
     for GPP_A3, and GPP_A4
   
         .. code-block:: yaml

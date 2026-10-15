@@ -22,7 +22,7 @@ Stitching
 
 1. Gather |WHL|, |CFLR| or |UPX| IFWI firmware image
 
-  Users can either download the full IFWI image if the IFWI image release is available, or read the exising IFWI image on the board using SPI programmer.
+  Users can either download the full IFWI image if the IFWI image release is available, or read the existing IFWI image on the board using SPI programmer.
   This image contains additional firmware ingredients that are required to boot on |WHL|, |CFLR| or |UPX|.
 
 .. note::
@@ -92,7 +92,7 @@ slimbootloader binary generated in ``outputs\cfl\slimbootloader.bin`` can be use
 Triggering Firmware Update
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sample implementation of trigerring firmware update is explained below
+Sample implementation of triggering firmware update is explained below
 
 |SPN| for |WHL|, |CFLR| uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, |SPN| will set the boot mode to FLASH_UPDATE.
 

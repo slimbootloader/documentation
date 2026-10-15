@@ -59,10 +59,10 @@ https://software.intel.com/content/www/us/en/develop/tools/system-studio/debug.h
 
 
 
-Debug Environmment Setup
+Debug Environment Setup
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Setting up a debug using Intel(R) SVTCCA involves several steps including target side cnfiguration, physical connection of Intel(R) SVTCCA hardware and host side 
+Setting up a debug using Intel(R) SVTCCA involves several steps including target side configuration, physical connection of Intel(R) SVTCCA hardware and host side 
 Intel(R) System Debugger setup.
 
 Platform based on 10th Generation Intel® Core™ desktop processors and chipsets formerly known as Comet Lake with a 22nm Platform Controller Hub (PCH) is used as
@@ -95,13 +95,13 @@ following FSP-M UPD configuration options - PchDciEn, PlatformDebugConsent, PchT
 .. Note:: Please refer the FSP integration guide for a list of SOC specific UPD configuration options related to enabling debug.
 
 The SBL may provide configuration options that can be used to configure these FSP UPD. If such SBL configuration options are not available, then either the FSP UPD
-defaults are configured diretcly through the FSP configuration tool or the SBL source has to be modified (UpdateFspConfig) to configure these FSP UPD during boot.
+defaults are configured directly through the FSP configuration tool or the SBL source has to be modified (UpdateFspConfig) to configure these FSP UPD during boot.
 
 
 Intel(R) System Debugger setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Open the 85-isysdbg-env.bat file from Intel(R) System Debugger installation directoty and add the below lines towards the end.
+Open the 85-isysdbg-env.bat file from Intel(R) System Debugger installation directory and add the below lines towards the end.
 
   * set ISYSDBG_LOG_LEVELS=context,ipc,protocol,dbghelp,uefi
   * set ISYSDBG_FLASH_BASE=0x9B000000

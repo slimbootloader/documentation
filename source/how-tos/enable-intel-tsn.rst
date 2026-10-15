@@ -6,7 +6,7 @@ TSN
 Overview
 --------------------
 
-TSN (Time Sensitive Networking) solution is a set of capabilities that offers Time Synchronization, Traffic Shaping, set of IEEE open standard communication by bringing industrial-grade robustness and reliability to Ethernet . TSN removes the need for physical separation of critical and non-critical communication networks, thus allowing open data exchange between operations and enterprise - a concept at the heart of the Industrial Internel of Things (IIoT).
+TSN (Time Sensitive Networking) solution is a set of capabilities that offers Time Synchronization, Traffic Shaping, set of IEEE open standard communication by bringing industrial-grade robustness and reliability to Ethernet . TSN removes the need for physical separation of critical and non-critical communication networks, thus allowing open data exchange between operations and enterprise - a concept at the heart of the Industrial Internet of Things (IIoT).
 To learn more about TSN, see |TSN| for details.
 
 .. |TSN| raw:: html
@@ -78,7 +78,7 @@ In addition, if the user decide to take this option, SBL that was rebuilt need t
 **TSN Stitch Option for Soft Straps**
 
 User need to enable TSN soft straps into the final IFWI image. To do this, stitch the IFWI with TSN softstrap option, example: “-o tsn” option using StitchIFWIConfig python script, or use FIT tool to change the straps and then stitch the changes.
-As an example, you can refer to this file and search for TSN stitch otion (tsn7):
+As an example, you can refer to this file and search for TSN stitch option (tsn7):
 
   https://github.com/slimbootloader/slimbootloader/blob/2832972ad6e8f550f9628eeca7027b0aa65eb10b/Platform/TigerlakeBoardPkg/Script/StitchIfwiConfig_tglu.py
 

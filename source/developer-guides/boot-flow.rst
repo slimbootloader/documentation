@@ -23,10 +23,10 @@ Payload    Load, verify and launch OS images; or perform firmware update
 Stage 1A
 ~~~~~~~~
 
-After coming out of reset, Stage 1A sets up the initial exectution environment to support the
+After coming out of reset, Stage 1A sets up the initial execution environment to support the
 execution of the following stages. When the processor starts executing from the reset vector,
 writeable memory may not be available and a stack might have not been setup. So, the reset vector
-code is typically implemented using assembly language instructions. Stage 1A is also excuted from
+code is typically implemented using assembly language instructions. Stage 1A is also executed from
 the flash (Read-only memory) and the lack of writeable memory prevents the usage of global variables.
 
 Stage 1A contains a module called VTF (Volume Top File) which is placed at the top within the Stage 1A FV.
@@ -40,7 +40,7 @@ from the ``_ModuleEntryPoint`` defined in ``SecEntry.nasm``.
 
 After coming out of reset, Stage 1A performs the following initialization steps:
 
-* Switch from 16-bit real mode to 32-bit protected mode to provide full 32-bit memory addressibility
+* Switch from 16-bit real mode to 32-bit protected mode to provide full 32-bit memory addressability
 * Calls the FSP-T provided ``TempRamInit()`` API which configures a temporary writeable memory
 * Sets up a stack in the Temporary memory initialized by FSP's ``TempRamInit()`` API
 * Initializes Stage 1A parameters, jumps to C code
@@ -90,10 +90,10 @@ relocation information which allows Stage 2 to be run from the main memory.
 
 Stage 2 performs the following initialization steps:
 
-* Completes remaning GPIO initialization
+* Completes remaining GPIO initialization
 * Calls FSP-S provided ``FspSiliconInit()`` API to initialize the chipset and I/O controllers
 * PCI Enumeration and resource allocation
-* ACPI initlization
+* ACPI initialization
 * Prepares HOBs required by the payload
 * Calls FSP-S provided ``FspNotifyPhase`` APIs - ``ReadyToBoot``, ``EndOfFirmware``
 * Loads and jumps to the payload. Stage 2 passes the HOB List pointer, and the Payload executable base to the payload.

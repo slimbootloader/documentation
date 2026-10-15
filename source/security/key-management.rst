@@ -93,7 +93,7 @@ at BootloaderCorePkg/Tools/. The key generation process is a **one
 time process** for specific project. Use same set of keys for signing
 and verification operations for a specific project when generating
 firmware capsule update image, cfgdata stitch, Container image and
-others. Verification operations would fail incase different keys are used
+others. Verification operations would fail in case different keys are used
 which causes security violations.
 
 Usage of GenerateKeys.py tool see :ref:`sbl-keys`

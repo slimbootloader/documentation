@@ -104,7 +104,7 @@ Build |SPN| for |UPX12|::
 
   python BuildLoader.py build adlp
 
-Edit the 4-byte platform data in Slimbootloader image by *Hexedit* or equivalent hexdecimal editor.
+Edit the 4-byte platform data in Slimbootloader image by *Hexedit* or equivalent hexadecimal editor.
 
 Go to top of TOP SWAP A at address 0xCFFFF4, edit ``04 01 00 AA`` as below
 ::
