@@ -29,7 +29,7 @@ or a PE32 file.
 2. Classic Linux
 ^^^^^^^^^^^^^^^^
 
-This container type is used to boot a typical Linux operating system. This container is made up of atleast two
+This container type is used to boot a typical Linux operating system. This container is made up of at least two
 components - the kernel command line, and kernel image.
 
 **SBL expects the components inside the container in the following order: kernel command line, kernel image,
@@ -40,7 +40,7 @@ and an optional initrd.**
 
 Additionally, more optional components like ACPI tables, and firmware blobs can be added to the container.
 
-Some device drivers may require binary blobs for initialization. These are typically loaded from the filesytem.
+Some device drivers may require binary blobs for initialization. These are typically loaded from the filesystem.
 In some use cases like fast boot, having access to these blobs before the filesystem is mounted may be desirable.
 Packaging blobs within the container provides these drivers a way to get the blobs without waiting for the filesystem
 to be mounted. When these additional blobs are packaged in the container, SBL can load them to memory and pass
@@ -147,7 +147,7 @@ Following operations are supported::
 
     optional arguments:
       -h, --help            show this help message and exit
-      -l LAYOUT             Container layout intput file if no -cl
+      -l LAYOUT             Container layout input file if no -cl
       -cl COMP_LIST [COMP_LIST ...]
                             List of each component files, following XXXX:FileName format
       -t IMG_TYPE           Container Image Type : [NORMAL, CLASSIC, MULTIBOOT]
@@ -161,7 +161,7 @@ Following operations are supported::
           NONE}
                             Authentication algorithm
       -k KEY_PATH           KEY_ID or Private key file
-      -cd COMP_DIR          Componet image input directory
+      -cd COMP_DIR          Component image input directory
       -td TOOL_DIR          Compression tool directory
       -s  SVN               Security version number for Component for  no -cl option
 

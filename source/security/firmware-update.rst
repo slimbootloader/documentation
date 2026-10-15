@@ -49,7 +49,7 @@ The following flow occurs during a firmware update:
     * If updating any redundant regions/components (e.g. BIOS, uCode, etc.), it:
 
       #. Updates the regions/components on backup partition
-      #. Sets backup parition as 'active'
+      #. Sets backup partition as 'active'
       #. Reboots
       #. Boots from backup partition
       #. Updates the regions/components on primary partition
@@ -86,7 +86,7 @@ After gathering required firmware binaries, capsule image can be generated using
 
   * For container components, use its 4 character container identifier along with its 4 character component identifier <4 byte id for component inside container : 4 byte id container id>.
 
-  These firmware identifier strings should be followed by the assoicated binary path.
+  These firmware identifier strings should be followed by the associated binary path.
 
   Command Syntax::
 
@@ -289,7 +289,7 @@ EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is defined in UEFI specification and is a
     
       #define EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER_INIT_VERSION       0x00000001
 
-EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is followed by one or multiple update images each preceeded by EFI_FIRMWARE_MANAGEMENT_CAPSULE_IMAGE_HEADER header and is defined in UEFI specification as follows 
+EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is followed by one or multiple update images each preceded by EFI_FIRMWARE_MANAGEMENT_CAPSULE_IMAGE_HEADER header and is defined in UEFI specification as follows 
 
 .. code-block:: c
 

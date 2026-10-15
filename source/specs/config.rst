@@ -656,7 +656,7 @@ YAML block collection.
 
 Every ConfigDataDef.yaml configs section starts with the declaration for the
 **CDATA_BLOB_HEADER** as shown in :ref:`sbl_config_blob_header` followed by a
-series of configuration data identied by unique tags::
+series of configuration data identified by unique tags::
 
   configs:
     - $ACTION      :
@@ -845,7 +845,7 @@ Format::
 
   option : ColumnHdr1:width:format, ColumnHdr2:width:format, ColumnHdr3:width:format, ...
 
-ColumnHdr'n' sepcifier indicates the string to be displayed as the column header.
+ColumnHdr'n' specifier indicates the string to be displayed as the column header.
 width indicates the cell width in number of bytes
 format is the number format and should be HEX
 

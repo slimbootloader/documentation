@@ -3,10 +3,10 @@
 Change Boot Options
 ----------------------
 
-SBL has a default list of boot options. A example list is provided
+SBL has a default list of boot options. An example list is provided
 below. It attempts to boot from the first entry. If it fails to load
 anything bootable, it tries the subsequent options. If none of the boot
-options are working, it fallbacks to shell. When SBL is built for
+options are working, it falls back to shell. When SBL is built for
 release mode, fallback to Shell is disabled for security considerations.
 
 Example Boot Options List:
@@ -25,7 +25,7 @@ configured post-build and during image stitch.
 Change at Pre Build Time
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Please follow the below steps to make the changes before buiding SBL.
+Please follow the below steps to make the changes before building SBL.
 
 **Step1**. In the console launch the "ConfigEditor" from
 "slimbootloader" folder.

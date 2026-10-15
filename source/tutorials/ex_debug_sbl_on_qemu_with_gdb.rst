@@ -97,7 +97,7 @@ Do step one instruction exactly with stepi(=si) command for relative code execut
 .. image:: /images/gdb_contf_no_src.png
    :alt: No source available due to relative execution
 
-No source avilable in source window because ContinueFunc is relative executed, so no symbol match found.
+No source available in source window because ContinueFunc is relative executed, so no symbol match found.
 Now, it's time to run loadthis again to re-load proper symbol. ::
 
 (gdb) loadthis
