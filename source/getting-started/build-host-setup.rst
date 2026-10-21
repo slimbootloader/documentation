@@ -159,7 +159,7 @@ LLVM 15.0.7
 .. note::
   Add an environment variable: CLANG_BIN=C:\\LLVM\\bin\\
 
-Openssl (latest)
+OpenSSL (3.x)
 
 Download latest win64 version from |https://wiki.openssl.org/index.php/Binaries|)
 
